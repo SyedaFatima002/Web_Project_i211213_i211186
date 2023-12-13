@@ -20,6 +20,24 @@ const customerSchema=mongoose.Schema({
         enum:['admin', 'user'],
         default: 'user',
     },
+    Address:[{
+        address:{
+            type:String, 
+            required:true
+        },
+        city:{
+            type:String,
+            required:true
+        },
+        country:{
+            type:String,
+            required:true
+        }
+    }],
+    phoneNumber:{
+        type:String,
+        required:true
+    },
     following:[{
         type:String//the type is String for now (may be replaced with supplier later)
     }],
