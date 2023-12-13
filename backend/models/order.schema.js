@@ -23,6 +23,10 @@ const orderSchema=mongoose.Schema({
     },
     paymentMethod:{
         type:String //update this if needed
+    },
+    status:{
+        type:String,
+        required:true
     }
 
 }, {timestamps:true})

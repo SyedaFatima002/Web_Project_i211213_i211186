@@ -19,7 +19,6 @@ app.use(cors());
 //routes import
 app.use('/auth', customerRoute);
 
-
 //error handlers
 
 app.use(function(req, res, next) {
