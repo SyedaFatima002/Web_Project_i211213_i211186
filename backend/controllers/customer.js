@@ -194,6 +194,11 @@ exports.getcustomer_profile=async(req, res)=>{
 
     try{
         const profile=await Customer.findById({_id:token.userid})
+
+        if (!profile){
+            return res.status(404).json({message:'User not Found'})
+        }
+
         res.status(200).json({profile})
     }catch(err){
         res.status(404).json({message: 'Error in getting user'})
@@ -201,6 +206,9 @@ exports.getcustomer_profile=async(req, res)=>{
 }
 
 //add brand to follow
+
+
+//unfollow supplier
 
 //view order history
 
@@ -212,9 +220,6 @@ exports.getcustomer_profile=async(req, res)=>{
 
 //view loyalty points
 
-//follow supplier
-
-//unfollow supplier
 
 //view notifications
 
