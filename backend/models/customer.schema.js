@@ -39,7 +39,8 @@ const customerSchema=mongoose.Schema({
         required:true
     },
     following:[{
-        type:String//the type is String for now (may be replaced with supplier later)
+        type:mongoose.Schema.Types.ObjectId,//the type is String for now (may be replaced with supplier later)
+        ref:'Brand'
     }],
     notification:[{
         type:String,
@@ -61,7 +62,8 @@ const customerSchema=mongoose.Schema({
     }], 
     loyaltyPoints:[{
         supplier:{
-            type:String//will add reference later
+            type: mongoose.Schema.Types.ObjectId,
+            ref:'Brand'
         },
         points:{
             type:Number

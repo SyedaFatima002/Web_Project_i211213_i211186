@@ -206,9 +206,28 @@ exports.getcustomer_profile=async(req, res)=>{
 }
 
 //add brand to follow
+exports.follow_brand=async (req, res)=>{
+    const token=req.token;
 
+    if (!token){
+        return res.status(401).json({message:'Token not found'})
+    }
+
+    try{
+
+
+    }catch(err){
+        res.status(404).json({message: 'Failed to Follow brand'})
+    }
+}
 
 //unfollow supplier
+
+//view notifications
+
+//view loyalty points
+
+
 
 //view order history
 
@@ -217,9 +236,3 @@ exports.getcustomer_profile=async(req, res)=>{
 //add item to wishlist
 
 //delete item from wishlist
-
-//view loyalty points
-
-
-//view notifications
-

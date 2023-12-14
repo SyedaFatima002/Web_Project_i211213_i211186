@@ -16,8 +16,12 @@ const productSchema=mongoose.Schema({
     image:{
         type:String, 
     },
-    supplier:{
-        type:String, //will replace with supplier module later
+    options:[{
+        type:String//tells whether different sizes are available or color
+    }],
+    brand:{
+        type:String,
+        ref:'Brand' 
     }, 
     comments:[{
         customer:{
