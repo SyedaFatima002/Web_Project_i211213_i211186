@@ -126,22 +126,43 @@ exports.add_newaddress=async(req, res)=>{
         return res.status(401).json({message:'Token not found'})
     }
 
+    try{
+        const customer=await Customer.findById({_id:token.userid});
 
+        if (!customer){
+            return res.status(404).json({message: 'User not found'});
+        }
+
+        customer.Address.push({
+            address: req.body.address,
+            city:req.body.city,
+            country:req.body.country,
+        });
+
+        await customer.save();
+        res.status(200).json({message:'New address added successfully'});
+
+    }catch(err){
+        console.log(err);
+        res.status(404).json({message: 'Error in adding new address'});
+    }
 }
 
 //update address
 exports.update_address=async(req, res)=>{
     const token=req.token
+    const addressID=req.params.id
 
     if (!token){
         return res.status(401).json({message:'Token not found'})
     }
 
     try{
-        await Customer.findByIdAndUpdate(token.userid, {$set: {address:req.body.address}})
+        await Customer.findOneAndUpdate({"_id":token.userid, "Address._id":addressID}, { $set: { "Address.$":req.body } })
         res.status(200).json({message:'Address updated successfully'})
 
     }catch(err){
+        console.log(err);
         res.status(404).json({message: 'Error in updating address'})
     }
 }
@@ -163,10 +184,23 @@ exports.update_phoneNumber=async(req, res)=>{
     }
 }
 
-
 //get profile
+exports.getcustomer_profile=async(req, res)=>{
+    const token=req.token;
 
-//add company to follow
+    if (!token){
+        return res.status(401).json({message:'Token not found'})
+    }
+
+    try{
+        const profile=await Customer.findById({_id:token.userid})
+        res.status(200).json({profile})
+    }catch(err){
+        res.status(404).json({message: 'Error in getting user'})
+    }
+}
+
+//add brand to follow
 
 //view order history
 

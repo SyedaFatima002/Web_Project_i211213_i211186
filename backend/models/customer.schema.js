@@ -72,6 +72,9 @@ const customerSchema=mongoose.Schema({
             type:mongoose.Schema.Types.ObjectId,
             ref:'Product'
         },
+    }],
+    notification:[{
+        type:String
     }]
 })
 
