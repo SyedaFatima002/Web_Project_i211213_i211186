@@ -1,4 +1,5 @@
 const Customer=require("../models/customer.Schema")
+const Brand=require("../models/brand.Schema")
 const jwt=require("jsonwebtoken")
 
 //create new customer
@@ -207,19 +208,48 @@ exports.getcustomer_profile=async(req, res)=>{
 
 //add brand to follow
 exports.follow_brand=async(req, res)=>{
-    const follower=req.body.customer;
-    const brand=req.params.id;
+    const followerId=req.body.customer;
+    const brandId=req.params.id;
+
+    const token=req.token
+
+    if (!token){
+        return res.status(401).json({message:'Token not found'})
+    }
 
     try{
-        
+        //finding customer and brand
+        const follower=await Customer.findById(followerId);
+        const brand=await Brand.findById(brandId);
 
+        //Error handling
+        if (!follower || !brand){
+            return res.status(400).json({message: 'User or Brand not found'})
+        }
+
+        //making sure they are not already following each other
+        if (follower.following.includes(brandId)){
+            return res.status(400).json({message:'You are already following '+ brand.name})
+        }
+
+        //adding to customer folowing list
+        follower.following.push(brandId);
+        await follower.save();
+
+        //adding to brand
+        brand.followers.push(followerId);
+        await brand.save();
+        res.status(200).json({message:'User successfullly follows brand'})
     }catch(err){
         console.log(err);
-        return res.status(500).json({message: 'Error in following' + brand})
+        return res.status(500).json({message: 'Error in following' + brandId})
     }
 }
 
 //unfollow supplier
+exports.unfollow_brand=async (req, res)=>{
+    
+}
 
 //view notifications
 
