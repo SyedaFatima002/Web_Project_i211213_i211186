@@ -272,7 +272,7 @@ exports.unfollow_brand=async (req, res)=>{
         }
 
         //removing brand from customers following list
-        await Customer.findByIdAndUpdate(followerId, { $pull: { following: brandId } });
+        await Customer.findByIdAndUpdate(token.userid, { $pull: { following: brandId } });
 
         //removing customer from brands follower list
         await Brand.findByIdAndUpdate(brandId, { $pull: { followers: token.userid } })
