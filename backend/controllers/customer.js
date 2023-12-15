@@ -1,5 +1,6 @@
 const Customer=require("../models/customer.Schema")
 const Brand=require("../models/brand.Schema")
+const Product=require("../models/product.Schema")
 const jwt=require("jsonwebtoken")
 
 //create new customer
@@ -236,7 +237,7 @@ exports.follow_brand=async(req, res)=>{
         await follower.save();
 
         //adding to brand
-        brand.followers.push(followerId);
+        brand.followers.push(token.userid);
         await brand.save();
         res.status(200).json({message:'User successfullly follows brand'})
     }catch(err){
@@ -274,7 +275,7 @@ exports.unfollow_brand=async (req, res)=>{
         await Customer.findByIdAndUpdate(followerId, { $pull: { following: brandId } });
 
         //removing customer from brands follower list
-        await Brand.findByIdAndUpdate(brandId, { $pull: { followers: followerId } })
+        await Brand.findByIdAndUpdate(brandId, { $pull: { followers: token.userid } })
 
         res.status(200).json({message:'User successfullly unfollows brand'})
 
@@ -306,6 +307,59 @@ exports.view_notification=async(req, res)=>{
 }
 
 //view loyalty points
+exports.get_loyaltyPoints=async(req, res)=>{
+    const token=req.token;
+
+    if (!token){
+        return res.status(401).json({message:'Token not found. You are not authorization to view notifications'});
+    }
+
+    try{
+        const customer=await Customer.findById(token.userid)
+
+        const points=customer.loyaltyPoints;
+
+        res.status(200).json({points})
+
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({message: 'Error in viewing Loyalty Point List'})
+    }
+}
+
+//comment item
+exports.comment_item=async(req, res)=>{
+    const token=req.token;
+    const productId=req.params.id;
+
+    if (!token){
+        return res.status(401).json({message:'Token not found. You are not authorization to comment'});
+    }
+
+    try{
+        const product=await Product.findById(productId)
+
+        if (!product){
+            return res.status(400).json({message: 'Item not found'})
+        }
+
+        const comment={
+            customer:token.userid,
+            comment:req.body.comment
+        }
+
+        product.comments.push(comment)
+        await product.save();
+        res.status(200).json({message: 'Comment added successfully'});
+
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({message: 'Error in viewing Loyalty Point List'})
+    }   
+}
+
+
+//rate item
 
 //view order history
 
@@ -316,9 +370,5 @@ exports.view_notification=async(req, res)=>{
 //delete item from wishlist
 
 //make order
-
-//comment item
-
-//rate item
 
 //view order status
