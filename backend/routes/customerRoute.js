@@ -33,4 +33,6 @@ customerRoute.get('/notifications', authCustomer, customer.view_notification);//
 customerRoute.get('/loyaltyPoints', authCustomer, customer.get_loyaltyPoints);//see loyalty points
 
 customerRoute.post('/comment/:id', authCustomer, customer.comment_item);//commenting under item
+
+customerRoute.post('/rateProduct/:id', authCustomer, customer.rate_item);//rating item
 module.exports=customerRoute;

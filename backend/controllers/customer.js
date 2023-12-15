@@ -354,12 +354,40 @@ exports.comment_item=async(req, res)=>{
 
     }catch(err){
         console.log(err);
-        return res.status(500).json({message: 'Error in viewing Loyalty Point List'})
+        return res.status(500).json({message: 'Error in commenting'})
     }   
 }
 
-
 //rate item
+exports.rate_item=async(req, res)=>{
+    const token=req.token;
+    const productId=req.params.id;
+
+    if (!token){
+        return res.status(401).json({message:'Token not found. You are not authorization to rate'});
+    }
+
+    try{
+        const product=await Product.findById(productId)
+
+        if (!product){
+            return res.status(400).json({message: 'Item not found'})
+        }
+
+        const rate={
+            customer:token.userid,
+            rating:req.body.rating
+        }
+
+        product.ratings.push(rate)
+        await product.save();
+        res.status(200).json({message: 'Product Rated successfully'});
+
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({message: 'Error in rating'})
+    }   
+}
 
 //view order history
 
