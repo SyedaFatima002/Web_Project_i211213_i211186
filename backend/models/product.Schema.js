@@ -29,6 +29,10 @@ const productSchema=mongoose.Schema({
     discount:[{
         type:Number
     }],
+    soldout:{
+        type:Boolean,
+        default:false
+    },
     comments:[{
         customer:{
             type:mongoose.Schema.Types.ObjectId,
