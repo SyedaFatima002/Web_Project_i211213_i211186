@@ -208,7 +208,6 @@ exports.getcustomer_profile=async(req, res)=>{
 
 //add brand to follow
 exports.follow_brand=async(req, res)=>{
-    const followerId=req.body.customer;
     const brandId=req.params.id;
 
     const token=req.token
@@ -219,7 +218,7 @@ exports.follow_brand=async(req, res)=>{
 
     try{
         //finding customer and brand
-        const follower=await Customer.findById(followerId);
+        const follower=await Customer.findById(token.userid);
         const brand=await Brand.findById(brandId);
 
         //Error handling
@@ -248,7 +247,6 @@ exports.follow_brand=async(req, res)=>{
 
 //unfollow supplier
 exports.unfollow_brand=async (req, res)=>{
-    const followerId=req.body.customer;
     const brandId=req.params.id;
 
     const token=req.token;
@@ -259,7 +257,7 @@ exports.unfollow_brand=async (req, res)=>{
 
     try{
         //finding customer and brand
-        const follower=await Customer.findById(followerId);
+        const follower=await Customer.findById(token.userid);
         const brand=await Brand.findById(brandId);
 
         //Error handling
@@ -287,6 +285,25 @@ exports.unfollow_brand=async (req, res)=>{
 }
 
 //view notifications
+exports.view_notification=async(req, res)=>{
+    const token=req.token;
+
+    if (!token){
+        return res.status(401).json({message:'Token not found. You are not authorization to view notifications'});
+    }
+
+    try{
+        const customer=await Customer.findById(token.userid)
+
+        const notifications=customer.notification
+
+        res.status(200).json({notifications})
+
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({message: 'Error in viewing notifications '})
+    }
+}
 
 //view loyalty points
 

@@ -28,4 +28,6 @@ customerRoute.put('/follow/:id', authCustomer, customer.follow_brand);//followin
 
 customerRoute.put('/unfollow/:id', authCustomer, customer.unfollow_brand);//unfollowing brand
 
+customerRoute.get('/notifications', authCustomer, customer.view_notification);//getting all notifications
+
 module.exports=customerRoute;
