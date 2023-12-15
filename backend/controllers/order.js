@@ -128,6 +128,41 @@ exports.makeOrder=async(req, res)=>{
 }
 
 //view order status in terms of delivery
+exports.getOrderStatus=async(req, res)=>{
+    const orderid=req.params.id
 
+    try{
+        const order=await Order.findById(orderid);
+
+        if (!order){
+            return res.status(404).json({message:'Order not Found'})
+        }
+
+        res.status(200).json({
+            "order status":order.status,
+            "order":order
+        })
+
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message: 'Error in getting order'});
+    }
+}
 
 //view order history
+exports.order_history=async(req, res)=>{
+    const {email}=req.body;
+
+    try{
+        const orders=await Order.find({"customer.email":email})
+        
+        if (!orders){
+            return res.status(404).json({message:'Order History not Found'})
+        }
+
+        res.status(200).json({orders})
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message: 'Error in getting order history'});
+    }
+}
