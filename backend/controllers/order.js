@@ -109,10 +109,24 @@ exports.get_wishlist=async(req, res)=>{
 }
 
 //make order
+exports.makeOrder=async(req, res)=>{
+    try{
+        const order=new Order({
+            customer:req.body.customer,
+            products:req.body.products,
+            totalAmount:req.body.totalAmount,
+            paymentMethod:req.body.paymentMethod,
+            status:req.body.status
+        });
+        await order.save();
+        res.status(201).json({order})
 
-//view order status
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message: 'Error in creating order'});
+    }
+}
+
+//view order status in terms of delivery
 
 //view order history
-
-//move item from wishlist to order
-

@@ -11,4 +11,6 @@ orderRoute.put('/wishlist/:id', authCustomer, order.deleteitem_wishlist);//remov
 
 orderRoute.get('/wishlist/', authCustomer, order.get_wishlist);//get wishlist
 
+orderRoute.post('/order', order.makeOrder);//making order
+
 module.exports=orderRoute
