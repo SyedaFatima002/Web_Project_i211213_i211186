@@ -24,11 +24,10 @@ const orderSchema=mongoose.Schema({
     paymentMethod:{
         type:String //update this if needed
     },
-    status:{
+    status:{//in temrs of delievery
         type:String,
         required:true
     }
-
 }, {timestamps:true})
 
 const Order=mongoose.model('Order', orderSchema)

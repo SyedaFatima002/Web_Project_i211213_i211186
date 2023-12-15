@@ -5,7 +5,6 @@ const customer=require('../controllers/customer')
 
 const {authCustomer}=require('../middleware/authUser')
 
-
 customerRoute.post('/signup', customer.signup);//signing in
 
 customerRoute.post('/login', customer.login);//logging in
@@ -35,4 +34,5 @@ customerRoute.get('/loyaltyPoints', authCustomer, customer.get_loyaltyPoints);//
 customerRoute.post('/comment/:id', authCustomer, customer.comment_item);//commenting under item
 
 customerRoute.post('/rateProduct/:id', authCustomer, customer.rate_item);//rating item
+
 module.exports=customerRoute;

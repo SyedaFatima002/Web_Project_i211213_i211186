@@ -388,15 +388,3 @@ exports.rate_item=async(req, res)=>{
         return res.status(500).json({message: 'Error in rating'})
     }   
 }
-
-//view order history
-
-//view wishlist
-
-//add item to wishlist
-
-//delete item from wishlist
-
-//make order
-
-//view order status
