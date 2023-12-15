@@ -9,6 +9,6 @@ orderRoute.post('/wishlist/:id', authCustomer, order.addto_wishlist);//add produ
 
 orderRoute.put('/wishlist/:id', authCustomer, order.deleteitem_wishlist);//remove item from wishlist
 
-
+orderRoute.get('/wishlist/', authCustomer, order.get_wishlist);//get wishlist
 
 module.exports=orderRoute

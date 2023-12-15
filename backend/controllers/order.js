@@ -81,7 +81,32 @@ exports.deleteitem_wishlist=async(req, res)=>{
 }
 
 //view wishlist
+exports.get_wishlist=async(req, res)=>{
+    const token=req.token;
 
+    if (!token){
+        return res.status(401).json({message:'Token not found. You are not authorization to view notifications'});
+    }
+
+    try{
+        const custwishlist=await Wishlist.findOne({customer: token.userid});
+
+        if (!custwishlist){
+            return res.status(404).json({message: 'Empty wishlist'});
+        }
+
+        //get all the products in the wishlist
+        const products=custwishlist.products.map(product => product.productId)
+        const wishlistProducts = await Product.find({ _id: { $in: products } });
+
+        //send the products
+        res.status(200).json(wishlistProducts)
+
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message: 'Error in getting wishlist'});
+    }
+}
 
 //make order
 
