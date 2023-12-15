@@ -26,5 +26,6 @@ customerRoute.get('/profile/', authCustomer, customer.getcustomer_profile);//get
 
 customerRoute.put('/follow/:id', authCustomer, customer.follow_brand);//following brand
 
+customerRoute.put('/unfollow/:id', authCustomer, customer.unfollow_brand);//unfollowing brand
 
 module.exports=customerRoute;

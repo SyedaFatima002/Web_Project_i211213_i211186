@@ -248,7 +248,42 @@ exports.follow_brand=async(req, res)=>{
 
 //unfollow supplier
 exports.unfollow_brand=async (req, res)=>{
-    
+    const followerId=req.body.customer;
+    const brandId=req.params.id;
+
+    const token=req.token;
+
+    if (!token){
+        return res.status(401).json({message:'Token not found'});
+    }
+
+    try{
+        //finding customer and brand
+        const follower=await Customer.findById(followerId);
+        const brand=await Brand.findById(brandId);
+
+        //Error handling
+        if (!follower || !brand){
+            return res.status(400).json({message: 'User or Brand not found'})
+        }
+
+        //seeing if you arent following them
+        if (!follower.following.includes(brandId)){
+            return res.status(400).json({message:'You are already not following '+ brand.name})
+        }
+
+        //removing brand from customers following list
+        await Customer.findByIdAndUpdate(followerId, { $pull: { following: brandId } });
+
+        //removing customer from brands follower list
+        await Brand.findByIdAndUpdate(brandId, { $pull: { followers: followerId } })
+
+        res.status(200).json({message:'User successfullly unfollows brand'})
+
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({message: 'Error in unfollowing ' + brandId})
+    }
 }
 
 //view notifications
