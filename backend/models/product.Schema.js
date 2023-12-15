@@ -1,7 +1,7 @@
 const mongoose=require("mongoose")
 
 const productSchema=mongoose.Schema({
-    name: {
+    name: {//of the product
         type: String,
         required: true,
     },
@@ -16,13 +16,19 @@ const productSchema=mongoose.Schema({
     image:{
         type:String, 
     },
+    categories:{//catagory
+        type:[String],//type of equipment
+    },
     options:[{
         type:String//tells whether different sizes are available or color
     }],
     brand:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
         ref:'Brand' 
     }, 
+    discount:[{
+        type:Number
+    }],
     comments:[{
         customer:{
             type:mongoose.Schema.Types.ObjectId,

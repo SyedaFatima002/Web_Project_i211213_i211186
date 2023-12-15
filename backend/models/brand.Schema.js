@@ -6,10 +6,17 @@ const brandSchema=mongoose.Schema({
         type:String, 
         required:String
     },
-    Product:[{
+    products:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Product'
-    }]
+    }],
+    followers:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Customer'
+    }],
+    image:{
+        type:String
+    }
 })
 
 const Brand=mongoose.model('Brand', brandSchema);

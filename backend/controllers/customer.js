@@ -80,7 +80,7 @@ exports.update_username=async(req, res)=>{
         res.status(200).json({message:'Username updated successfully'})
 
     }catch(err){
-        res.status(404).json({message: 'Error in updating username'})
+        res.status(500).json({message: 'Error in updating username'})
     }
 }
 
@@ -97,7 +97,7 @@ exports.update_email=async(req, res)=>{
         res.status(200).json({message:'Email updated successfully'})
 
     }catch(err){
-        res.status(404).json({message: 'Error in updating email'})
+        res.status(500).json({message: 'Error in updating email'})
     }
 }
 
@@ -114,7 +114,7 @@ exports.update_password=async(req, res)=>{
         res.status(200).json({message:'Password updated successfully'})
 
     }catch(err){
-        res.status(404).json({message: 'Error in updating password'})
+        res.status(500).json({message: 'Error in updating password'})
     }
 }
 
@@ -144,7 +144,7 @@ exports.add_newaddress=async(req, res)=>{
 
     }catch(err){
         console.log(err);
-        res.status(404).json({message: 'Error in adding new address'});
+        res.status(500).json({message: 'Error in adding new address'});
     }
 }
 
@@ -163,7 +163,7 @@ exports.update_address=async(req, res)=>{
 
     }catch(err){
         console.log(err);
-        res.status(404).json({message: 'Error in updating address'})
+        res.status(500).json({message: 'Error in updating address'})
     }
 }
 
@@ -180,7 +180,7 @@ exports.update_phoneNumber=async(req, res)=>{
         res.status(200).json({message:'Phone Number updated successfully'})
 
     }catch(err){
-        res.status(404).json({message: 'Error in updating phone number'})
+        res.status(500).json({message: 'Error in updating phone number'})
     }
 }
 
@@ -201,23 +201,21 @@ exports.getcustomer_profile=async(req, res)=>{
 
         res.status(200).json({profile})
     }catch(err){
-        res.status(404).json({message: 'Error in getting user'})
+        res.status(500).json({message: 'Error in getting user'})
     }
 }
 
 //add brand to follow
-exports.follow_brand=async (req, res)=>{
-    const token=req.token;
-
-    if (!token){
-        return res.status(401).json({message:'Token not found'})
-    }
+exports.follow_brand=async(req, res)=>{
+    const follower=req.body.customer;
+    const brand=req.params.id;
 
     try{
-
+        
 
     }catch(err){
-        res.status(404).json({message: 'Failed to Follow brand'})
+        console.log(err);
+        return res.status(500).json({message: 'Error in following' + brand})
     }
 }
 
@@ -227,8 +225,6 @@ exports.follow_brand=async (req, res)=>{
 
 //view loyalty points
 
-
-
 //view order history
 
 //view wishlist
@@ -236,3 +232,11 @@ exports.follow_brand=async (req, res)=>{
 //add item to wishlist
 
 //delete item from wishlist
+
+//make order
+
+//comment item
+
+//rate item
+
+//view order status

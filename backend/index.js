@@ -7,6 +7,7 @@ const cors=require("cors")
 require("dotenv").config()
 
 const customerRoute=require('./routes/customerRoute')
+const supplierRoute=require('./routes/supplierRoutes');
 
 //app
 const app=express();
@@ -18,6 +19,7 @@ app.use(cors());
 
 //routes import
 app.use('/auth', customerRoute);
+app.use('/supplier',supplierRoute);
 
 //error handlers
 
