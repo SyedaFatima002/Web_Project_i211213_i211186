@@ -2,11 +2,11 @@ const mongoose=require("mongoose");
 
 //this will be replaced with the supplier module
 const brandSchema=mongoose.Schema({
-    name:{
+    brandname:{//this is the company's name
         type:String, 
         required:String
     },
-    products:[{
+    products:[{//all the products they sell
         type:mongoose.Schema.Types.ObjectId,
         ref:'Product'
     }],

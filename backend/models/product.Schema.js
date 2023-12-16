@@ -5,7 +5,7 @@ const productSchema=mongoose.Schema({
         type: String,
         required: true,
     },
-    description: {
+    description: {//of the product
         type: String,
         required: true,
     },
@@ -13,10 +13,13 @@ const productSchema=mongoose.Schema({
         type: Number,
         required: true,
     },
-    image:{
+    image:{//can be an image/url from google
         type:String, 
     },
-    categories:{//catagory
+    sport:{//the product is for could be general as well
+        type:String
+    },
+    categories:{//catagory as in is the product an accessory etc
         type:[String],
     },
     options:[{
