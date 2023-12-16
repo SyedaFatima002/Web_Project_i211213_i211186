@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
-const deliver = new mongoose.Schema({ // one company
+const companySchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, enum: ['admin'], default: 'admin' },
-  riders: [{ type: String }], // Array of strings for followers
-  orders: [{ type: String }], // Array of strings for following
+  riders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Rider' }],
+  orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
 });
 
-const User = mongoose.model('User', userSchema);
+const Company = mongoose.model('Company', companySchema);
 
-module.exports = User;
+module.exports = Company;
