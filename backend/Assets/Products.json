@@ -1,0 +1,582 @@
+[
+    {
+        "name": "Running Shoes",
+        "description": "High-performance running shoes for athletes.",
+        "price": 99.99,
+        "image": "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg",
+        "sport": "Running",
+        "gender":"unisex",
+        "categories": [
+            "Footwear",
+            "Running"
+        ],
+        "options": [
+            "Size 9",
+            "Size 10"
+        ],
+        "color": [
+            "Blue",
+            "White"
+        ],
+        "brandname": "Nike",
+        "discount": [
+            10
+        ],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+    },
+    {
+        "name": "Basketball Jersey",
+        "description": "Official jersey for basketball enthusiasts.",
+        "price": 49.99,
+        "image": "https://images.pexels.com/photos/16984444/pexels-photo-16984444/free-photo-of-young-man-in-basketball-jersey-posing-in-studio.jpeg",
+        "sport": "Basketball",
+        "gender":"male",
+        "categories": [
+            "Apparel",
+            "Basketball"
+        ],
+        "options": [
+            "Medium",
+            "Large"
+        ],
+        "color": [
+            "Red",
+            "Black"
+        ],
+        "brandname": "Adidas",
+        "discount": [
+            15
+        ],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+    },
+    {
+        "name": "Yoga Mat",
+        "description": "Premium quality yoga mat for a comfortable practice.",
+        "price": 29.99,
+        "image": "https://images.pexels.com/photos/2394051/pexels-photo-2394051.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "sport": "Yoga",
+        "gender":"unisex",
+        "categories": [
+            "Accessories",
+            "Yoga"
+        ],
+        "options": [
+            "Standard"
+        ],
+        "color": [
+            "Green"
+        ],
+        "brandname": "Under Armour",
+        "discount": [],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+    },
+    {
+        "name": "Sneakers",
+        "description": "Casual sneakers for everyday wear.",
+        "price": 79.99,
+        "image": "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg",
+        "sport": "Casual",
+        "gender":"male",
+        "categories": [
+            "Footwear",
+            "Casual"
+        ],
+        "options": [
+            "Size 8",
+            "Size 9"
+        ],
+        "color": [
+            "Black",
+            "White"
+        ],
+        "brandname": "Puma",
+        "discount": [
+            20
+        ],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+    },
+    {
+        "name": "CrossFit Gloves",
+        "description": "Durable gloves for CrossFit workouts.",
+        "price": 34.99,
+        "image": "https://images.pexels.com/photos/45057/pexels-photo-45057.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "sport": "CrossFit",
+        "gender":"unisex",
+        "categories": [
+            "Accessories",
+            "CrossFit"
+        ],
+        "options": [
+            "Small",
+            "Medium"
+        ],
+        "color": [
+            "Blue",
+            "Gray"
+        ],
+        "brandname": "Reebok",
+        "discount": [],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+    },
+    {
+        "name": "Running Jacket",
+        "description": "Lightweight jacket for running in all weather conditions.",
+        "price": 59.99,
+        "image": "https://images.pexels.com/photos/374678/pexels-photo-374678.jpeg",
+        "sport": "Running",
+        "gender":"female",
+        "categories": [
+            "Apparel",
+            "Running"
+        ],
+        "options": [
+            "Large",
+            "X-Large"
+        ],
+        "color": [
+            "Red",
+            "Gray"
+        ],
+        "brandname": "New Balance",
+        "discount": [
+            12
+        ],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+    },
+    {
+        "name": "Skateboard Shoes",
+        "description": "Stylish shoes designed for skateboarding.",
+        "price": 69.99,
+        "image": "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg",
+        "sport": "Skateboarding",
+        "gender":"unisex",
+        "categories": [
+            "Footwear",
+            "Skateboarding"
+        ],
+        "options": [
+            "Size 9",
+            "Size 10"
+        ],
+        "color": [
+            "Black",
+            "White"
+        ],
+        "brandname": "Vans",
+        "discount": [],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+    },
+    {
+        "name": "Casual Sneakers",
+        "description": "Comfortable sneakers for everyday use.",
+        "price": 44.99,
+        "image": "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg",
+        "sport": "Casual",
+        "gender":"female",
+        "categories": [
+            "Footwear",
+            "Casual"
+        ],
+        "options": [
+            "Size 8",
+            "Size 9"
+        ],
+        "color": [
+            "Blue",
+            "Gray"
+        ],
+        "brandname": "Converse",
+        "discount": [
+            8
+        ],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+    },
+    {
+        "name": "Running Shorts",
+        "description": "Breathable shorts for running and training.",
+        "price": 24.99,
+        "image": "https://images.pexels.com/photos/8084797/pexels-photo-8084797.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "sport": "Running",
+        "gender":"male",
+        "categories": [
+            "Apparel",
+            "Running"
+        ],
+        "options": [
+            "Medium",
+            "Large"
+        ],
+        "color": [
+            "Black",
+            "Yellow"
+        ],
+        "brandname": "Fila",
+        "discount": [],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+    },
+    {
+        "name": "Walking Shoes",
+        "description": "Comfortable shoes for everyday walking.",
+        "price": 39.99,
+        "image": "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg",
+        "sport": "Walking",
+        "gender":"unisex",
+        "categories": [
+            "Footwear",
+            "Walking"
+        ],
+        "options": [
+            "Size 8",
+            "Size 9"
+        ],
+        "color": [
+            "White",
+            "Brown"
+        ],
+        "brandname": "Skechers",
+        "discount": [
+            5
+        ],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+    },
+    {
+        "name": "Trail Running Shoes",
+        "description": "Durable shoes for trail running adventures.",
+        "price": 109.99,
+        "image": "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg",
+        "sport": "Running",
+        "gender":"female",
+        "categories": ["Footwear", "Running"],
+        "options": ["Size 9", "Size 10"],
+        "color": ["Green", "Black"],
+        "brandname": "Nike",
+        "discount": [10],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Soccer Ball",
+        "description": "Official soccer ball for practice and matches.",
+        "price": 29.99,
+        "image": "https://images.pexels.com/photos/102448/pexels-photo-102448.jpeg",
+        "sport": "Soccer",
+        "gender":"unisex",
+        "categories": ["Equipment", "Soccer"],
+        "options": ["Standard"],
+        "color": ["White", "Black"],
+        "brandname": "Adidas",
+        "discount": [15],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Fitness Tracker",
+        "description": "Track your fitness progress with this advanced fitness tracker.",
+        "price": 79.99,
+        "image": "https://images.pexels.com/photos/437038/pexels-photo-437038.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "sport": "Fitness",
+        "gender":"unisex",
+        "categories": ["Accessories", "Fitness"],
+        "options": ["Medium", "Large"],
+        "color": ["Blue", "Gray"],
+        "brandname": "Under Armour",
+        "discount": [8],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Golf Club Set",
+        "description": "Complete set of golf clubs for enthusiasts.",
+        "price": 299.99,
+        "image": "https://images.pexels.com/photos/6573713/pexels-photo-6573713.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "sport": "Golf",
+        "gender":"unisex",
+        "categories": ["Equipment", "Golf"],
+        "options": ["Regular", "Stiff"],
+        "color": ["Silver", "Black"],
+        "brandname": "Puma",
+        "discount": [20],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Cycling Helmet",
+        "description": "Safety first! Protect your head with this cycling helmet.",
+        "price": 49.99,
+        "image": "https://images.pexels.com/photos/1323201/pexels-photo-1323201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "sport": "Cycling",
+        "gender":"female",
+        "categories": ["Safety", "Cycling"],
+        "options": ["Small", "Medium"],
+        "color": ["Red", "Black"],
+        "brandname": "Reebok",
+        "discount": [],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Baseball Glove",
+        "description": "Premium leather baseball glove for serious players.",
+        "price": 89.99,
+        "image": "https://images.pexels.com/photos/45057/pexels-photo-45057.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "sport": "Baseball",
+        "gender":"female",
+        "categories": ["Equipment", "Baseball"],
+        "options": ["Left Hand", "Right Hand"],
+        "color": ["Brown"],
+        "brandname": "New Balance",
+        "discount": [12],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Snowboard",
+        "description": "Hit the slopes with this high-performance snowboard.",
+        "price": 199.99,
+        "image": "https://images.pexels.com/photos/848681/pexels-photo-848681.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "sport": "Snowboarding",
+        "gender":"female",
+        "categories": ["Equipment", "Snowboarding"],
+        "options": ["150 cm", "160 cm"],
+        "color": ["Blue", "White"],
+        "brandname": "Vans",
+        "discount": [],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Tennis Racket",
+        "description": "Professional-grade tennis racket for a powerful game.",
+        "price": 129.99,
+        "image": "https://images.pexels.com/photos/2618794/pexels-photo-2618794.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "sport": "Tennis",
+        "gender":"unisex",
+        "categories": ["Equipment", "Tennis"],
+        "options": ["Standard"],
+        "color": ["Black", "Yellow"],
+        "brandname": "Converse",
+        "discount": [8],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Hiking Boots",
+        "description": "Sturdy hiking boots for outdoor adventures.",
+        "price": 79.99,
+        "image": "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg",
+        "sport": "female",
+        "gender":"unisex",
+        "categories": ["Footwear", "Hiking"],
+        "options": ["Size 9", "Size 10"],
+        "color": ["Brown", "Green"],
+        "brandname": "Fila",
+        "discount": [],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Water Bottle",
+        "description": "Stay hydrated with this stylish water bottle.",
+        "price": 12.99,
+        "image": "https://images.pexels.com/photos/7624915/pexels-photo-7624915.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "sport": "General",
+        "gender":"female",
+        "categories": ["Accessories", "General"],
+        "options": ["750ml"],
+        "color": ["Blue", "Pink"],
+        "brandname": "Skechers",
+        "discount": [5],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Swimming Goggles",
+        "description": "Anti-fog swimming goggles for clear underwater vision.",
+        "price": 19.99,
+        "image": "https://images.pexels.com/photos/15504537/pexels-photo-15504537/free-photo-of-photo-of-a-swimmer-in-a-swimming-pool.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "sport": "Swimming",
+        "gender":"male",
+        "categories": ["Accessories", "Swimming"],
+        "options": ["Adult", "Youth"],
+        "color": ["Black", "Blue"],
+        "brandname": "Nike",
+        "discount": [],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Climbing Harness",
+        "description": "Secure and comfortable climbing harness for climbers.",
+        "price": 59.99,
+        "image": "https://images.pexels.com/photos/303040/pexels-photo-303040.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "sport": "Climbing",
+        "gender":"unisex",
+        "categories": ["Safety", "Climbing"],
+        "options": ["Small", "Medium"],
+        "color": ["Orange", "Black"],
+        "brandname": "Adidas",
+        "discount": [15],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Gym Duffel Bag",
+        "description": "Spacious duffel bag for all your gym essentials.",
+        "price": 34.99,
+        "image": "https://images.pexels.com/photos/1986996/pexels-photo-1986996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "sport": "Fitness",
+        "gender":"male",
+        "categories": ["Accessories", "Fitness"],
+        "options": ["Large"],
+        "color": ["Gray", "Black"],
+        "brandname": "Under Armour",
+        "discount": [8],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Mountain Bike",
+        "description": "Rugged mountain bike for off-road cycling adventures.",
+        "price": 499.99,
+        "image": "https://images.pexels.com/photos/100582/pexels-photo-100582.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "sport": "Cycling",
+        "gender":"female",
+        "categories": ["Equipment", "Cycling"],
+        "options": ["27.5 inches", "29 inches"],
+        "color": ["Red", "Black"],
+        "brandname": "Puma",
+        "discount": [20],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Boxing Gloves",
+        "description": "Premium leather boxing gloves for intense training.",
+        "price": 69.99,
+        "image": "https://images.pexels.com/photos/45057/pexels-photo-45057.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "sport": "Boxing",
+        "gender":"male",
+        "categories": ["Equipment", "Boxing"],
+        "options": ["12 oz", "16 oz"],
+        "color": ["Red", "Black"],
+        "brandname": "Reebok",
+        "discount": [],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Surfboard",
+        "description": "Catch the waves with this high-quality surfboard.",
+        "price": 249.99,
+        "image": "https://images.pexels.com/photos/930398/pexels-photo-930398.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "sport": "Surfing",
+        "gender":"unisex",
+        "categories": ["Equipment", "Surfing"],
+        "options": ["6'0", "6'6"],
+        "color": ["Blue", "White"],
+        "brandname": "New Balance",
+        "discount": [12],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Trekking Pole Set",
+        "description": "Adjustable trekking poles for hiking enthusiasts.",
+        "price": 39.99,
+        "image": "https://images.pexels.com/photos/7010171/pexels-photo-7010171.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "sport": "Hiking",
+        "gender":"unisex",
+        "categories": ["Equipment", "Hiking"],
+        "options": ["Set of 2"],
+        "color": ["Silver", "Blue"],
+        "brandname": "Vans",
+        "discount": [],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Golf Hat",
+        "description": "Stylish golf hat for a day on the golf course.",
+        "price": 19.99,
+        "image": "https://images.pexels.com/photos/6573713/pexels-photo-6573713.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "sport": "Golf",
+        "gender":"male",
+        "categories": ["Apparel", "Golf"],
+        "options": ["One Size"],
+        "color": ["White", "Navy"],
+        "brandname": "Converse",
+        "discount": [8],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Running Socks",
+        "description": "Moisture-wicking running socks for ultimate comfort.",
+        "price": 14.99,
+        "image": "https://images.pexels.com/photos/1001457/pexels-photo-1001457.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "sport": "Running",
+        "gender":"male",
+        "categories": ["Apparel", "Running"],
+        "options": ["Medium", "Large"],
+        "color": ["Black", "Gray"],
+        "brandname": "Fila",
+        "discount": [],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      },
+      {
+        "name": "Camping Tent",
+        "description": "Spacious camping tent for outdoor adventures.",
+        "price": 129.99,
+        "image": "https://images.pexels.com/photos/45241/tent-camp-night-star-45241.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "sport": "Camping",
+        "gender":"unisex",
+        "categories": ["Equipment", "Camping"],
+        "options": ["4-Person", "6-Person"],
+        "color": ["Green", "Gray"],
+        "brandname": "Skechers",
+        "discount": [5],
+        "soldout": false,
+        "comments": [],
+        "ratings": []
+      }
+]

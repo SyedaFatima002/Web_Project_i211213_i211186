@@ -77,8 +77,6 @@ exports.add_Product=async (req, res)=>{
 }
 
 //get products filtering for search happens here
-exports.get_Product_list=async(req, res)=>{
-    
-}
+
 
 //get specific product

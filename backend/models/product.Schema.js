@@ -19,6 +19,9 @@ const productSchema=mongoose.Schema({
     sport:{//the product is for could be general as well
         type:String
     },
+    gender:{
+        type:String
+    },
     categories:{//catagory as in is the product an accessory etc
         type:[String],
     },
@@ -28,8 +31,8 @@ const productSchema=mongoose.Schema({
     color:[{
         type:String
     }],
-    brand:{
-        type:mongoose.Schema.Types.ObjectId,
+    brandname:{
+        type:String,//names of brands
         ref:'Brand' 
     }, 
     discount:[{

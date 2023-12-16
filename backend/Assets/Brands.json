@@ -1,0 +1,62 @@
+[
+    {
+      "brandname": "Nike",
+      "products": [],
+      "followers": [],
+      "image": "https://example.com/nike_logo.jpg"
+    },
+    {
+      "brandname": "Adidas",
+      "products": [],
+      "followers": [],
+      "image": "https://example.com/adidas_logo.jpg"
+    },
+    {
+      "brandname": "Under Armour",
+      "products": [],
+      "followers": [],
+      "image": "https://example.com/under_armour_logo.jpg"
+    },
+    {
+      "brandname": "Puma",
+      "products": [],
+      "followers": [],
+      "image": "https://example.com/puma_logo.jpg"
+    },
+    {
+      "brandname": "Reebok",
+      "products": [],
+      "followers": [],
+      "image": "https://example.com/reebok_logo.jpg"
+    },
+    {
+      "brandname": "New Balance",
+      "products": [],
+      "followers": [],
+      "image": "https://example.com/new_balance_logo.jpg"
+    },
+    {
+      "brandname": "Vans",
+      "products": [],
+      "followers": [],
+      "image": "https://example.com/vans_logo.jpg"
+    },
+    {
+      "brandname": "Converse",
+      "products": [],
+      "followers": [],
+      "image": "https://example.com/converse_logo.jpg"
+    },
+    {
+      "brandname": "Fila",
+      "products": [],
+      "followers": [],
+      "image": "https://example.com/fila_logo.jpg"
+    },
+    {
+      "brandname": "Skechers",
+      "products": [],
+      "followers": [],
+      "image": "https://example.com/skechers_logo.jpg"
+    }
+  ]
