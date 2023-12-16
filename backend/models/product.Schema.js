@@ -17,10 +17,13 @@ const productSchema=mongoose.Schema({
         type:String, 
     },
     categories:{//catagory
-        type:[String],//type of equipment
+        type:[String],
     },
     options:[{
-        type:String//tells whether different sizes are available or color
+        type:String//tells whether different sizes are available 
+    }],
+    color:[{
+        type:String
     }],
     brand:{
         type:mongoose.Schema.Types.ObjectId,
