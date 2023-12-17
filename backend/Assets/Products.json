@@ -19,10 +19,12 @@
             "White"
         ],
         "brandname": "Nike",
+        "stock": 10,
         "discount": [
             10
         ],
         "soldout": false,
+        "Collection":"New Arrival",
         "comments": [],
         "ratings": []
     },
@@ -46,10 +48,12 @@
             "Black"
         ],
         "brandname": "Adidas",
+        "stock": 10,
         "discount": [
             15
         ],
         "soldout": false,
+        "Collection":"New Arrival",
         "comments": [],
         "ratings": []
     },
@@ -71,8 +75,10 @@
             "Green"
         ],
         "brandname": "Under Armour",
+        "stock": 10,
         "discount": [],
         "soldout": false,
+        "Collection":"Spring Collection",
         "comments": [],
         "ratings": []
     },
@@ -96,10 +102,12 @@
             "White"
         ],
         "brandname": "Puma",
+        "stock": 10,
         "discount": [
             20
         ],
         "soldout": false,
+        "Collection":"New Arrival",
         "comments": [],
         "ratings": []
     },
@@ -123,8 +131,10 @@
             "Gray"
         ],
         "brandname": "Reebok",
+        "stock": 10,
         "discount": [],
         "soldout": false,
+        "Collection":"Winter Collection",
         "comments": [],
         "ratings": []
     },
@@ -148,10 +158,12 @@
             "Gray"
         ],
         "brandname": "New Balance",
+        "stock": 10,
         "discount": [
             12
         ],
         "soldout": false,
+        "Collection":"New Arrival",
         "comments": [],
         "ratings": []
     },
@@ -175,8 +187,10 @@
             "White"
         ],
         "brandname": "Vans",
+        "stock": 10,
         "discount": [],
         "soldout": false,
+        "Collection":"Spring Collection",
         "comments": [],
         "ratings": []
     },
@@ -200,10 +214,12 @@
             "Gray"
         ],
         "brandname": "Converse",
+        "stock": 10,
         "discount": [
             8
         ],
         "soldout": false,
+        "Collection":"Spring Collection",
         "comments": [],
         "ratings": []
     },
@@ -227,8 +243,10 @@
             "Yellow"
         ],
         "brandname": "Fila",
+        "stock": 10,
         "discount": [],
         "soldout": false,
+        "Collection":"New Arrival",
         "comments": [],
         "ratings": []
     },
@@ -252,10 +270,12 @@
             "Brown"
         ],
         "brandname": "Skechers",
+        "stock": 10,
         "discount": [
             5
         ],
         "soldout": false,
+        "Collection":"Easter Collection",
         "comments": [],
         "ratings": []
     },
@@ -270,8 +290,10 @@
         "options": ["Size 9", "Size 10"],
         "color": ["Green", "Black"],
         "brandname": "Nike",
+        "stock": 10,
         "discount": [10],
         "soldout": false,
+        "Collection":"Winter Collection",
         "comments": [],
         "ratings": []
       },
@@ -286,8 +308,10 @@
         "options": ["Standard"],
         "color": ["White", "Black"],
         "brandname": "Adidas",
+        "stock": 10,
         "discount": [15],
         "soldout": false,
+        "Collection":"Spring Collection",
         "comments": [],
         "ratings": []
       },
@@ -302,8 +326,10 @@
         "options": ["Medium", "Large"],
         "color": ["Blue", "Gray"],
         "brandname": "Under Armour",
+        "stock": 10,
         "discount": [8],
         "soldout": false,
+        "Collection":"Easter Collection",
         "comments": [],
         "ratings": []
       },
@@ -318,8 +344,10 @@
         "options": ["Regular", "Stiff"],
         "color": ["Silver", "Black"],
         "brandname": "Puma",
+        "stock": 10,
         "discount": [20],
         "soldout": false,
+        "Collection":"Spring Collection",
         "comments": [],
         "ratings": []
       },
@@ -334,8 +362,10 @@
         "options": ["Small", "Medium"],
         "color": ["Red", "Black"],
         "brandname": "Reebok",
+        "stock": 10,
         "discount": [],
         "soldout": false,
+        "Collection":"Spring Collection",
         "comments": [],
         "ratings": []
       },
@@ -350,8 +380,10 @@
         "options": ["Left Hand", "Right Hand"],
         "color": ["Brown"],
         "brandname": "New Balance",
+        "stock": 10,
         "discount": [12],
         "soldout": false,
+        "Collection":"New Arrival",
         "comments": [],
         "ratings": []
       },
@@ -366,8 +398,10 @@
         "options": ["150 cm", "160 cm"],
         "color": ["Blue", "White"],
         "brandname": "Vans",
+        "stock": 10,
         "discount": [],
         "soldout": false,
+        "Collection":"Winter Collection",
         "comments": [],
         "ratings": []
       },
@@ -382,8 +416,10 @@
         "options": ["Standard"],
         "color": ["Black", "Yellow"],
         "brandname": "Converse",
+        "stock": 10,
         "discount": [8],
         "soldout": false,
+        "Collection":"New Arrival",
         "comments": [],
         "ratings": []
       },
@@ -398,8 +434,10 @@
         "options": ["Size 9", "Size 10"],
         "color": ["Brown", "Green"],
         "brandname": "Fila",
+        "stock": 10,
         "discount": [],
         "soldout": false,
+        "Collection":"Winter Collection",
         "comments": [],
         "ratings": []
       },
@@ -414,8 +452,10 @@
         "options": ["750ml"],
         "color": ["Blue", "Pink"],
         "brandname": "Skechers",
+        "stock": 10,
         "discount": [5],
         "soldout": false,
+        "Collection":"Summer Collection",
         "comments": [],
         "ratings": []
       },
@@ -430,8 +470,10 @@
         "options": ["Adult", "Youth"],
         "color": ["Black", "Blue"],
         "brandname": "Nike",
+        "stock": 10,
         "discount": [],
         "soldout": false,
+        "Collection":"New Arrival",
         "comments": [],
         "ratings": []
       },
@@ -446,8 +488,10 @@
         "options": ["Small", "Medium"],
         "color": ["Orange", "Black"],
         "brandname": "Adidas",
+        "stock": 10,
         "discount": [15],
         "soldout": false,
+        "Collection":"New Arrival",
         "comments": [],
         "ratings": []
       },
@@ -462,8 +506,10 @@
         "options": ["Large"],
         "color": ["Gray", "Black"],
         "brandname": "Under Armour",
+        "stock": 10,
         "discount": [8],
         "soldout": false,
+        "Collection":"Summer Collection",
         "comments": [],
         "ratings": []
       },
@@ -478,8 +524,10 @@
         "options": ["27.5 inches", "29 inches"],
         "color": ["Red", "Black"],
         "brandname": "Puma",
+        "stock": 10,
         "discount": [20],
         "soldout": false,
+        "Collection":"Summer Collection",
         "comments": [],
         "ratings": []
       },
@@ -494,8 +542,10 @@
         "options": ["12 oz", "16 oz"],
         "color": ["Red", "Black"],
         "brandname": "Reebok",
+        "stock": 10,
         "discount": [],
         "soldout": false,
+        "Collection":"New Arrival",
         "comments": [],
         "ratings": []
       },
@@ -510,8 +560,10 @@
         "options": ["6'0", "6'6"],
         "color": ["Blue", "White"],
         "brandname": "New Balance",
+        "stock": 10,
         "discount": [12],
         "soldout": false,
+        "Collection":"Summer Collection",
         "comments": [],
         "ratings": []
       },
@@ -526,8 +578,10 @@
         "options": ["Set of 2"],
         "color": ["Silver", "Blue"],
         "brandname": "Vans",
+        "stock": 10,
         "discount": [],
         "soldout": false,
+        "Collection":"New Arrival",
         "comments": [],
         "ratings": []
       },
@@ -542,8 +596,10 @@
         "options": ["One Size"],
         "color": ["White", "Navy"],
         "brandname": "Converse",
+        "stock": 10,
         "discount": [8],
         "soldout": false,
+        "Collection":"Spring Collection",
         "comments": [],
         "ratings": []
       },
@@ -558,8 +614,10 @@
         "options": ["Medium", "Large"],
         "color": ["Black", "Gray"],
         "brandname": "Fila",
+        "stock": 10,
         "discount": [],
         "soldout": false,
+        "Collection":"Summer Collection",
         "comments": [],
         "ratings": []
       },
@@ -574,8 +632,10 @@
         "options": ["4-Person", "6-Person"],
         "color": ["Green", "Gray"],
         "brandname": "Skechers",
+        "stock": 10,
         "discount": [5],
         "soldout": false,
+        "Collection":"Summer Collection",
         "comments": [],
         "ratings": []
       }

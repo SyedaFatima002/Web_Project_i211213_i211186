@@ -35,12 +35,18 @@ const productSchema=mongoose.Schema({
         type:String,//names of brands
         ref:'Brand' 
     }, 
+    stock:{//as in numer of the product in stock
+        type:Number
+    },
     discount:[{
         type:Number
     }],
     soldout:{
         type:Boolean,
         default:false
+    },
+    Collection:{
+        type:String
     },
     comments:[{
         customer:{
