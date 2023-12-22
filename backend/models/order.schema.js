@@ -21,7 +21,11 @@ const orderSchema=mongoose.Schema({
         options:[{
             type:String
         }],
-        discount:{type:Number}
+        discount:{type:Number},
+        quantity:{
+            type:Number,
+            default:1
+        }
     }],
     totalAmount: {
         type: Number,
