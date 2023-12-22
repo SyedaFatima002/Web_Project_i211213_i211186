@@ -1,24 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const companyController = require('../Controllers/company');
+const authenticateCompany = require('../middlewares/companyauthen');
 
 // company routes
 
-router.post('/companies', companyController.createCompany);
+router.post('/companies',companyController.createCompany);
 
-router.post('/new-rider', companyController.createNewRider);
+router.post('/new-rider', authenticateCompany,companyController.createNewRider);
 
-router.delete('/delete-rider/:id', companyController.deleteRider);
+router.delete('/delete-rider/:id', authenticateCompany,companyController.deleteRider);
 
-router.get('/riders-list/:id', companyController.showCompanyRider);
+router.get('/riders-list/:id', authenticateCompany, companyController.showCompanyRider);
 
-router.get('/riders-list', companyController.showCompanyRiders);
+router.get('/riders-list',  authenticateCompany,companyController.showCompanyRiders);
 
-router.put('/give-job', companyController.assignOrdersToRider);
+router.put('/give-job',  authenticateCompany,companyController.assignOrdersToRider);
 
-router.put('/update-job', companyController.removeOrdersFromRider);
+router.put('/update-job', authenticateCompany, companyController.removeOrdersFromRider);
 
-router.put('/cancel-order/:id', companyController.cancelOrders);
+router.put('/cancel-order/:id', authenticateCompany, companyController.cancelOrders);
 
 
 module.exports = router;

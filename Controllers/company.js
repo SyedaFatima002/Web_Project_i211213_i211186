@@ -2,6 +2,30 @@ const Delivery = require('../Models/Deliverycompany.schema')
 const Rider = require ('../Models/Rider.schema')
 const Order = require ('../Models/Order.schema')
 
+const jwt = require('jsonwebtoken');
+
+exports.companyLogin = async function (req, res) {
+    const { email, password } = req.body;
+
+    try {
+        // Find the rider by email
+        const company = await Delivery.findOne({ email }).populate('riders', '-password');
+
+        // Check if the rider exists and the password is correct
+        if (!company || !(password == company.password)) {
+            return res.status(401).json({ message: 'Invalid email or password.' });
+        }
+
+        // Generate JWT token for authentication
+        const token = jwt.sign({ role:'deliveryadmin'}, process.env.JWT_SECRET);
+
+        res.status(200).json({ token, company });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error during company login.' });
+    }
+};
+
 exports.createCompany = async function (req, res) {
     console.log(req.body);
     username = process.env.username;

@@ -12,12 +12,12 @@ exports.riderLogin = async function (req, res) {
         const rider = await Rider.findOne({ email }).populate('orders');
 
         // Check if the rider exists and the password is correct
-        if (!rider || !bcrypt.compareSync(password, rider.password)) {
+        if (!rider || !(password == rider.password)) {
             return res.status(401).json({ message: 'Invalid email or password.' });
         }
 
         // Generate JWT token for authentication
-        const token = jwt.sign({ riderId: rider._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ riderId: rider.id , role:'rider'}, process.env.JWT_SECRET);
 
         res.status(200).json({ token, rider });
     } catch (error) {
