@@ -14,6 +14,7 @@ const useCart=create((set)=>({
     totalAmount:0,
     AmountDisc:0,//amount after discount
     paymentMethod:'cash on delivery',
+    items:0,
 
     addToCart: (product, paymentMethod)=>{
         set((state)=>{
@@ -23,12 +24,14 @@ const useCart=create((set)=>({
             let sumDiscount=discount.reduce((acc, disc)=> acc+disc, 0)
 
             newTotal=((100-sumDiscount)*newTotal)/100
+            const totalItems=newProduct.length
 
             return {
                 products: newProduct,
                 totalAmount: Total,
                 AmountDisc: newTotal,
-                paymentMethod:paymentMethod 
+                paymentMethod:paymentMethod,
+                items:totalItems 
             }
         })
     },
@@ -78,10 +81,13 @@ const useCart=create((set)=>({
 
             newTotal=((100-sumDiscount)*newTotal)/100
 
+            const totalItem=updatedProducts.length
+
             return {
                 products: updatedProducts,
                 totalAmount: Total,
-                AmountDisc:newTotal
+                AmountDisc:newTotal,
+                items:totalItem
             }
         })
     },

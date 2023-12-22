@@ -1,14 +1,21 @@
 .justify-content-end{
     display: flex;
     justify-content: right;
+    margin-bottom: 2px;
+    margin-top: 2px;
 }
 
 .classLink{
-    margin-right: 10px;
+    margin: 10px;
 }
 
 .navtext{
     display: flex;
     align-items: center;
+}
+
+.font{
+    font-family: 'Montserrat', sans-serif;
+    padding-left: 10px;
 }
 
