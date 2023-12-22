@@ -17,11 +17,17 @@ const useCart=create((set)=>({
 
     addToCart: (product, paymentMethod)=>{
         set((state)=>{
+            const newProduct=[...state.products, { ...state.productSchema, ...product }]
+            let Total=state.totalAmount + (product.unitprice*product.quantity)
+            const newTotal=Total
+            let sumDiscount=discount.reduce((acc, disc)=> acc+disc, 0)
 
+            newTotal=((100-sumDiscount)*newTotal)/100
 
             return {
-                products:[...state.products, { ...state.productSchema, ...product }],
-                totalAmount: state.totalAmount + (product.unitprice*product.quantity),
+                products: newProduct,
+                totalAmount: Total,
+                AmountDisc: newTotal,
                 paymentMethod:paymentMethod 
             }
         })
@@ -32,12 +38,24 @@ const useCart=create((set)=>({
     },
 
     updateQuantity: (productID, newQuant)=>{
-        set((state)=>({
-            products: state.products.map((product)=>
+        set((state)=>{
+            const newProduct=state.products.map((product)=>
                 product.productID==productID ? { ...product, quantity:newQuant }: product
-            ),
-            totalAmount: state.products.reduce((acc, product)=> acc + product.unitprice * product.quantity, 0)
-        }));
+            )
+            const product=state.products.filter(product=> product.productID===productID)
+
+            let Total=state.totalAmount + (product.unitprice*product.quantity)
+            const newTotal=Total
+            let sumDiscount=discount.reduce((acc, disc)=> acc+disc, 0)
+
+            newTotal=((100-sumDiscount)*newTotal)/100
+
+            return {
+                products: newProduct,
+                totalAmount: Total,
+                AmountDisc:newTotal
+            }
+        });
     },
 
     updateOptions: (productID, newOption)=>{
@@ -46,9 +64,31 @@ const useCart=create((set)=>({
                 product.productID==productID ? { ...product, options: newOption }: product
             })
         }));
+    },
+
+    removeFromCart: (productID)=>{
+        set((state)=>{
+            const updatedProducts = state.products.filter((product) => product.productID !== productID);
+
+            const product=state.products.filter(product=> product.productID===productID)
+
+            let Total=state.totalAmount + (product.unitprice*product.quantity)
+            const newTotal=Total
+            let sumDiscount=discount.reduce((acc, disc)=> acc+disc, 0)
+
+            newTotal=((100-sumDiscount)*newTotal)/100
+
+            return {
+                products: updatedProducts,
+                totalAmount: Total,
+                AmountDisc:newTotal
+            }
+        })
+    },
+
+    placeOrder: ()=>{
+        //add place order functionality
     }
-
-
 }));
 
 export default useCart;
