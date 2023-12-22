@@ -34,6 +34,10 @@ Currently, two official plugins are available:
 ## Components
 1. Category Nav Bar (Displayed on Every Page)
 
+## Extra things needed to be done
+1. Error page
+2. Loading Wishlist page
+
 
 
 
