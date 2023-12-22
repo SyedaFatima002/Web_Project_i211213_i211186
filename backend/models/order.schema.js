@@ -18,7 +18,7 @@ const orderSchema=mongoose.Schema({
         productname:{type:String, required:true},
         brand:{type:String, required:true},
         unitprice:{type:Number, required:true},
-        options:[{
+        options:[{//this is for both size and color
             type:String
         }],
         discount:[{type:Number}],//this is an array
@@ -28,6 +28,10 @@ const orderSchema=mongoose.Schema({
         }
     }],
     totalAmount: {
+        type: Number,
+        required: true,
+    },
+    AmountDisc: {//amount after discount
         type: Number,
         required: true,
     },

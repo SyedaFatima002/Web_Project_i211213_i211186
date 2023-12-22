@@ -29,6 +29,7 @@ Currently, two official plugins are available:
 1. Login Hook (to see if current user is logged in, will use it to add discount, and to stop commenting)
 2. Cart Hook (to save Cart, maybe even add to local storage)
 3. Current Page//
+4. User Information Hook
 
 ## Components
 1. Category Nav Bar (Displayed on Every Page)
