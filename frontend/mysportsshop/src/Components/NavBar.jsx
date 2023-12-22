@@ -5,9 +5,11 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Logo from '../Assets/logo.png'
+import Logo from '../Assets/logo.png';
+import usePage from "../Hooks/usePage";
 
 function NavBar(){
+    const setPage = usePage((state) => state.setPage);
     return(
         <>
             <NavTop />
@@ -19,8 +21,9 @@ function NavBar(){
                         src={Logo}
                         width="40px"
                         height="40px"
+                        onClick={()=>setPage("HomePage")}
                     />
-                    <span className="font"><b>The Sports Store</b></span>
+                    <span className="font" onClick={()=>setPage("HomePage")}><b>The Sports Store</b></span>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
