@@ -4,7 +4,8 @@
   "description": "Admin Panel\r     User Management: \r       Manage user accounts, including adding, editing, and deactivating accounts.\r       Set user roles and permissions.\r     Equipment Management:\r       Add, edit, and delete sports equipment listings.\r       Define equipment categories, availability status, and rental rates.\r     Reservation Management:\r       View and manage reservations, including approving or rejecting requests.\r       Generate reports on reservation statistics.\r     Inventory Tracking:\r       Monitor equipment inventory levels and receive alerts for low stock.\r       Track equipment condition and maintenance history.\r     Support and Communication:\r       Communicate with users for support and dispute resolution.\r       Handle inquiries and complaints.\r     System Configuration:\r       Configure system settings, such as payment gateway integration.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -23,8 +24,10 @@
   },
   "homepage": "https://github.com/SyedaFatima002/Web_Project_i211213_i211186_i201886_i200932#readme",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "mongoose": "^8.0.3"
+    "mongoose": "^8.0.3",
+    "nodemon": "^3.0.2"
   }
 }

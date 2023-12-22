@@ -1,13 +1,22 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+
+require('dotenv').config();
+
+const companyRouter = require('./Routes/companyRouter');
 
 
 const app = express();
 const port = process.env.PORT;
 
-const User = mongoose.model('User', userSchema);
+//app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.json());
+
+app.use('/api/delivery', companyRouter);
+
 
 
 // Connect to MongoDB
@@ -16,8 +25,6 @@ mongoose.connect(process.env.MONGODB_STRING).then(()=>{
 }).catch(err=>{
   console.log(err);
 })
-
-
 
 
 app.listen(port, () => {

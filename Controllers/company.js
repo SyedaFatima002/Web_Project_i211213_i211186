@@ -2,14 +2,37 @@ const Delivery = require('../Models/Deliverycompany.schema')
 const Rider = require ('../Models/Rider.schema')
 const Order = require ('../Models/Order.schema')
 
+exports.createCompany = async function (req, res) {
+    console.log(req.body);
+    username = process.env.username;
+    email = process.env.email;
+    password = process.env.password;
+    try {
+        const newCompany ="company"// await Delivery.create({ username, email, password });
+
+        res.status(201).json(newCompany);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error creating a new company.' });
+    }
+};
+
 exports.createNewRider = async function (req, res) {
-    const { id, email, password, name, phone_number, address } = req.body;
+    console.log(req.body);
+    console.log(req.headers);
+    // id = req.body;
+    // email = req.body;
+    // password = req.body;
+    // namee = req.body;
+    // phone_number = req.body;
+    // address = req.body;
+    const {  id, email, password, name, phone_number, address } = req.body;
 
     try {
         const newRider = await Rider.create({ id, email, password, name, phone_number, address });
         
         // Add the newly created rider to the company's rider list
-        const companyUsername = req.params.companyUsername;  // Assuming companyUsername is passed in the request
+        const companyUsername = process.env.username;
         const company = await Delivery.findOneAndUpdate({ username: companyUsername }, { $push: { riders: newRider._id } }, { new: true });
 
         res.status(201).json({ rider: newRider, company });
@@ -26,7 +49,7 @@ exports.deleteRider = async function (req, res) {
         const deletedRider = await Rider.findByIdAndRemove(riderId);
 
         // Remove the rider from the company's rider list
-        const companyUser = req.params.companyUsername;  // Assuming companyId is passed in the request
+        const companyUser = process.env.username;
         const company = await Delivery.findOneAndUpdate(companyUser, { $pull: { riders: riderId } }, { new: true });
 
         res.status(200).json({ rider: deletedRider, company });
@@ -37,10 +60,9 @@ exports.deleteRider = async function (req, res) {
 };
 
 exports.showCompanyRiders = async function (req, res) {
-    const companyUser = req.params.companyUsername;  // Assuming companyId is passed in the request
-
+    const companyUser = process.env.username;
     try {
-        const company = await Delivery.findOne(companyUser).populate('riders', '-password');
+        const company = await Delivery.findOne({username: companyUser}).populate('riders', '-password');
         if (!company) {
             return res.status(404).json({ message: 'Company not found.' });
         }
@@ -51,6 +73,37 @@ exports.showCompanyRiders = async function (req, res) {
         res.status(500).json({ message: 'Error fetching company riders.' });
     }
 };
+
+exports.showCompanyRider = async function (req, res) {
+    const companyUser = process.env.username;
+    const riderId = req.params.id;
+    //console.log('Company User:', companyUser);
+    //console.log('Rider ID:', riderId);
+
+    try {
+        const company = await Delivery.findOne({ username: companyUser }).populate({
+            path: 'riders',
+            match: { id: riderId },
+            select: '-password'
+        });
+
+        if (!company) {
+            return res.status(404).json({ message: 'Company not found.' });
+        }
+
+        const rider = company.riders.find(r => r.id == riderId);
+
+        if (!rider) {
+            return res.status(404).json({ message: 'Rider not found in the company.' });
+        }
+
+        res.status(200).json(rider);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error fetching company rider.' });
+    }
+};
+
 
 exports.assignOrdersToRider = async function (req, res) {
     const riderId = req.params.riderId;
@@ -88,7 +141,7 @@ exports.cancelOrders = async function (req, res) {
     const orderId = req.params.orderId;
 
     try {
-        const canceledOrder = await Order.findByIdAndRemove(orderId);
+        const canceledOrder = await Order.findOneAndRemove(orderId);
 
         // Remove the order from the associated rider's orders
         const riderId = canceledOrder.rider;  // Assuming 'rider' is the field in Order schema referencing Rider
@@ -156,7 +209,7 @@ exports.listRiderOrders = async function (req, res) {
     const riderId = req.params.riderId;
 
     try {
-        const rider = await Rider.findById(riderId).populate('orders');
+        const rider = await Rider.findById({id:riderId}).populate('orders');
         if (!rider) {
             return res.status(404).json({ message: 'Rider not found.' });
         }
@@ -179,7 +232,7 @@ exports.listAllOrders = async function (req, res) {
             averageRating: calculateAverageRating(blog.ratings),
         }));
 
-        res.status(200).json(formattedBlogs);
+        res.status(200).json(orders);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error fetching orders.' });
