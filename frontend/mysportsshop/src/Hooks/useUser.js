@@ -5,7 +5,7 @@ const useUser= create((set)=>({
     username:'', 
     email:'',
     role:'',
-    token:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkYW0xMSIsInVzZXJpZCI6IjY1NzhhZjcxMDMxYjY4NTYyODE2YWU4YiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzAzMjY0MTM3fQ.5xwHqebM4o3WLZUf-JVEzD5YGbVDfPv0GP37f1a4E1o',
+    token:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkYW0xMSIsInVzZXJpZCI6IjY1NzhhZjcxMDMxYjY4NTYyODE2YWU4YiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzAzMjY4OTg0fQ.nIeeI16HhhAgDc-2w8V_ecXEXCQCBmN0ovo56Px3860',
     setId:(newID)=> set({userid:newID}),
     settoken:(newToken)=> set({token:newToken}),
     setusername: (newUsername) => set({ username: newUsername }),
