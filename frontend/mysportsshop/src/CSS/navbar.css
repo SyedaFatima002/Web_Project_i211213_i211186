@@ -1,0 +1,14 @@
+.justify-content-end{
+    display: flex;
+    justify-content: right;
+}
+
+.classLink{
+    margin-right: 10px;
+}
+
+.navtext{
+    display: flex;
+    align-items: center;
+}
+
