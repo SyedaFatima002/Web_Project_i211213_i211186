@@ -15,7 +15,7 @@ Currently, two official plugins are available:
 3. Brand Display Page
 4. Item Page
 5. Cart (Not a page)
-6. Wishlist
+6. Wishlist//
 7. Order Page
 8. Notification Page
 9. Profile Page

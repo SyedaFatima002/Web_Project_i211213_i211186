@@ -7,10 +7,12 @@ import Button from 'react-bootstrap/Button';
 import { deleteWishItem } from "../ApiCalls/deleteWishItem";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useUser from "../Hooks/useUser";
+import usePage from "../Hooks/usePage";
 
 
 function WishItem(){
     const {error, isError, isLoading, data}=useWishItems();
+    const setPage = usePage((state) => state.setPage);
     console.log(data)
 
     const {token}=useUser();
@@ -49,12 +51,17 @@ function WishItem(){
                                 src={item.image}
                                 width="70px"
                                 height="70px"
-                            /><span> {item.name}</span>                          
+                            />
+                            <span className="link"
+                                onClick={()=> setPage("ItemDisplay")}
+                            > 
+                                {item.name}
+                            </span>                    
                         </Col>
                         <Col>{item.price}</Col>
                         <Col>{item.soldout?"Out of Stock":"In Stock"}</Col>
                         <Col>
-                            <Button variant="outline-success" size="sm">Add to Cart</Button>{' '}
+                            <Button variant="outline-warning" size="sm">Add to Cart</Button>{' '}
                             <Button variant="outline-danger" size="sm" onClick={(e)=>handleRemoval(e, item._id)}>Remove</Button>
                         </Col>
                     </Row>

@@ -80,3 +80,20 @@ exports.add_Product=async (req, res)=>{
 
 
 //get specific product
+exports.getProduct=async (req, res)=>{
+    const id=req.params.id;
+
+    try{
+        const response=await Product.findOne({_id:id})
+
+        if (!response){
+            return res.status(404).json({message:'Product Not Found'})
+        }
+
+        res.status(200).json(response);
+
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message: 'Failed to find Product'})
+    }
+}

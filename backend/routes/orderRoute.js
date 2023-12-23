@@ -16,4 +16,5 @@ orderRoute.post('/order', order.makeOrder);//making order
 orderRoute.get('/order/:id', order.getOrderStatus);//get order status
 
 orderRoute.get('/orderhistory', order.order_history);//get order history
+
 module.exports=orderRoute
