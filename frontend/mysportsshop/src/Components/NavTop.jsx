@@ -24,7 +24,7 @@ function NavTop(){
             setPage('Login')
         }
         else{
-            //add set page to profile page
+            setPage('Profile')
         }
         
     }

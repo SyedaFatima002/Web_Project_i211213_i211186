@@ -5,6 +5,7 @@ import WishList from './Pages/Wishlist';
 import ItemDisplay from './Pages/ItemDisplay.jsx';
 import Login from './Pages/Login.jsx';
 import Register from './Pages/Register.jsx';
+import Profile from './Pages/Profile.jsx'
 
 
 
@@ -18,6 +19,7 @@ function App() {
       {currentPage=="ItemDisplay" && <ItemDisplay />}
       {currentPage=='Login' && <Login />}
       {currentPage=='Register' && <Register />}
+      {currentPage=='Profile' && <Profile />}
 
     </div>
   )
