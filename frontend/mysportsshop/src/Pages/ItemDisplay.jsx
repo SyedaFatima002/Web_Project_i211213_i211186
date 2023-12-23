@@ -6,7 +6,7 @@ import '../CSS/itemdisplay.css'
 import useItemDisplay from "../Hooks/useItemDisplay";
 import useItemId from "../Hooks/useItemId";
 import Image from 'react-bootstrap/Image';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 

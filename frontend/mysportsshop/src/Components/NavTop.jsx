@@ -17,13 +17,16 @@ function NavTop(){
     const {login}=useLogin();
     const {items}=useCart();
     const setPage = usePage((state) => state.setPage);
-
-
     const [isHovered, setIsHovered] = useState(false);
+
+    const handleLoginClick=()=>{
+        setPage('Login')
+    }
+
     return (
         <>
             <Nav className="justify-content-end" >
-                <Nav.Item className='classLink navtext'>
+                <Nav.Item className='classLink navtext' onClick={handleLoginClick}>
                     <img 
                         alt='Login'
                         src={Login}
