@@ -20,7 +20,13 @@ function NavTop(){
     const [isHovered, setIsHovered] = useState(false);
 
     const handleLoginClick=()=>{
-        setPage('Login')
+        if (!login){
+            setPage('Login')
+        }
+        else{
+            //add set page to profile page
+        }
+        
     }
 
     return (
@@ -31,7 +37,8 @@ function NavTop(){
                         alt='Login'
                         src={Login}
                     />
-                    <span>Login</span>
+                    {!login && <span>Login</span>}
+                    {login && <span>{username}</span>}
                 </Nav.Item>
                 <Nav.Item className='classLink navtext'>
                     <img 

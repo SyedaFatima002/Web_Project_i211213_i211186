@@ -22,7 +22,7 @@ Currently, two official plugins are available:
     a. Profile Management
     b. Following List
     c. View Order History
-10. Login Page
+10. Login Page//
 11. Sign Up Page
 
 ## Personal Hooks Needed (Zustand)
@@ -37,6 +37,7 @@ Currently, two official plugins are available:
 ## Extra things needed to be done
 1. Error page
 2. Loading Wishlist page
+3. OAuth
 
 
 
