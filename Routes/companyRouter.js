@@ -7,6 +7,8 @@ const authenticateCompany = require('../middlewares/companyauthen');
 
 router.post('/companies',companyController.createCompany);
 
+router.post('/login',companyController.companyLogin);
+
 router.post('/new-rider', authenticateCompany,companyController.createNewRider);
 
 router.delete('/delete-rider/:id', authenticateCompany,companyController.deleteRider);

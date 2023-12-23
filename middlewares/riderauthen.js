@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const Rider = require('../models/Rider');
+const Rider = require('../Models/Rider');
 
 const authenticateRider = async (req, res, next) => {
     // Extract the token from the request headers

@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 exports.companyLogin = async function (req, res) {
     const { email, password } = req.body;
-
+    console.log("email", email, "password: ", password);
     try {
         // Find the rider by email
         const company = await Delivery.findOne({ email }).populate('riders', '-password');

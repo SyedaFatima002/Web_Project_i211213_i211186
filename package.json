@@ -25,8 +25,10 @@
   "homepage": "https://github.com/SyedaFatima002/Web_Project_i211213_i211186_i201886_i200932#readme",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.3",
     "nodemon": "^3.0.2"
   }
