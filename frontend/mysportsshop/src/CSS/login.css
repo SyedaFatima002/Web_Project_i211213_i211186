@@ -1,0 +1,20 @@
+.textbox{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.cardpad{
+    margin: 20px;
+}
+
+.forget{
+    font-size: small;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.returnHome{
+    font-size: small;
+    cursor: pointer;
+}
