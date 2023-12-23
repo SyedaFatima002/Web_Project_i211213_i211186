@@ -15,13 +15,20 @@ function WishItem(){
     const {error, isError, isLoading, data}=useWishItems();
     const setPage = usePage((state) => state.setPage);
     const setItemId=useItemId((state)=> state.setItemId);
-    console.log(data)
 
     const {token}=useUser();
     const queryClient=useQueryClient();
 
     const removalMutation=useMutation({
-        mutationFn: (item)=> deleteWishItem(item.token, item.wishId)
+        mutationFn: async(item)=> {
+            try{
+                const result= await deleteWishItem(item.token, item.wishId)
+                return result
+            }catch(err){
+                console.error('Error deleting wish item:', error);
+                throw error;
+            }
+        }
     })
 
     const handleRemoval=(e, itemid)=>{
@@ -46,9 +53,9 @@ function WishItem(){
 
     return(
         <>
-        { isError && <div>Sorry we cant do shit. Gonna change this late {error} </div>}
+        { isError && <div>Sorry we cant do shit. Gonna change this late {error.message} </div>}
         { isLoading && <div>Loading Wish List</div>}
-        {data && data.map((item)=>{
+        {data && data.length>0 ? (data.map((item)=>{
             return(
                 <Container key={item._id} className="borderTop">
                     <Row className="rowSpace">
@@ -74,7 +81,7 @@ function WishItem(){
                     </Row>
                 </Container>
             )
-        })}
+        })):<div>No items in the wishlist</div>}
         </>
     );
 }

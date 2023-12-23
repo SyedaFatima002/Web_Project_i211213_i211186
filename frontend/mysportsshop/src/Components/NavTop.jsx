@@ -33,6 +33,15 @@ function NavTop(){
         setPage('Register')
     }
 
+    const handleWishListClick=()=>{
+        if (login){
+            setPage('WishList')
+        }
+        else{
+            alert('You arent logged in')
+        }
+    }
+
     return (
         <>
             <Nav className="justify-content-end" >
@@ -54,7 +63,7 @@ function NavTop(){
                 <Nav.Item   className='classLink navtext'
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
-                            onClick={()=>setPage("WishList")}
+                            onClick={handleWishListClick}
                             style={{cursor:"pointer"}}
                 >
                     <img 
