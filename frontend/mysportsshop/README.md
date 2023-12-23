@@ -23,7 +23,7 @@ Currently, two official plugins are available:
     b. Following List
     c. View Order History
 10. Login Page//
-11. Sign Up Page
+11. Sign Up Page//
 
 ## Personal Hooks Needed (Zustand)
 1. Login Hook (to see if current user is logged in, will use it to add discount, and to stop commenting)//
