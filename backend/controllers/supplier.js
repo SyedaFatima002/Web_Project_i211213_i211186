@@ -82,7 +82,6 @@ exports.add_Product=async (req, res)=>{
 //get specific product
 exports.getProduct=async (req, res)=>{
     const id=req.params.id;
-
     try{
         const response=await Product.findOne({_id:id})
 

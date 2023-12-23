@@ -8,11 +8,13 @@ import { deleteWishItem } from "../ApiCalls/deleteWishItem";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useUser from "../Hooks/useUser";
 import usePage from "../Hooks/usePage";
+import useItemId from "../Hooks/useItemId";
 
 
 function WishItem(){
     const {error, isError, isLoading, data}=useWishItems();
     const setPage = usePage((state) => state.setPage);
+    const setItemId=useItemId((state)=> state.setItemId);
     console.log(data)
 
     const {token}=useUser();
@@ -36,6 +38,11 @@ function WishItem(){
         })
     }
 
+    const handleItemClick=(itemid)=>{
+        console.log(itemid)
+        setItemId(itemid);
+        setPage("ItemDisplay")
+    }
 
     return(
         <>
@@ -53,7 +60,7 @@ function WishItem(){
                                 height="70px"
                             />
                             <span className="link"
-                                onClick={()=> setPage("ItemDisplay")}
+                                onClick={()=> handleItemClick(item._id)}
                             > 
                                 {item.name}
                             </span>                    
