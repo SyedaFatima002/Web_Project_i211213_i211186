@@ -8,7 +8,7 @@ const useCart=create((set)=>({
         unitprice:0,
         options:[],
         discount:[],
-        quantity:1.
+        quantity:1
     },
     products:[],
     totalAmount:0,

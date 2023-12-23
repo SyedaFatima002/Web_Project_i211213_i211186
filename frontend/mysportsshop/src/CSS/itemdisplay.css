@@ -10,11 +10,30 @@
 }
 
 .padding{
-    padding: 6%;
+    padding: 4%;
 }
 
 .imagSize{
     width: 100%;
-    height: auto;
-    
+    height: auto; 
+}
+
+.sport{
+    font-size: small;
+    color:rgb(154, 0, 8);
+}
+
+.name{
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.collection{
+    font-size: small;
+    font-weight: 400;
+}
+
+.bordertop{
+    border: 1px solid rgb(222, 208, 208);
+    margin-bottom: 5px;
 }
