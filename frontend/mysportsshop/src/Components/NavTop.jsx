@@ -29,10 +29,14 @@ function NavTop(){
         
     }
 
+    const handleRegisterClick=()=>{
+        setPage('Register')
+    }
+
     return (
         <>
             <Nav className="justify-content-end" >
-                <Nav.Item className='classLink navtext' onClick={handleLoginClick}>
+                <Nav.Item className='classLink navtext' onClick={handleLoginClick} style={{cursor:"pointer"}}>
                     <img 
                         alt='Login'
                         src={Login}
@@ -40,7 +44,7 @@ function NavTop(){
                     {!login && <span>Login</span>}
                     {login && <span>{username}</span>}
                 </Nav.Item>
-                <Nav.Item className='classLink navtext'>
+                <Nav.Item className='classLink navtext' style={{cursor:"pointer"}} onClick={handleRegisterClick}>
                     <img 
                         alt='Register'
                         src={register}
@@ -51,6 +55,7 @@ function NavTop(){
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
                             onClick={()=>setPage("WishList")}
+                            style={{cursor:"pointer"}}
                 >
                     <img 
                         alt='WishList'
@@ -60,7 +65,7 @@ function NavTop(){
                     />
                     <span>Wishlist</span>
                 </Nav.Item>
-                <Nav.Item className='classLink navtext'>
+                <Nav.Item className='classLink navtext' style={{cursor:"pointer"}}>
                     <img 
                         alt='Cart'
                         src={cart}
