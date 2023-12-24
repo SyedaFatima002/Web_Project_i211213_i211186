@@ -35,4 +35,6 @@ customerRoute.post('/comment/:id', authCustomer, customer.comment_item);//commen
 
 customerRoute.post('/rateProduct/:id', authCustomer, customer.rate_item);//rating item
 
+customerRoute.get('/following', authCustomer, customer.view_followers);//getting all following
+
 module.exports=customerRoute;

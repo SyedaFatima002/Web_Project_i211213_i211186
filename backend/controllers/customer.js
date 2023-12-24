@@ -388,3 +388,24 @@ exports.rate_item=async(req, res)=>{
         return res.status(500).json({message: 'Error in rating'})
     }   
 }
+
+//view followerd
+exports.view_followers=async(req, res)=>{
+    const token=req.token;
+
+    if (!token){
+        return res.status(401).json({message:'Token not found. You are not authorization to view notifications'});
+    }
+
+    try{
+        const customer=await Customer.findById(token.userid)
+
+        const following=customer.following
+
+        res.status(200).json({following})
+
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({message: 'Error in viewing notifications '})
+    }
+}

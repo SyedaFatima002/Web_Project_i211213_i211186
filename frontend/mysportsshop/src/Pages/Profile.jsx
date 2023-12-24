@@ -5,15 +5,18 @@ import '../CSS/login.css'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
 import InputGroup from 'react-bootstrap/InputGroup';
 import useProfile from "../Hooks/useProfile";
 import useUser from "../Hooks/useUser";
+import { useState } from "react";
+import Following from "../Components/Following";
 
 function Profile() {
     const { error, isError, isLoading, data } = useProfile();
+
+    const [un, setUsername]=useState();
+
     
     return (
         <>
@@ -28,8 +31,9 @@ function Profile() {
                                 defaultValue={data.username}
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
+                                onChange={(e)=>setUsername(e.target.value)}
                             />
-                            <Button variant="warning">Update</Button>
+                            <Button variant="warning" onClick={(e)=>handleUsername(e)}>Update</Button>
                         </InputGroup>
 
                     </Form>
@@ -58,12 +62,11 @@ function ProfileTab() {
                     fill
                 >
                     <Tab eventKey="profile" title="Your Profile">
-
                         <Profile />
                     </Tab>
 
                     <Tab eventKey="following" title="Following">
-                        Tab content for Home
+                        <Following />
                     </Tab>
 
                     <Tab eventKey="history" title="Order History">
