@@ -17,7 +17,7 @@ Currently, two official plugins are available:
 5. Cart (Not a page)
 6. Wishlist//
 7. Order Page
-8. Notification Page
+8. Notification Page//
 9. Profile Page
     a. Profile Management
     b. Following List//
