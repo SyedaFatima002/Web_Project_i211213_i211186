@@ -17,6 +17,8 @@ router.get('/riders-list/:id', authenticateCompany, companyController.showCompan
 
 router.get('/riders-list',  authenticateCompany,companyController.showCompanyRiders);
 
+router.get('/orders-list',  companyController.showCompanyOrders);
+
 router.put('/give-job',  authenticateCompany,companyController.assignOrdersToRider);
 
 router.put('/update-job', authenticateCompany, companyController.removeOrdersFromRider);

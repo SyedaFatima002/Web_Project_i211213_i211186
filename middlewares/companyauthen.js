@@ -3,7 +3,9 @@ const Delivery = require('../Models/Deliverycompany.schema');
 
 const authenticateDelivery = async (req, res, next) => {
     // Extract the token from the request headers
-    const token = req.header('Authorization');
+    const token=req.headers.authorization;
+    console.log('t oe: ',  token);
+    console.log(req.headers); // Log the request headers
 
     if (!token) {
         return res.status(401).json({ message: 'Authorization token is missing.' });
@@ -11,7 +13,8 @@ const authenticateDelivery = async (req, res, next) => {
 
     try {
         // Verify the token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.SECRETKEY);
+        //const decoded = jwt.verify(token.replace('Bearer ', ''), process.env.SECRETKEY);
 
         // Find the rider based on the decoded riderId
         const company = await Delivery.findOne({username: decoded.username});

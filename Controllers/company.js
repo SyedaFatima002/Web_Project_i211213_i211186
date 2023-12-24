@@ -7,24 +7,30 @@ const jwt = require('jsonwebtoken');
 exports.companyLogin = async function (req, res) {
     const { email, password } = req.body;
     console.log("email", email, "password: ", password);
+
     try {
-        // Find the rider by email
+        // Find the company by email
         const company = await Delivery.findOne({ email }).populate('riders', '-password');
 
-        // Check if the rider exists and the password is correct
+        // Check if the company exists and the password is correct
         if (!company || !(password == company.password)) {
             return res.status(401).json({ message: 'Invalid email or password.' });
         }
 
-        // Generate JWT token for authentication
-        const token = jwt.sign({ role:'deliveryadmin'}, process.env.JWT_SECRET);
+        // Check if the SECRETKEY is available
+        if (!process.env.SECRETKEY) {
+            return res.status(500).json({ message: 'Internal server error: Secret key not provided.' });
+        }
 
+        // Generate JWT token for authentication
+        const token = jwt.sign({ role: 'deliveryadmin' }, process.env.SECRETKEY);
         res.status(200).json({ token, company });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error during company login.' });
     }
 };
+
 
 exports.createCompany = async function (req, res) {
     console.log(req.body);
@@ -97,6 +103,43 @@ exports.showCompanyRiders = async function (req, res) {
         res.status(500).json({ message: 'Error fetching company riders.' });
     }
 };
+
+// exports.showCompanyOrders = async function (req, res) {
+//     const companyUser = process.env.username;
+//     try {
+//         const company = await Delivery.findOne({username: companyUser}).populate('orders');
+//         if (!company) {
+//             return res.status(404).json({ message: 'Company not found.' });
+//         }
+//         res.status(200).json(company.orders);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Error fetching orders.' });
+//     }
+// };
+exports.showCompanyOrders = async function (req, res) {
+    const companyUser = process.env.username;
+    try {
+        const company = await Delivery.findOne({ username: companyUser });
+        
+        if (!company) {
+            return res.status(404).json({ message: 'Company not found.' });
+        }
+
+        // Populate orders for each order in the company's orders array
+        const populatedOrders = await Promise.all(company.orders.map(async orderId => {
+            const order = await Order.findById(orderId);
+            // You can customize the fields you want to populate in the second argument of populate
+            return await order.populate('rider', '-password').execPopulate();
+        }));
+
+        res.status(200).json(populatedOrders);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error fetching orders.' });
+    }
+};
+
 
 exports.showCompanyRider = async function (req, res) {
     const companyUser = process.env.username;
