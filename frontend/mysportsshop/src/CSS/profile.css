@@ -1,11 +1,22 @@
 .center{
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom right, #5b0404, #806d03);
+    height: 100vh;
 }
 
 .itemContainer{
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin: 3%;
-    padding: 2%;
+    box-shadow: 0 4px 8px 0 rgba(3, 3, 3, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: rgb(255, 254, 254);
+    border-radius: 1%;
+}
+
+.tabtitle{
+    font-size: medium;
+    padding-right: 70px;
+    padding-left: 70px;
+
 }
 

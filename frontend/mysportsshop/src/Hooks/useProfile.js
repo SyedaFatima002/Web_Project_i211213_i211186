@@ -13,7 +13,7 @@ const useProfile=()=>{
                 }
             })
             console.log(response.data)                
-            return response.data
+            return response.data.profile
         }catch(error){
             console.error("Error fetching data:", err);
             throw err; 

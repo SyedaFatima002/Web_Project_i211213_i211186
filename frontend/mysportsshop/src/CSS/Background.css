@@ -17,11 +17,9 @@
   }
   
   .overlay-content {
-    /* Style your overlay content here */
     color: white;
     text-align: center;
     font-size: 24px;
-    /* Make sure the overlay content appears on top of the background image */
     position: relative;
     z-index: 1;
   }
