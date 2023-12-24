@@ -22,7 +22,7 @@ Currently, two official plugins are available:
     a. Profile Management
     b. Following List//
     c. View Order History
-    d. View Loyalty Points
+    d. View Loyalty Points//
 10. Login Page//
 11. Sign Up Page//
 

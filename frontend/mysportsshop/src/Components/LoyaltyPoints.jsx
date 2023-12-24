@@ -13,7 +13,8 @@ function LoyaltyPoints(){
         <>
             { isError && <div>Sorry we cant do shit. Gonna change this late {error.message} </div>}
             { isLoading && <div>Loading Pointst</div>}
-            {data && data.length>0 ? (data.map((brand, index)=>{
+            {data && data.points && data.points.length>0 ? (
+                data.points.map((brand, index)=>{
                 <Container key={index}>
                     <Row>
                         <Col>Brand Name: {brand.supplier} </Col>

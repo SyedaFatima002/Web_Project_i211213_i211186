@@ -12,6 +12,7 @@ import useUser from "../Hooks/useUser";
 import { useState } from "react";
 import Following from "../Components/Following";
 import LoyaltyPoints from "../Components/LoyaltyPoints";
+import Notification from "../Components/Notification";
 
 function Profile() {
     const { error, isError, isLoading, data } = useProfile();
@@ -79,7 +80,7 @@ function ProfileTab() {
                     </Tab>
 
                     <Tab eventKey="notification" title="Notifications">
-                        Tab content for Notifications
+                        <Notification />
                     </Tab>
                 </Tabs>
             </Container>

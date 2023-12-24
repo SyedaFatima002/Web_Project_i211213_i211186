@@ -13,10 +13,11 @@ function Following(){
         <>
             { isError && <div>Sorry we cant do shit. Gonna change this late {error.message} </div>}
             { isLoading && <div>Loading Following List</div>}
-            {data && data.length>0 ? (data.map((brand, index)=>{
+            {data && data.followingBrands && data.followingBrands.length>0 ? (
+                data.followingBrands.map((brand, index)=>{
                 <Container key={index}>
                     <Row>
-                        <Col>{brand}</Col>
+                        <Col>{index+1}. {brand}</Col>
                     </Row>
                 </Container>
             })):<div>You are not Following anybody</div> }
