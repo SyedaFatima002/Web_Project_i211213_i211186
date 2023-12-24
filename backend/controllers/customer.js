@@ -402,7 +402,13 @@ exports.view_followers=async(req, res)=>{
 
         const following=customer.following
 
-        res.status(200).json({following})
+        const brand=await Brand.find();
+
+        const followingBrandIds = following.map(follow => follow.brandId);
+
+        const followingBrands = brand.filter(brand => followingBrandIds.includes(brand._id.toString()));
+
+        res.status(200).json({ followingBrands });
 
     }catch(err){
         console.log(err);

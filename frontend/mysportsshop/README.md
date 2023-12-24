@@ -20,7 +20,7 @@ Currently, two official plugins are available:
 8. Notification Page
 9. Profile Page
     a. Profile Management
-    b. Following List
+    b. Following List//
     c. View Order History
     d. View Loyalty Points
 10. Login Page//
