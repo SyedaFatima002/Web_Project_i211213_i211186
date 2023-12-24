@@ -15,6 +15,8 @@ import { Form } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { sendReview } from "../ApiCalls/addReview";
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton';
 
 
 //titles and soldout symbol
@@ -144,21 +146,102 @@ function PlaceReview({ productid }) {
 
 //color display
 function Color({ data }) {
+    const [radioValue, setRadioValue] = useState(data.color[0]);
+
+    const handleRadioChange = (value) => {
+        console.log(value)
+        setRadioValue(value);
+    };
+
     return (
         <>
-
+            <span>Colors: </span>
+            <ButtonGroup>
+                {data.color.map((color, idx) => (
+                    <ToggleButton
+                        key={idx}
+                        type="radio"
+                        variant={'outline-dark'}
+                        name="radio"
+                        value={color}
+                        checked={radioValue === color}
+                        onClick={() => handleRadioChange(color)}
+                    >
+                        {color}
+                    </ToggleButton>
+                ))}
+            </ButtonGroup>
         </>
     );
 }
 
 //size display
+function Size({ data }) {
+    const [radioVal, setRadioVal] = useState(data.options[0]);
+
+    const handleRadioChange = (value) => {
+        console.log(value)
+        setRadioVal(value);
+    };
+
+    return (
+        <>
+            <span>Option: </span>
+            <ButtonGroup>
+                {data.options.map((option, idx) => (
+                    <ToggleButton
+                        key={idx}
+                        type="radio"
+                        variant={'outline-dark'}
+                        name="optradio"
+                        value={option}
+                        checked={radioVal === option}
+                        onClick={() => handleRadioChange(option)}
+                    >
+                        {option}
+                    </ToggleButton>
+                ))}
+            </ButtonGroup>
+        </>
+    );
+}
 
 //quantity button
-
 //add to cart option
-
-
 //follow brand option
+function FinalButtons() {
+    const [quantity, setQuantity] = useState(1);
+
+    const handleAddToCart = () => {
+        // Implement your add to cart logic here
+        console.log('Added to Cart');
+    };
+
+    const handleFollowBrand = () => {
+        // Implement your follow brand logic here
+        console.log('Followed Brand');
+    };
+
+    return (
+        <>
+            <div>
+                <Button variant="outline-success" onClick={() => setQuantity(quantity + 1)}  style={{margin:"10px"}}>
+                    + Quantity
+                </Button>
+                <span className="mx-2">{quantity}</span>
+            </div>
+            <div className="d-flex">
+                <Button variant="warning" onClick={handleAddToCart}  style={{margin:"10px"}}>
+                    Add to Cart
+                </Button>
+
+                <Button variant="danger" onClick={handleFollowBrand} style={{margin:"10px"}}>
+                    Follow Brand
+                </Button>
+            </div>
+        </>
+    );
+}
 
 function ItemDisplay() {
     const [key, setKey] = useState('description');
@@ -206,14 +289,10 @@ function ItemDisplay() {
                                     </Tabs>
                                     <div className="bordertop"></div>
                                     <Color data={data} />
-
-
                                     <div className="bordertop"></div>
-                                    <p>Sizes</p>
-
-
-                                //quantity option
-                                //Add to Cart option
+                                    <Size data={data} />
+                                    <div className="bordertop"></div>
+                                    <FinalButtons />
                                 </div>
                             </Col>
                         </Row>
@@ -227,64 +306,3 @@ function ItemDisplay() {
 
 export default ItemDisplay;
 
-/**
- * 
- * 
-Collection
-: 
-"New Arrival"
-brandname
-: 
-"Nike"
-categories
-: 
-(2) ['Footwear', 'Running']
-color
-: 
-(2) ['Blue', 'White']
-comments
-: 
-[]
-description
-: 
-"High-performance running shoes for athletes."
-discount
-: 
-[10]
-gender
-: 
-"unisex"
-image
-: 
-"https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg"
-name
-: 
-"Running Shoes"
-options
-: 
-(2) ['Size 9', 'Size 10']
-price
-: 
-99.99
-ratings
-: 
-[]
-soldout
-: 
-false
-sport
-: 
-"Running"
-stock
-: 
-10
-__v
-: 
-0
-_id
-: 
-"657e8b99ac6f3f002f3a964e"
-[[Prototype]]
-: 
-Object
- */
