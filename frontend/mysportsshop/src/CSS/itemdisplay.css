@@ -3,10 +3,11 @@
     justify-content: center;
 }
 
-.itemContainer{
+.itemContainers{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin: 3%;
     padding: 2%;
+    background-color: white;
 }
 
 .padding{
@@ -19,8 +20,8 @@
 }
 
 .sport{
-    font-size: small;
-    color:rgb(154, 0, 8);
+    font-size: medium;
+    color: rgb(7, 48, 151)
 }
 
 .name{
@@ -36,4 +37,8 @@
 .bordertop{
     border: 1px solid rgb(222, 208, 208);
     margin-bottom: 5px;
+}
+
+.bg{
+    background-color: rgb(78, 6, 6);
 }
