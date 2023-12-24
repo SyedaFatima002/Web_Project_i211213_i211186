@@ -50,12 +50,16 @@ const productSchema=mongoose.Schema({
     },
     comments:[{
         customer:{
-            type:mongoose.Schema.Types.ObjectId,
-            ref:'Customer'
+            type:String,//username only
         },
         comment:{
             type:String
-        }
+        },
+        rating: { 
+            type: Number, 
+            required: true, 
+            min: 1, max: 5 
+        },
     }],
     ratings: [
         {

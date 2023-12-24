@@ -9,6 +9,13 @@ import Image from 'react-bootstrap/Image';
 import React, { useState } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import useLogin from "../Hooks/useLogin";
+import useUser from "../Hooks/useUser";
+import { Form } from "react-bootstrap";
+import Button from 'react-bootstrap/Button';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { sendReview } from "../ApiCalls/addReview";
+
 
 //titles and soldout symbol
 function ProductTitle({ data }) {
@@ -29,9 +36,9 @@ function ProductTitle({ data }) {
                     <span style={{ color: "green" }}> {discounted} each </span>
                 </p>
             )
-            : (<p>$ {data.price} each</p>)}
+                : (<p>$ {data.price} each</p>)}
 
-            {data.soldout ? (<p style={{ color: "red" }}>Soldout</p>):(<p style={{ color: "green" }}>Stock Available</p>)}
+            {data.soldout ? (<p style={{ color: "red" }}>Soldout</p>) : (<p style={{ color: "green" }}>Stock Available</p>)}
         </>
     );
 }
@@ -47,9 +54,102 @@ function Description({ data }) {
 }
 
 //reviews and comments and option to do that
+function Reviews({ data }) {
+    console.log(data.comments)
+    return (
+        <>
+            {data.comments && data.comments.length > 0 ? (
+                data.comments.map((comm, index) => (
+                    <Container key={index} className="bt">
+                        <Row >
+                            <Col><b>Customer:</b> {comm.customer}</Col>
+                            <Col><b>Rating:</b> {comm.rating}</Col>
+                        </Row>
+                        <Row style={{ paddingBottom: "10px" }}>
+                            <Col>{comm.comment}</Col>
+                        </Row>
+                    </Container>
+                ))
+            ) : (
+                <p>This product has yet to get reviews</p>
+            )}
+        </>
+    );
+}
 
+//send review
+function PlaceReview({ productid }) {
+    const [rating, setRating] = useState(1);
+    const [comment, setComment] = useState();
+    const [name, setName] = useState();
+    const { token } = useUser();
+
+    const handleRatingChange = (e) => {
+        setRating(parseInt(e.target.value, 10));
+    };
+
+    const reviewMutation = useMutation({
+        mutationFn: async (review) => {
+            try {
+                const result = await sendReview(review.token, review.username, review.rating, review.comment, review.productid)
+                return result
+            } catch (err) {
+                console.error('Error in sending review:', err);
+                throw err;
+            }
+        }
+    })
+
+    const handleReview = (e) => {
+        e.preventDefault();
+        reviewMutation.mutate({
+            token: token,
+            username: name,
+            rating: rating,
+            comment: comment,
+            productid: productid
+        }, {
+            onSuccess: (data) => {
+                console.log(data)
+            }
+        })
+    }
+
+    return (
+        <Form style={{ marginBottom: "10px" }}>
+            <Form.Group className="mb-3" >
+                <Form.Label><b>Username</b></Form.Label>
+                <Form.Control type="username" placeholder="Enter username/name of choice" onChange={(e) => setName(e.target.value)} />
+            </Form.Group>
+
+            <Form.Label><b>Rating</b></Form.Label>
+            <Form.Range
+                value={rating}
+                onChange={handleRatingChange}
+                min={1}
+                max={5}
+                step={1}
+            />
+            <p><b>Selected Rating:</b> {rating}</p>
+
+            <Form.Group className="mb-3">
+                <Form.Label><b>Comment</b></Form.Label>
+                <Form.Control as="textarea" rows={3} onChange={(e) => setComment(e.target.value)} />
+            </Form.Group>
+
+            <Button variant="warning" onClick={(e) => handleReview(e)}>Submit Review</Button>
+        </Form>
+    );
+}
 
 //color display
+function Color({ data }) {
+    return (
+        <>
+
+        </>
+    );
+}
 
 //size display
 
@@ -58,10 +158,11 @@ function Description({ data }) {
 //add to cart option
 
 
-
+//follow brand option
 
 function ItemDisplay() {
     const [key, setKey] = useState('description');
+    const { login } = useLogin();
 
     const { itemId } = useItemId()
     console.log(itemId)
@@ -95,11 +196,16 @@ function ItemDisplay() {
                                             <Description data={data}></Description>
                                         </Tab>
                                         <Tab eventKey="review" title="Reviews">
-                                            //to be done
+                                            {login && <Reviews data={data}></Reviews>}
+                                            {!login && <div>Please Login to Leave Review</div>}
+                                        </Tab>
+
+                                        <Tab eventKey="sendreview" title="Review Product">
+                                            <PlaceReview productid={data._id} />
                                         </Tab>
                                     </Tabs>
                                     <div className="bordertop"></div>
-                                    <p>Color</p>
+                                    <Color data={data} />
 
 
                                     <div className="bordertop"></div>
@@ -107,7 +213,6 @@ function ItemDisplay() {
 
 
                                 //quantity option
-                                //soldout symbol
                                 //Add to Cart option
                                 </div>
                             </Col>

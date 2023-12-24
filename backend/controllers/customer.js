@@ -344,8 +344,9 @@ exports.comment_item=async(req, res)=>{
         }
 
         const comment={
-            customer:token.userid,
-            comment:req.body.comment
+            customer:req.body.customer,
+            comment:req.body.comment,
+            rating:req.body.rating
         }
 
         product.comments.push(comment)
