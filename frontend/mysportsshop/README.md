@@ -35,9 +35,11 @@ Currently, two official plugins are available:
 1. Category Nav Bar (Displayed on Every Page)
 
 ## Extra things needed to be done
-1. Error page
-2. Loading Wishlist page
+1. Error pages
+2. Loading pages
 3. OAuth
+4. Payment API
+5. Color better if you have time
 
 
 

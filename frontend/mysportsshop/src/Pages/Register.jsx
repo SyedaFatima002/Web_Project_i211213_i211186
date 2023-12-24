@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import Background from '../Components/Background';
 import usePage from '../Hooks/usePage';
-import useUser from '../Hooks/useUser';
 import Card from 'react-bootstrap/Card';
 import Logo from '../Assets/logo.png';
 import '../CSS/login.css'
-import useLogin from '../Hooks/useLogin';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
