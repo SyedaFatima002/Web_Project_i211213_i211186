@@ -5,6 +5,8 @@ import useLogin from "../Hooks/useLogin";
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import '../CSS/order.css'
+import '../CSS/cart.css';
+import { Container, Row, Col } from "react-bootstrap";
 
 
 function BillingDetails() {
@@ -12,7 +14,7 @@ function BillingDetails() {
 
     return (
         <>
-            <div style={{ margin: '3%' }}>
+            <div style={{ margin: '3%', textAlign: 'center' }}>
                 <h3>Billing Details</h3>
             </div>
             <Form style={{ margin: '3%' }}>
@@ -70,7 +72,66 @@ function BillingDetails() {
     );
 }
 
+function OrderDetails(){
+    const { products } = useCart();
+    return (
+        <div>
+            <h3 style={{textAlign: 'center'}}>Your Order</h3>
+            {products && products.length > 0 &&
+                (products.map((item, index) => {
+                    return (
+                        <Container className="titleborder" key={index}>
+                            <Row>
+                                <Col>
+                                    <img alt={index}
+                                        src={item.image}
+                                        width="90px"
+                                    />
+                                </Col>
+                                <Col xs={7}>
+                                    <b>{item.productname}</b><br></br>
+                                    {item.quantity} x ${item.unitprice}<br></br>
+                                </Col>
+                                <Col>
+                                    <p><b>Color: </b><span>{item.options[0]}</span></p>
+                                    <p><b>Size: </b><span>{item.options[1]}</span></p>
+                                </Col>
+                            </Row>
+                        </Container>
+                    );
+                }))
+            }
+        </div>
+    );
+}
 
+function Billing(){
+    const { totalAmount, AmountDisc, paymentMethod, updatePaymentMethod } = useCart();
+
+    return (
+        <div  style={{textAlign:'center', paddingBottom:'4%'}}>
+            <div className="d-grid gap-2 payment">
+                <Row>
+                    <Col>
+                        <h3>Your Final Bill</h3>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col><b>SubTotal:</b></Col>
+                    <Col>{totalAmount}</Col>
+                </Row>
+                <Row>
+                    <Col><b>Discount Applied:</b></Col>
+                    <Col>{totalAmount-AmountDisc}</Col>
+                </Row>
+                <Row>
+                    <Col><b>Payable Total:</b></Col>
+                    <Col>{AmountDisc}</Col>
+                </Row>
+            </div>
+        </div>
+    );
+}
 
 function Order() {
     return (
@@ -83,11 +144,14 @@ function Order() {
             }}>
                 <h1>Welcome to CheckOut</h1>
             </div>
-            <div style={{ borderBottom: '2px solid rgb(150, 1, 1)', margin: '2%',}}>
+            <div style={{ borderBottom: '2px solid rgb(150, 1, 1)', margin: '2%'}}>
                 <BillingDetails />
             </div>
-            <div>
-
+            <div style={{ margin: '4%', borderBottom: '2px solid rgb(150, 1, 1)'}}>
+                <OrderDetails />
+            </div>
+            <div style={{ margin:'4%', borderBottom: '2px solid rgb(150, 1, 1)'}}>
+                <Billing />
             </div>
             
         </>
