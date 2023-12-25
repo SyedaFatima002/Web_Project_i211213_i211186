@@ -78,6 +78,7 @@ function Gender({ data }) {
                             type={'radio'}
                             id={4}
                             label={'All'}
+                            checked={gender === ''}
                             onChange={() => handleGender('')}
                         />
                     </Form.Group>
@@ -100,6 +101,13 @@ function BrandName({ data }) {
                 <Col>
                     <Form.Group controlId="brand">
                         <Form.Label>Select By Brand Name</Form.Label>
+                        <Form.Check
+                            type={'radio'}
+                            id={'none'}
+                            label={'All'}
+                            checked={'' === brandname}
+                            onChange={()=>handleBrand('')}
+                        />
                         {data && data.brandnames.map((brand, index)=>(
                             <Form.Check
                             type={'radio'}
@@ -108,6 +116,80 @@ function BrandName({ data }) {
                             label={brand}
                             checked={brandname === brand}
                             onChange={()=>handleBrand(brand)}
+                        />
+                        ))}
+                    </Form.Group>
+                </Col>
+            </Row>
+        </div>
+    );
+}
+
+function Sport({ data }) {
+    const { sport, setSport } = useFilters();
+
+    const handleSport=(sport)=>{
+        setSport(sport)
+    }
+
+    return (
+        <div>
+            <Row>
+                <Col>
+                    <Form.Group controlId="brand">
+                        <Form.Label>Select By Sport</Form.Label>
+                        <Form.Check
+                            type={'radio'}
+                            id={'all'}
+                            label={'All'}
+                            checked={sport === ''}
+                            onChange={()=>handleSport('')}
+                        />
+                        {data && data.sports.map((brand, index)=>(
+                            <Form.Check
+                            type={'radio'}
+                            key={index}
+                            id={brand}
+                            label={brand}
+                            checked={sport === brand}
+                            onChange={()=>handleSport(brand)}
+                        />
+                        ))}
+                    </Form.Group>
+                </Col>
+            </Row>
+        </div>
+    );
+}
+
+function Collections({ data }) {
+    const { Collection,  setCollections } = useFilters();
+
+    const handleCollections=(collect)=>{
+        setCollections(collect)
+    }
+
+    return (
+        <div>
+            <Row>
+                <Col>
+                    <Form.Group controlId="brand">
+                        <Form.Label>Select By Collections</Form.Label>
+                        <Form.Check
+                            type={'radio'}
+                            id={'All'}
+                            label={'All'}
+                            checked={Collection === ''}
+                            onChange={()=>handleCollections('')}
+                        />
+                        {data && data.Collections.map((c, index)=>(
+                            <Form.Check
+                            type={'radio'}
+                            key={index}
+                            id={c}
+                            label={c}
+                            checked={Collection === c}
+                            onChange={()=>handleCollections(c)}
                         />
                         ))}
                     </Form.Group>
@@ -130,7 +212,10 @@ function Filters() {
                 <div>
                     <Price data={data} />
                     <Gender data={data} />
+                    <Sport data={data} />
+                    <Collections data={data}/>
                     <BrandName data={data} />
+                    
                 </div>
             }
         </>
@@ -168,7 +253,7 @@ function Display() {
                 {data && data.length > 0 &&
                     (data.map((product) => (
                         <Col key={product._id} className="mb-4">
-                            <Card style={{ height: '450px' }}>
+                            <Card style={{ height: '450px', width:'250px'}}>
                                 <Card.Img variant="top"
                                     src={product.image}
                                     style={{ objectFit: 'cover', height: '40%' }} />
@@ -268,7 +353,9 @@ function ProductFeed() {
                         <Pages />
                     </Row>
                     <Row className="prods">
-                        <Display />
+                        <Col>
+                            <Display />
+                        </Col>
                     </Row>
 
                 </div>

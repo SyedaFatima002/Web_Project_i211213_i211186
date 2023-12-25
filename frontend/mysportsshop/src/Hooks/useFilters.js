@@ -4,9 +4,9 @@ const useFilters = create((set) => ({
     search: '',
     priceMin: 0,
     priceMax: Infinity,
-    Collection: '',//
-    category: '',//
-    sport: '',//
+    Collection: '',
+    category: '',
+    sport: '',
     brandname: '',
     page: 1,
     limit: 10,

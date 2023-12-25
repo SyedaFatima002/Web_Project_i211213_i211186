@@ -11,7 +11,7 @@ Currently, two official plugins are available:
 
 ## Pages
 1. Home Page
-2. Products Display Page
+2. Products Display Page//
 3. Item Page//
 4. Cart
 5. Wishlist//
