@@ -12,19 +12,18 @@ Currently, two official plugins are available:
 ## Pages
 1. Home Page
 2. Products Display Page
-3. Brand Display Page
-4. Item Page//
-5. Cart
-6. Wishlist//
-7. Order Page
-8. Notification Page//
-9. Profile Page
+3. Item Page//
+4. Cart
+5. Wishlist//
+6. Order Page
+7. Notification Page//
+8. Profile Page
     a. Profile Management
     b. Following List//
     c. View Order History
     d. View Loyalty Points//
-10. Login Page//
-11. Sign Up Page//
+9. Login Page//
+10. Sign Up Page//
 
 ## Personal Hooks Needed (Zustand)
 1. Login Hook (to see if current user is logged in, will use it to add discount, and to stop commenting)//

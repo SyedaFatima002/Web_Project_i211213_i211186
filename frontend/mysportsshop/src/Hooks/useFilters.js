@@ -4,14 +4,15 @@ const useFilters = create((set) => ({
     search: '',
     priceMin: 0,
     priceMax: Infinity,
-    Collection: '',
-    category: '',
-    sport: '',
-    brandname: '',
-    page: 1,
+    Collection: '',//
+    category: '',//
+    sport: '',//
+    brandname: '',//
+    page: 1,//
     limit: 10,
     sortOrder: '',
-    sortBy: '',
+    sortBy: '',//
+    gender:'',//
 
     setSearch: (s) => set({ search: s }),
     setPriceMin: (pmin) => set({ priceMin: pmin }),
@@ -23,6 +24,7 @@ const useFilters = create((set) => ({
     setLimit: (lim) => set({ limit: lim }),
     setSortOrder: (or) => set({ sortOrder: or }),
     setSortBy: (sb) => set({ sortBy: sb }),
+    setGender: (g)=>set({gender:g})
 
 }))
 

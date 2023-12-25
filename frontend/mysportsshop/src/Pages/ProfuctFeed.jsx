@@ -17,7 +17,7 @@ import useFilters from "../Hooks/useFilters";
 function Filters() {
     return (
         <>
-
+            
         </>
     );
 }
@@ -38,7 +38,7 @@ function Display() {
 
     const handleWishList = () => {
         if (login) {
-
+            //add functionality
         }
         else {
             alert('You arent logged in')

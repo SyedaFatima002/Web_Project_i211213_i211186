@@ -92,7 +92,8 @@ exports.getProducts = async (req, res) => {
                     { brandname: searchRegex },
                     { sport: searchRegex },
                     { categories: searchRegex },
-                    { Collection: searchRegex }
+                    { Collection: searchRegex },
+                    { gender: searchRegex }
                 ],
             };
         }
@@ -115,6 +116,10 @@ exports.getProducts = async (req, res) => {
 
         if (req.query.brandname) {
             query.brandname = req.query.brandname
+        }
+
+        if (req.query.gender) {
+            query.gender = req.query.gender
         }
 
         const sortOptions = {};
