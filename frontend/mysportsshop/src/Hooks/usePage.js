@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 const usePage=create((set)=>({
-    currentPage:'HomePage',
+    currentPage:'ProductFeed',
     setPage: (newPage)=>set({currentPage:newPage})
 }));
 
