@@ -2,7 +2,7 @@ import NavBar from "../Components/NavBar";
 import useProductCall from "../Hooks/useProductCall";
 import '../CSS/feed.css'
 import { useState } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import Form from 'react-bootstrap/Form'
 import showImage from '../Assets/menuOpen.svg'
@@ -15,6 +15,10 @@ import useLogin from "../Hooks/useLogin";
 import Pagination from 'react-bootstrap/Pagination';
 import useFilters from "../Hooks/useFilters";
 import useGetFilters from "../Hooks/useGetFilters";
+import { useMutation } from '@tanstack/react-query';
+import { addToWishList } from "../ApiCalls/addToWishlist";
+import useUser from "../Hooks/useUser";
+
 
 function Price({ data }) {
     const { setPriceMin, setPriceMax } = useFilters();
@@ -228,6 +232,19 @@ function Display() {
     const setPage = usePage((state) => state.setPage);
     const setItemId = useItemId((state) => state.setItemId);
     const { login } = useLogin();
+    const { token } = useUser();
+
+    const additionMutation = useMutation({
+        mutationFn: async (item) => {
+            try {
+                const result = await addToWishList(item.token, item.wishId)
+                return result
+            } catch (err) {
+                console.error('Error deleting wish item:', err);
+                throw err;
+            }
+        }
+    })
 
 
     const handleItemClick = (itemid) => {
@@ -236,9 +253,17 @@ function Display() {
         setPage("ItemDisplay")
     }
 
-    const handleWishList = () => {
+    const handleWishList = (e, itemid) => {
         if (login) {
-            //add functionality
+            e.preventDefault();
+            additionMutation.mutate({
+                token,
+                wishId: itemid
+            }, {
+                onSuccess: (data) => {
+                    console.log(data);
+                },
+            })
         }
         else {
             alert('You arent logged in')
@@ -268,7 +293,7 @@ function Display() {
                                         style={{ marginRight: "10px", marginBottom: "5px" }}
                                         onClick={() => handleItemClick(product._id)}
                                     >View Item</Button>
-                                    <Button variant="outline-danger" onClick={handleWishList}>Add to WishList</Button>
+                                    <Button variant="outline-danger" onClick={(e) => handleWishList(e, product._id)}>Add to WishList</Button>
                                 </Card.Body>
                             </Card>
                         </Col>
