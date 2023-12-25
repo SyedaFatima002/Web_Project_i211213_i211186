@@ -31,7 +31,7 @@ const useProductCall = () => {
     }
 
     return useQuery({
-        queryKey: ['getallProducts'],
+        queryKey: ['getallProducts', page],
         queryFn: fecthProducts
     })
 
