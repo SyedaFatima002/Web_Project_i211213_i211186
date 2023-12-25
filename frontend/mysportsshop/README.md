@@ -13,8 +13,8 @@ Currently, two official plugins are available:
 1. Home Page
 2. Products Display Page
 3. Brand Display Page
-4. Item Page
-5. Cart (Not a page)
+4. Item Page//
+5. Cart
 6. Wishlist//
 7. Order Page
 8. Notification Page//
@@ -41,6 +41,7 @@ Currently, two official plugins are available:
 3. OAuth
 4. Payment API
 5. Color better if you have time
+6. Follow Brand on Item page and unfollow on profile
 
 
 

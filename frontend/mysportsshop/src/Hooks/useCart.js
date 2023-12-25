@@ -20,8 +20,8 @@ const useCart=create((set)=>({
         set((state)=>{
             const newProduct=[...state.products, { ...state.productSchema, ...product }]
             let Total=state.totalAmount + (product.unitprice*product.quantity)
-            const newTotal=Total
-            let sumDiscount=discount.reduce((acc, disc)=> acc+disc, 0)
+            let newTotal=Total
+            let sumDiscount=product.discount? product.discount.reduce((acc, disc)=> acc+disc, 0):0
 
             newTotal=((100-sumDiscount)*newTotal)/100
             const totalItems=newProduct.length
@@ -48,8 +48,8 @@ const useCart=create((set)=>({
             const product=state.products.filter(product=> product.productID===productID)
 
             let Total=state.totalAmount + (product.unitprice*product.quantity)
-            const newTotal=Total
-            let sumDiscount=discount.reduce((acc, disc)=> acc+disc, 0)
+            let newTotal=Total
+            let sumDiscount=product.discount?product.discount.reduce((acc, disc)=> acc+disc, 0):0
 
             newTotal=((100-sumDiscount)*newTotal)/100
 
@@ -76,8 +76,8 @@ const useCart=create((set)=>({
             const product=state.products.filter(product=> product.productID===productID)
 
             let Total=state.totalAmount + (product.unitprice*product.quantity)
-            const newTotal=Total
-            let sumDiscount=discount.reduce((acc, disc)=> acc+disc, 0)
+            let newTotal=Total
+            let sumDiscount=product.discount?product.discount.reduce((acc, disc)=> acc+disc, 0):0
 
             newTotal=((100-sumDiscount)*newTotal)/100
 

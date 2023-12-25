@@ -10,6 +10,7 @@ import useUser from '../Hooks/useUser'
 import useLogin from '../Hooks/useLogin'
 import useCart from '../Hooks/useCart'
 import usePage from '../Hooks/usePage';
+import Cart from './Cart';
 
 function NavTop(){
     //deal with this during profiling
@@ -75,10 +76,7 @@ function NavTop(){
                     <span>Wishlist</span>
                 </Nav.Item>
                 <Nav.Item className='classLink navtext' style={{cursor:"pointer"}}>
-                    <img 
-                        alt='Cart'
-                        src={cart}
-                    />
+                    <Cart />
                     <span>Cart:({items})</span>
                 </Nav.Item>
             </Nav>  

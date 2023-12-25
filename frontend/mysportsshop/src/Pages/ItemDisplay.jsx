@@ -17,11 +17,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { sendReview } from "../ApiCalls/addReview";
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
+import useCart from "../Hooks/useCart";
 
 
 //titles and soldout symbol
 function ProductTitle({ data }) {
-    let sumDiscount = data.discount.reduce((acc, disc) => acc + disc, 0)
+    let sumDiscount = data.discount? data.discount.reduce((acc, disc) => acc + disc, 0):0
     const discounted = ((100 - sumDiscount) * data.price) / 100
 
     return (
@@ -49,6 +50,7 @@ function ProductTitle({ data }) {
 function Description({ data }) {
     return (
         <>
+            <p>By: {data.brandname}</p>
             <p>Gender: {data.gender}</p>
             <p>{data.description}</p>
         </>
@@ -145,12 +147,13 @@ function PlaceReview({ productid }) {
 }
 
 //color display
-function Color({ data }) {
+function Color({ data, newProduct }) {
     const [radioValue, setRadioValue] = useState(data.color[0]);
 
     const handleRadioChange = (value) => {
         console.log(value)
         setRadioValue(value);
+        newProduct.options[0]=value
     };
 
     return (
@@ -176,12 +179,13 @@ function Color({ data }) {
 }
 
 //size display
-function Size({ data }) {
+function Size({ data, newProduct }) {
     const [radioVal, setRadioVal] = useState(data.options[0]);
 
     const handleRadioChange = (value) => {
         console.log(value)
         setRadioVal(value);
+        newProduct.options[1]=value
     };
 
     return (
@@ -209,33 +213,35 @@ function Size({ data }) {
 //quantity button
 //add to cart option
 //follow brand option
-function FinalButtons() {
+function FinalButtons({newProduct}) {
     const [quantity, setQuantity] = useState(1);
+    const { addToCart } = useCart((state) => state);
 
     const handleAddToCart = () => {
-        // Implement your add to cart logic here
-        console.log('Added to Cart');
+        newProduct.quantity=quantity
+        console.log(newProduct)
+        addToCart(newProduct, 'cash on delivery')
+        alert('Added to Cart');
     };
 
     const handleFollowBrand = () => {
-        // Implement your follow brand logic here
         console.log('Followed Brand');
     };
 
     return (
         <>
             <div>
-                <Button variant="outline-success" onClick={() => setQuantity(quantity + 1)}  style={{margin:"10px"}}>
+                <Button variant="outline-success" onClick={() => setQuantity(quantity + 1)} style={{ margin: "10px" }}>
                     + Quantity
                 </Button>
-                <span className="mx-2">{quantity}</span>
+                <span className="mx-2" style={{ border: "1px solid lightgray", padding: "10px" }}>{quantity}</span>
             </div>
             <div className="d-flex">
-                <Button variant="warning" onClick={handleAddToCart}  style={{margin:"10px"}}>
+                <Button variant="warning" onClick={handleAddToCart} style={{ margin: "10px" }}>
                     Add to Cart
                 </Button>
 
-                <Button variant="danger" onClick={handleFollowBrand} style={{margin:"10px"}}>
+                <Button variant="danger" onClick={handleFollowBrand} style={{ margin: "10px" }}>
                     Follow Brand
                 </Button>
             </div>
@@ -251,6 +257,17 @@ function ItemDisplay() {
     console.log(itemId)
     const { error, isError, isLoading, data } = useItemDisplay(itemId)
     console.log(data)
+
+    //storing new product in cart
+    const newProduct = data? {
+        productID: data._id,
+        productname: data.name,
+        brand: data.brandname,
+        unitprice: data.price,
+        options: ['color', 'option'],
+        discount: data.discount,
+        quantity: 1
+    }:null;
 
     return (
         <>
@@ -288,11 +305,11 @@ function ItemDisplay() {
                                         </Tab>
                                     </Tabs>
                                     <div className="bordertop"></div>
-                                    <Color data={data} />
+                                    <Color data={data} newProduct={newProduct} />
                                     <div className="bordertop"></div>
-                                    <Size data={data} />
+                                    <Size data={data} newProduct={newProduct}/>
                                     <div className="bordertop"></div>
-                                    <FinalButtons />
+                                    <FinalButtons newProduct={newProduct}/>
                                 </div>
                             </Col>
                         </Row>
