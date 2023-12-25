@@ -6,7 +6,7 @@ import ItemDisplay from './Pages/ItemDisplay.jsx';
 import Login from './Pages/Login.jsx';
 import Register from './Pages/Register.jsx';
 import Profile from './Pages/Profile.jsx'
-
+import ProductFeed from './Pages/ProfuctFeed.jsx';
 
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
       {currentPage=='Login' && <Login />}
       {currentPage=='Register' && <Register />}
       {currentPage=='Profile' && <Profile />}
+      {currentPage=='ProductFeed' && <ProductFeed />}
 
     </div>
   )

@@ -7,6 +7,8 @@ const supplier=require('../controllers/supplier')
 
 supplierRoute.get('/getProduct/:id', supplier.getProduct);//getting specific product
 
+supplierRoute.get('/', supplier.getProducts);//getting all products
+
 //supplierRoute.post('/addBrand', supplier.add_supplier);//adding new supplier
 
 //supplierRoute.post('/addProduct/:id', supplier.add_Product);//adding new product and sending notification

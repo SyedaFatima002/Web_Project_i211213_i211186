@@ -77,7 +77,62 @@ exports.add_Product=async (req, res)=>{
 }
 
 //get products filtering for search happens here
+exports.getProducts=async (req, res)=>{
+    try{
+        const page = req.query.page || 1;
+        const limit = req.query.limit || 10;
 
+        let query={};
+
+        if (req.query.search) {
+            const searchRegex = new RegExp(req.query.search, 'i');
+            query = {
+                $or: [
+                    { name: searchRegex }, 
+                    { brandname: searchRegex },
+                    { sport: searchRegex }
+                ],
+            };
+        }
+
+        if (req.query.priceMin && req.query.priceMax) {
+            query.price = { $gte: req.query.priceMin, $lte: req.query.priceMax };
+        }
+
+        if (req.query.collectionName) {
+            query.collectionName = req.query.collectionName;
+        }
+
+        if (req.query.category) {
+            query.category = req.query.category;
+        }
+
+        if (req.query.sport) {
+            query.sport = req.query.sport;
+        }
+
+        if (req.query.brand){
+            query.brand=req.query.brand
+        }
+
+        const sortOptions = {};
+        if (req.query.sortBy) {
+            sortOptions[req.query.sortBy] = req.query.sortOrder === 'desc' ? -1 : 1;
+        }
+
+        const products = await Product.find(query)
+            .sort(sortOptions)
+            .skip((page - 1) * limit)
+            .limit(limit)
+            .lean();
+
+        res.status(200).json(products);
+
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message: 'Failed to get products'})
+    }
+}
 
 //get specific product
 exports.getProduct=async (req, res)=>{

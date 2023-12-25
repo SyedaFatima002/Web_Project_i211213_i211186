@@ -23,3 +23,12 @@
     width: 20px;
     height: 20px;
 }
+
+
+.black{
+    background-color: black;
+}
+
+.yellowtext{
+    color: rgb(214, 214, 26);
+}
