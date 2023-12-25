@@ -7,8 +7,8 @@ const useFilters = create((set) => ({
     Collection: '',//
     category: '',//
     sport: '',//
-    brandname: '',//
-    page: 1,//
+    brandname: '',
+    page: 1,
     limit: 10,
     sortOrder: '',
     sortBy: 'price',

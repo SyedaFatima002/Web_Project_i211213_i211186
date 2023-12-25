@@ -51,11 +51,11 @@ function Price({ data }) {
     )
 }
 
-function Gender({data}){
-    const {gender, setGender}=useFilters();
+function Gender({ data }) {
+    const { gender, setGender } = useFilters();
 
-    const handleGender=(gender)=>{
-       setGender(gender)
+    const handleGender = (gender) => {
+        setGender(gender)
     }
 
     return (
@@ -63,29 +63,60 @@ function Gender({data}){
             <Row>
                 <Col>
                     <Form.Group controlId="gender">
-                    <Form.Label>Select Gender</Form.Label>
-                    {data && data.gender.map((g, index)=>(
+                        <Form.Label>Select Gender</Form.Label>
+                        {data && data.gender.map((g, index) => (
+                            <Form.Check
+                                type={'radio'}
+                                key={index}
+                                id={g}
+                                label={g}
+                                checked={gender === g}
+                                onChange={() => handleGender(g)}
+                            />
+                        ))}
                         <Form.Check
-                        type={'radio'}
-                        key={index}
-                        id={g}
-                        label={g}
-                        checked={gender===g}
-                        onChange={() => handleGender(g)}
-                      />
-                    ))}
-                    <Form.Check
-                        type={'radio'}
-                        id={4}
-                        label={'All'}
-                        onChange={() => handleGender('')}
-                      />
+                            type={'radio'}
+                            id={4}
+                            label={'All'}
+                            onChange={() => handleGender('')}
+                        />
                     </Form.Group>
                 </Col>
             </Row>
         </div>
     )
 }
+
+function BrandName({ data }) {
+    const { brandname, setBrand } = useFilters();
+
+    const handleBrand=(brand)=>{
+        setBrand(brand)
+    }
+
+    return (
+        <div>
+            <Row>
+                <Col>
+                    <Form.Group controlId="brand">
+                        <Form.Label>Select By Brand Name</Form.Label>
+                        {data && data.brandnames.map((brand, index)=>(
+                            <Form.Check
+                            type={'radio'}
+                            key={index}
+                            id={brand}
+                            label={brand}
+                            checked={brandname === brand}
+                            onChange={()=>handleBrand(brand)}
+                        />
+                        ))}
+                    </Form.Group>
+                </Col>
+            </Row>
+        </div>
+    );
+}
+
 
 function Filters() {
     const { error, isError, isLoading, data } = useGetFilters();
@@ -99,6 +130,7 @@ function Filters() {
                 <div>
                     <Price data={data} />
                     <Gender data={data} />
+                    <BrandName data={data} />
                 </div>
             }
         </>
