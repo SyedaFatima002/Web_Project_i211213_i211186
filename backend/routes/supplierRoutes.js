@@ -9,6 +9,8 @@ supplierRoute.get('/getProduct/:id', supplier.getProduct);//getting specific pro
 
 supplierRoute.get('/', supplier.getProducts);//getting all products
 
+supplierRoute.get('/filters', supplier.getFilters);//call to get filters
+
 //supplierRoute.post('/addBrand', supplier.add_supplier);//adding new supplier
 
 //supplierRoute.post('/addProduct/:id', supplier.add_Product);//adding new product and sending notification

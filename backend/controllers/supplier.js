@@ -158,3 +158,40 @@ exports.getProduct = async (req, res) => {
         res.status(500).json({ message: 'Failed to find Product' })
     }
 }
+
+//getting filters for filter side bar
+exports.getFilters = async (req, res) => {
+    try {
+        const filters = await Product.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    genders: { $addToSet: '$gender' },
+                    sports: { $addToSet: '$sport' },
+                    categories: { $addToSet: '$categories' },
+                    brandnames: { $addToSet: '$brandname' },
+                    Collections: { $addToSet: '$Collection' },
+                    minPrice: { $min: '$price' },
+                    maxPrice: { $max: '$price' },
+                }
+            },
+            { $project: { _id: 0 } },
+        ]);
+
+        const response = {
+            gender: filters.length > 0 ? filters[0].genders : [],
+            sports: filters.length > 0 ? filters[0].sports : [],
+            categories: filters.length > 0 ? filters.flat(Infinity).map(filter => filter.categories).flat() : [],
+            brandnames: filters.length > 0 ? filters[0].brandnames : [],
+            Collections: filters.length > 0 ? filters[0].Collections : [],
+            minPrice: filters.length > 0 ? filters[0].minPrice : 0,
+            maxPrice: filters.length > 0 ? filters[0].maxPrice : 0,
+        };
+
+        res.status(200).json(response);
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Failed to get Filters' })
+    }
+}
