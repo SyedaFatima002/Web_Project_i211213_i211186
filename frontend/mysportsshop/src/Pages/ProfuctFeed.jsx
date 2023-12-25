@@ -2,8 +2,9 @@ import NavBar from "../Components/NavBar";
 import useProductCall from "../Hooks/useProductCall";
 import '../CSS/feed.css'
 import { useState } from "react";
-import { Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
+import Form from 'react-bootstrap/Form'
 import showImage from '../Assets/menuOpen.svg'
 import notshow from '../Assets/menuClosed.svg'
 import Button from 'react-bootstrap/Button';
@@ -13,11 +14,93 @@ import useItemId from "../Hooks/useItemId";
 import useLogin from "../Hooks/useLogin";
 import Pagination from 'react-bootstrap/Pagination';
 import useFilters from "../Hooks/useFilters";
+import useGetFilters from "../Hooks/useGetFilters";
 
-function Filters() {
+function Price({ data }) {
+    const { setPriceMin, setPriceMax } = useFilters();
+
+    const handlePriceMin = (e) => {
+        setPriceMin(e.target.value)
+    }
+
+    const handlePriceMax = (e) => {
+        setPriceMax(e.target.value)
+    }
+
     return (
         <>
-            
+            <Row>
+                <Col>
+                    <Form.Group controlId="priceRange">
+                        <Form.Label>Select Price Preference</Form.Label>
+                        <Form.Control type="textbox"
+                            placeholder="Min Price"
+                            style={{
+                                fontSize: 'small',
+                                marginBottom: '5px'
+                            }}
+                            onChange={handlePriceMin} />
+                        <Form.Control type="textbox"
+                            placeholder="Max Price"
+                            style={{ fontSize: 'small', marginBottom: '15px' }}
+                            onChange={handlePriceMax} />
+                    </Form.Group>
+                </Col>
+            </Row>
+        </>
+    )
+}
+
+function Gender({data}){
+    const {gender, setGender}=useFilters();
+
+    const handleGender=(gender)=>{
+       setGender(gender)
+    }
+
+    return (
+        <div>
+            <Row>
+                <Col>
+                    <Form.Group controlId="gender">
+                    <Form.Label>Select Gender</Form.Label>
+                    {data && data.gender.map((g, index)=>(
+                        <Form.Check
+                        type={'radio'}
+                        key={index}
+                        id={g}
+                        label={g}
+                        checked={gender===g}
+                        onChange={() => handleGender(g)}
+                      />
+                    ))}
+                    <Form.Check
+                        type={'radio'}
+                        id={4}
+                        label={'All'}
+                        onChange={() => handleGender('')}
+                      />
+                    </Form.Group>
+                </Col>
+            </Row>
+        </div>
+    )
+}
+
+function Filters() {
+    const { error, isError, isLoading, data } = useGetFilters();
+    console.log(data)
+
+    return (
+        <>
+            {isLoading && <div>Loading Filters</div>}
+            {isError && <div>Filters unavailable</div>}
+            {data &&
+                <div>
+                    <Price data={data} />
+                    <Gender data={data} />
+                </div>
+            }
         </>
     );
 }
@@ -47,7 +130,7 @@ function Display() {
     console.log(data)
     return (
         <div className="container">
-            <Row xs={1} md={2} lg={4}>
+            <Row xs={1} md={2} lg={3}>
                 {isError && <div>Error in getting products</div>}
                 {isLoading && <div> Products are on the way</div>}
                 {data && data.length > 0 &&
@@ -60,7 +143,7 @@ function Display() {
                                 <Card.Body>
                                     <Card.Title>{product.name}</Card.Title>
                                     <Card.Text><b>Price:</b> ${product.price}<br></br>
-                                        <b>For: </b> {product.sport} <br></br>
+                                        <b>For: </b> {product.sport} ({product.gender}) <br></br>
                                         <b>From:</b> {product.brandname}
                                         {product.Collection !== null && <span style={{ fontSize: "small" }}> ({product.Collection})</span>}
                                     </Card.Text>

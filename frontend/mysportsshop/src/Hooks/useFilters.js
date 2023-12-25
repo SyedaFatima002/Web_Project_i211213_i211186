@@ -11,8 +11,8 @@ const useFilters = create((set) => ({
     page: 1,//
     limit: 10,
     sortOrder: '',
-    sortBy: '',//
-    gender:'',//
+    sortBy: 'price',
+    gender:'',
 
     setSearch: (s) => set({ search: s }),
     setPriceMin: (pmin) => set({ priceMin: pmin }),

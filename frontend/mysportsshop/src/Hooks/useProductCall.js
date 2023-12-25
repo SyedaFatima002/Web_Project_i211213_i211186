@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import useFilters from './useFilters';
 
 const useProductCall = () => {
-    const { search, priceMin, priceMax, Collection, category, sport, brandname, page, limit, sortOrder, sortBy } = useFilters();
+    const { search, priceMin, priceMax, Collection, category, sport, brandname, page, limit, sortOrder, sortBy, gender } = useFilters();
 
     const buildQueryParam = (param, value) => value ? `${param}=${value}` : '';
     const fecthProducts = async () => {
@@ -20,6 +20,7 @@ const useProductCall = () => {
                 buildQueryParam('category', category),
                 buildQueryParam('sport', sport),
                 buildQueryParam('brandname', brandname),
+                buildQueryParam('gender', gender),
             ].filter(Boolean).join('&');
 
             const response = await axios.get(`http://localhost:3001/supplier?${queryParams}`);
@@ -31,7 +32,7 @@ const useProductCall = () => {
     }
 
     return useQuery({
-        queryKey: ['getallProducts', page],
+        queryKey: ['getallProducts', search, priceMin, priceMax, Collection, category, sport, brandname, page, limit, sortOrder, sortBy, gender],
         queryFn: fecthProducts
     })
 
