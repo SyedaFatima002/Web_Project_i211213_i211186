@@ -253,7 +253,7 @@ function Display() {
                 {data && data.length > 0 &&
                     (data.map((product) => (
                         <Col key={product._id} className="mb-4">
-                            <Card style={{ height: '450px', width:'250px'}}>
+                            <Card style={{ height: '450px', width:'300px'}}>
                                 <Card.Img variant="top"
                                     src={product.image}
                                     style={{ objectFit: 'cover', height: '40%' }} />
