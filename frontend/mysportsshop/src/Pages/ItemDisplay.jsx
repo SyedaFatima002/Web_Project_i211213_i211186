@@ -22,7 +22,7 @@ import useCart from "../Hooks/useCart";
 
 //titles and soldout symbol
 function ProductTitle({ data }) {
-    let sumDiscount = data.discount? data.discount.reduce((acc, disc) => acc + disc, 0):0
+    let sumDiscount = data.discount ? data.discount.reduce((acc, disc) => acc + disc, 0) : 0
     const discounted = ((100 - sumDiscount) * data.price) / 100
 
     return (
@@ -153,7 +153,7 @@ function Color({ data, newProduct }) {
     const handleRadioChange = (value) => {
         console.log(value)
         setRadioValue(value);
-        newProduct.options[0]=value
+        newProduct.options[0] = value
     };
 
     return (
@@ -185,7 +185,7 @@ function Size({ data, newProduct }) {
     const handleRadioChange = (value) => {
         console.log(value)
         setRadioVal(value);
-        newProduct.options[1]=value
+        newProduct.options[1] = value
     };
 
     return (
@@ -213,14 +213,15 @@ function Size({ data, newProduct }) {
 //quantity button
 //add to cart option
 //follow brand option
-function FinalButtons({newProduct}) {
+function FinalButtons({ newProduct }) {
     const [quantity, setQuantity] = useState(1);
     const { addToCart } = useCart((state) => state);
+    const { products } = useCart()
 
     const handleAddToCart = () => {
-        newProduct.quantity=quantity
-        console.log(newProduct)
+        newProduct.quantity = quantity
         addToCart(newProduct, 'cash on delivery')
+        
         alert('Added to Cart');
     };
 
@@ -259,15 +260,16 @@ function ItemDisplay() {
     console.log(data)
 
     //storing new product in cart
-    const newProduct = data? {
+    const newProduct = data ? {
         productID: data._id,
         productname: data.name,
         brand: data.brandname,
         unitprice: data.price,
         options: ['color', 'option'],
         discount: data.discount,
-        quantity: 1
-    }:null;
+        quantity: 1, 
+        image:data.image
+    } : null;
 
     return (
         <>
@@ -307,9 +309,9 @@ function ItemDisplay() {
                                     <div className="bordertop"></div>
                                     <Color data={data} newProduct={newProduct} />
                                     <div className="bordertop"></div>
-                                    <Size data={data} newProduct={newProduct}/>
+                                    <Size data={data} newProduct={newProduct} />
                                     <div className="bordertop"></div>
-                                    <FinalButtons newProduct={newProduct}/>
+                                    <FinalButtons newProduct={newProduct} />
                                 </div>
                             </Col>
                         </Row>

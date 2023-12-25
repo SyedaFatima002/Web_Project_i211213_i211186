@@ -72,7 +72,7 @@ function WishItem(){
                                 {item.name}
                             </span>                    
                         </Col>
-                        <Col>{item.price}</Col>
+                        <Col>$ {item.price}</Col>
                         <Col>{item.soldout?"Out of Stock":"In Stock"}</Col>
                         <Col>
                             <Button variant="outline-warning" size="sm">Add to Cart</Button>{' '}

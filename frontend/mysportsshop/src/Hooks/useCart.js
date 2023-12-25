@@ -8,7 +8,8 @@ const useCart=create((set)=>({
         unitprice:0,
         options:[],
         discount:[],
-        quantity:1
+        quantity:1,
+        image:''
     },
     products:[],
     totalAmount:0,
@@ -19,13 +20,14 @@ const useCart=create((set)=>({
     addToCart: (product, paymentMethod)=>{
         set((state)=>{
             const newProduct=[...state.products, { ...state.productSchema, ...product }]
+            
             let Total=state.totalAmount + (product.unitprice*product.quantity)
             let newTotal=Total
             let sumDiscount=product.discount? product.discount.reduce((acc, disc)=> acc+disc, 0):0
 
             newTotal=((100-sumDiscount)*newTotal)/100
             const totalItems=newProduct.length
-
+            
             return {
                 products: newProduct,
                 totalAmount: Total,
