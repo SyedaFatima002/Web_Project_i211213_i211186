@@ -209,7 +209,7 @@ exports.getcustomer_profile=async(req, res)=>{
 
 //add brand to follow
 exports.follow_brand=async(req, res)=>{
-    const brandId=req.params.id;
+    const brandId=req.params.name;
 
     const token=req.token
 
@@ -220,7 +220,7 @@ exports.follow_brand=async(req, res)=>{
     try{
         //finding customer and brand
         const follower=await Customer.findById(token.userid);
-        const brand=await Brand.findById(brandId);
+        const brand=await Brand.findOne({brandname:brandId});
 
         //Error handling
         if (!follower || !brand){
@@ -228,12 +228,12 @@ exports.follow_brand=async(req, res)=>{
         }
 
         //making sure they are not already following each other
-        if (follower.following.includes(brandId)){
+        if (follower.following.includes(brand._id)){
             return res.status(400).json({message:'You are already following '+ brand.name})
         }
 
         //adding to customer folowing list
-        follower.following.push(brandId);
+        follower.following.push(brand._id);
         await follower.save();
 
         //adding to brand

@@ -19,6 +19,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import useCart from "../Hooks/useCart";
 import { addToWishList } from "../ApiCalls/addToWishlist";
+import { followBrand } from "../ApiCalls/followBrand";
 
 
 
@@ -217,6 +218,7 @@ function Size({ data, newProduct }) {
 //follow brand option
 function FinalButtons({ newProduct }) {
     const [quantity, setQuantity] = useState(1);
+    const [check, setCheck]=useState(true)
     const { addToCart } = useCart((state) => state);
     const {token}=useUser();
 
@@ -232,6 +234,17 @@ function FinalButtons({ newProduct }) {
         }
     })
 
+    const followingMutation=useMutation({
+        mutationFn: async(item)=> {
+            try{
+                const result= await followBrand(item.token, item.followid)
+                return result
+            }catch(err){
+                console.error('Error deleting wish item:', err);
+                throw err;
+            }
+        }
+    })
 
     const handleAddToCart = () => {
         newProduct.quantity = quantity
@@ -240,8 +253,19 @@ function FinalButtons({ newProduct }) {
         alert('Added to Cart');
     };
 
-    const handleFollowBrand = () => {
+    const handleFollowBrand = (e) => {
+        e.preventDefault();
+        followingMutation.mutate({
+            token,
+            followid:newProduct.brand
+        },{ 
+            onSuccess: (data) => {
+                console.log(data);
+            },
+        })
         console.log('Followed Brand');
+        setCheck(false)
+        alert('You now follow '+ newProduct.brand)
     };
 
     const handleAddToWishList=(e)=>{
@@ -254,6 +278,8 @@ function FinalButtons({ newProduct }) {
                 console.log(data);
             },
         })
+
+        
     }
 
     return (
@@ -269,7 +295,7 @@ function FinalButtons({ newProduct }) {
                     Add to Cart
                 </Button>
 
-                <Button variant="dark" onClick={handleFollowBrand} style={{ margin: "10px" }}>
+                <Button variant="dark" onClick={(e)=>handleFollowBrand(e)} style={{ margin: "10px" }} active={check}>
                     Follow Brand
                 </Button>
 

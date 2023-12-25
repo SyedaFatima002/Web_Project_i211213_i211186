@@ -23,7 +23,7 @@ customerRoute.put('/profile/phone', authCustomer, customer.update_phoneNumber);/
 
 customerRoute.get('/profile/', authCustomer, customer.getcustomer_profile);//getting user profile
 
-customerRoute.put('/follow/:id', authCustomer, customer.follow_brand);//following brand
+customerRoute.put('/follow/:name', authCustomer, customer.follow_brand);//following brand
 
 customerRoute.put('/unfollow/:id', authCustomer, customer.unfollow_brand);//unfollowing brand
 

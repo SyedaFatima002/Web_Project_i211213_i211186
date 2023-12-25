@@ -14,6 +14,7 @@ const useFollowing=()=>{
             });
             
             console.log(response.data)
+            console.log('yo')
             return response.data
 
         }catch(error){
