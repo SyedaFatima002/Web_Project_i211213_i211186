@@ -1,0 +1,14 @@
+.feedflex{
+    display: flex;
+    flex-direction: row;
+    margin: 2%;
+}
+
+.filtercol{
+    border-right: 1px solid rgb(223, 183, 189);
+    padding-right: 4%;
+}
+
+.prodcol{
+    padding-left: 3%;
+}
