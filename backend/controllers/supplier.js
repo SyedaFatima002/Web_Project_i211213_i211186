@@ -106,8 +106,8 @@ exports.getProducts = async (req, res) => {
             query.Collection = req.query.Collection;
         }
 
-        if (req.query.category) {
-            query.category = req.query.category;
+        if (req.query.categories) {
+            query.categories = req.query.categories;
         }
 
         if (req.query.sport) {

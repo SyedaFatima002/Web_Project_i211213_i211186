@@ -5,7 +5,7 @@ const useFilters = create((set) => ({
     priceMin: 0,
     priceMax: Infinity,
     Collection: '',
-    category: '',
+    categories: '',
     sport: '',
     brandname: '',
     page: 1,
@@ -24,7 +24,8 @@ const useFilters = create((set) => ({
     setLimit: (lim) => set({ limit: lim }),
     setSortOrder: (or) => set({ sortOrder: or }),
     setSortBy: (sb) => set({ sortBy: sb }),
-    setGender: (g)=>set({gender:g})
+    setGender: (g)=>set({gender:g}),
+    setCategory: (cat)=>set({categories:cat})
 
 }))
 

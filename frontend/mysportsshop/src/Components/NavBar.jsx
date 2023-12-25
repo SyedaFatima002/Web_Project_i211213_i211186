@@ -8,9 +8,15 @@ import Navbar from 'react-bootstrap/Navbar';
 import Logo from '../Assets/logo.png';
 import usePage from "../Hooks/usePage";
 import NavBottom from "./NavBottom";
+import useFilters from "../Hooks/useFilters";
 
 function NavBar() {
     const setPage = usePage((state) => state.setPage);
+    const { setSearch } = useFilters()
+
+    const handleSearch = (search) => {
+        setSearch(search);
+    }
     return (
         <>
             <NavTop />
@@ -40,6 +46,7 @@ function NavBar() {
                                 placeholder="Search"
                                 className="me-3"
                                 aria-label="Search"
+                                onChange={(e)=>handleSearch(e.target.value)}
                             />
                             <Button variant="outline-warning">Search</Button>
                         </Form>

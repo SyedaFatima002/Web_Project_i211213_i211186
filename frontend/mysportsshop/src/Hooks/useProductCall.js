@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import useFilters from './useFilters';
 
 const useProductCall = () => {
-    const { search, priceMin, priceMax, Collection, category, sport, brandname, page, limit, sortOrder, sortBy, gender } = useFilters();
+    const { search, priceMin, priceMax, Collection, categories, sport, brandname, page, limit, sortOrder, sortBy, gender } = useFilters();
 
     const buildQueryParam = (param, value) => value ? `${param}=${value}` : '';
     const fecthProducts = async () => {
@@ -17,7 +17,7 @@ const useProductCall = () => {
                 buildQueryParam('priceMin', priceMin),
                 buildQueryParam('priceMax', priceMax),
                 buildQueryParam('Collection', Collection),
-                buildQueryParam('category', category),
+                buildQueryParam('categories', categories),
                 buildQueryParam('sport', sport),
                 buildQueryParam('brandname', brandname),
                 buildQueryParam('gender', gender),
@@ -32,7 +32,7 @@ const useProductCall = () => {
     }
 
     return useQuery({
-        queryKey: ['getallProducts', search, priceMin, priceMax, Collection, category, sport, brandname, page, limit, sortOrder, sortBy, gender],
+        queryKey: ['getallProducts', search, priceMin, priceMax, Collection, categories, sport, brandname, page, limit, sortOrder, sortBy, gender],
         queryFn: fecthProducts
     })
 

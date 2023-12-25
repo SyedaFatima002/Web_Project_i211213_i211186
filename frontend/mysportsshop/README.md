@@ -42,6 +42,13 @@ Currently, two official plugins are available:
 5. Color better if you have time
 6. Follow Brand on Item page and unfollow on profile
 
+what is actully left
+home page
+profile management
+add to wishlist
+unfollow brand
+place order
+show order history
 
 
 

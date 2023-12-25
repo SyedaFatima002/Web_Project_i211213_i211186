@@ -10,8 +10,6 @@ import { Container, Row, Col } from "react-bootstrap";
 
 
 function BillingDetails() {
-    const { login } = useLogin();
-
     return (
         <>
             <div style={{ margin: '3%', textAlign: 'center' }}>
