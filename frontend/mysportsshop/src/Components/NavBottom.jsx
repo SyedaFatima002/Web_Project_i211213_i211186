@@ -19,6 +19,9 @@ function NavBottom() {
                 <Nav.Item>
                     <Nav.Link eventKey="collection" style={{ color: 'rgb(214, 214, 26)' }}>Collections</Nav.Link>
                 </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="catagories" style={{ color: 'rgb(214, 214, 26)' }}>Catagories</Nav.Link>
+                </Nav.Item>
             </Nav>
         </>
     )
