@@ -46,7 +46,7 @@ what is actully left
 home page
 profile management
 add to wishlist
-unfollow brand
+follow and unfollow brand
 place order
 show order history
 
