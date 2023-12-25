@@ -45,7 +45,6 @@ Currently, two official plugins are available:
 what is actully left
 home page?
 profile management
-add to wishlist
 follow and unfollow brand
 place order
 show order history

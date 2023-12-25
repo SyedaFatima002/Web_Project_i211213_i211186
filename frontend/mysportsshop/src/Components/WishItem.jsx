@@ -51,6 +51,11 @@ function WishItem(){
         setPage("ItemDisplay")
     }
 
+    const goToPage=(itemid)=>{
+        setItemId(itemid);
+        setPage("ItemDisplay")
+    }
+
     return(
         <>
         { isError && <div>Sorry we cant do shit. Gonna change this late {error.message} </div>}
@@ -75,7 +80,7 @@ function WishItem(){
                         <Col>$ {item.price}</Col>
                         <Col>{item.soldout?"Out of Stock":"In Stock"}</Col>
                         <Col>
-                            <Button variant="outline-warning" size="sm">Add to Cart</Button>{' '}
+                            <Button variant="outline-warning" size="sm" onClick={()=>goToPage(item._id)}>Add to Cart</Button>{' '}
                             <Button variant="outline-danger" size="sm" onClick={(e)=>handleRemoval(e, item._id)}>Remove</Button>
                         </Col>
                     </Row>
