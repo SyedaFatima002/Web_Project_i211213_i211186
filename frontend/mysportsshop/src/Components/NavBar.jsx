@@ -22,9 +22,9 @@ function NavBar() {
                             src={Logo}
                             width="40px"
                             height="40px"
-                            onClick={() => setPage("HomePage")}
+                            onClick={() => setPage("ProductFeed")}
                         />
-                        <span className="font" onClick={() => setPage("HomePage")}><b>The Sports Store</b></span>
+                        <span className="font" onClick={() => setPage("ProductFeed")}><b>The Sports Store</b></span>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
