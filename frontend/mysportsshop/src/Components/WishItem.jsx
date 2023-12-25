@@ -24,7 +24,7 @@ function WishItem(){
             try{
                 const result= await deleteWishItem(item.token, item.wishId)
                 return result
-            }catch(err){
+            }catch(error){
                 console.error('Error deleting wish item:', error);
                 throw error;
             }

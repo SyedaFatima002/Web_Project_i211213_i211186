@@ -18,6 +18,8 @@ import { sendReview } from "../ApiCalls/addReview";
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import useCart from "../Hooks/useCart";
+import { addToWishList } from "../ApiCalls/addToWishlist";
+
 
 
 //titles and soldout symbol
@@ -216,7 +218,20 @@ function Size({ data, newProduct }) {
 function FinalButtons({ newProduct }) {
     const [quantity, setQuantity] = useState(1);
     const { addToCart } = useCart((state) => state);
-    const { products } = useCart()
+    const {token}=useUser();
+
+    const additionMutation=useMutation({
+        mutationFn: async(item)=> {
+            try{
+                const result= await addToWishList(item.token, item.wishId)
+                return result
+            }catch(err){
+                console.error('Error deleting wish item:', err);
+                throw err;
+            }
+        }
+    })
+
 
     const handleAddToCart = () => {
         newProduct.quantity = quantity
@@ -228,6 +243,18 @@ function FinalButtons({ newProduct }) {
     const handleFollowBrand = () => {
         console.log('Followed Brand');
     };
+
+    const handleAddToWishList=(e)=>{
+        e.preventDefault();
+        additionMutation.mutate({
+            token,
+            wishId:newProduct.productID
+        },{
+            onSuccess: (data) => {
+                console.log(data);
+            },
+        })
+    }
 
     return (
         <>
@@ -242,8 +269,12 @@ function FinalButtons({ newProduct }) {
                     Add to Cart
                 </Button>
 
-                <Button variant="danger" onClick={handleFollowBrand} style={{ margin: "10px" }}>
+                <Button variant="dark" onClick={handleFollowBrand} style={{ margin: "10px" }}>
                     Follow Brand
+                </Button>
+
+                <Button variant="danger" onClick={(e)=>handleAddToWishList(e)} style={{ margin: "10px" }}>
+                    Add Item To Wishlist
                 </Button>
             </div>
         </>

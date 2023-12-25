@@ -43,7 +43,7 @@ Currently, two official plugins are available:
 6. Follow Brand on Item page and unfollow on profile
 
 what is actully left
-home page
+home page?
 profile management
 add to wishlist
 follow and unfollow brand
