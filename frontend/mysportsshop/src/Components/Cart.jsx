@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import trash from '../Assets/trash.svg';
 import { Button } from "react-bootstrap";
+import usePage from '../Hooks/usePage';
 
 function DisplayItem() {
     const { products, removeFromCart } = useCart();
@@ -48,6 +49,7 @@ function DisplayItem() {
 function Payment() {
     const { totalAmount, AmountDisc, paymentMethod, updatePaymentMethod } = useCart();
     const [check, setPay]=useState('cash');
+    const {currentPage, setPage}=usePage();
 
     const handleCash=()=>{
         setPay('cash')
@@ -82,7 +84,7 @@ function Payment() {
                     <Col><b>Payable Total:</b></Col>
                     <Col>{AmountDisc}</Col>
                 </Row>
-                <Button variant="dark">
+                <Button variant="dark" onClick={()=>setPage('Order')} active={currentPage!=='Order'}>
                     Checkout
                 </Button>
             </div>

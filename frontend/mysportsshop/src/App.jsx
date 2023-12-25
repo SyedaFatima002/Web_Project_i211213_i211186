@@ -7,6 +7,7 @@ import Login from './Pages/Login.jsx';
 import Register from './Pages/Register.jsx';
 import Profile from './Pages/Profile.jsx'
 import ProductFeed from './Pages/ProfuctFeed.jsx';
+import Order from './Pages/Order.jsx';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       {currentPage=='Register' && <Register />}
       {currentPage=='Profile' && <Profile />}
       {currentPage=='ProductFeed' && <ProductFeed />}
+      {currentPage=='Order' && <Order />}
 
     </div>
   )
