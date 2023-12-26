@@ -77,10 +77,9 @@ exports.update_username=async(req, res)=>{
     if (!token){
         return res.status(401).json({message:'Token not found'})
     }
-
     try{
         await Customer.findByIdAndUpdate(token.userid, {$set: {username:req.body.username}})
-        res.status(200).json({message:'Username updated successfully'})
+        res.status(200).json({message:'Username updated successfully'+ req.body.username})
 
     }catch(err){
         res.status(500).json({message: 'Error in updating username'})
