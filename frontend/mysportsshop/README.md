@@ -18,7 +18,7 @@ Currently, two official plugins are available:
 6. Order Page
 7. Notification Page//
 8. Profile Page
-    a. Profile Management
+    a. Profile Management//
     b. Following List//
     c. View Order History
     d. View Loyalty Points//
@@ -44,7 +44,6 @@ Currently, two official plugins are available:
 
 what is actully left
 home page?
-profile management
 place order
 show order history
 OAuth
