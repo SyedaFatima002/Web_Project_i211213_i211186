@@ -42,10 +42,9 @@ Currently, two official plugins are available:
 
 
 what is actully left
-place order
+place order + loyalty points
 show order history
 OAuth
-Logout
 
 
 

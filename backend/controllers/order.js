@@ -115,6 +115,7 @@ exports.makeOrder=async(req, res)=>{
             customer:req.body.customer,
             products:req.body.products,
             totalAmount:req.body.totalAmount,
+            AmountDisc:req.body.AmountDisc,
             paymentMethod:req.body.paymentMethod,
             status:req.body.status
         });
@@ -151,11 +152,11 @@ exports.getOrderStatus=async(req, res)=>{
 
 //view order history
 exports.order_history=async(req, res)=>{
-    const {email}=req.body;
+    const {username}=req.body;
 
     try{
-        const orders=await Order.find({"customer.email":email})
-        
+        const orders=await Order.find({"customer.username":username})
+         
         if (!orders){
             return res.status(404).json({message:'Order History not Found'})
         }

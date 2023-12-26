@@ -9,6 +9,7 @@ import Following from "../Components/Following";
 import LoyaltyPoints from "../Components/LoyaltyPoints";
 import Notification from "../Components/Notification";
 import UpdateProfile from "../Components/UpdateProfile";
+import OrderHistory from "../Components/OrderHistory";
 
 function ProfileTab() {
     const { username } = useUser();
@@ -32,7 +33,7 @@ function ProfileTab() {
                     </Tab>
 
                     <Tab eventKey="history" title="Order History">
-                        Tab content for Loooonger Tab
+                        <OrderHistory />
                     </Tab>
 
                     <Tab eventKey="loyalty" title="View Loyalty Points">
