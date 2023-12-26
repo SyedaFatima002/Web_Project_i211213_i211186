@@ -10,7 +10,10 @@ function Notification(){
     const {error, isError, isLoading, data}=useNotification();
     console.log(data)
     return (
-        <>
+        <div style={{padding:'5%'}}>
+            <div style={{textAlign:'center'}}>
+                <h5>Your Notifications</h5>
+            </div>
             {isError && <div>Sorry we cant do shit. Gonna change this late {error.message}</div>}
             {isLoading && <div>Loading Following List</div>}
             {data && data.notifications && data.notifications.length > 0 ? (
@@ -24,7 +27,7 @@ function Notification(){
             ) : (
                 <div>You Don't Have any Notifications</div>
             )}
-        </>
+        </div>
     );
 }
 
