@@ -8,6 +8,7 @@ import Register from './Pages/Register.jsx';
 import Profile from './Pages/Profile.jsx'
 import ProductFeed from './Pages/ProfuctFeed.jsx';
 import Order from './Pages/Order.jsx';
+import PaymentDisplay from './Pages/PaymentDisplay.jsx';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       {currentPage=='Profile' && <Profile />}
       {currentPage=='ProductFeed' && <ProductFeed />}
       {currentPage=='Order' && <Order />}
+      {currentPage=='PaymentDisplay' && <PaymentDisplay />}
 
     </div>
   )

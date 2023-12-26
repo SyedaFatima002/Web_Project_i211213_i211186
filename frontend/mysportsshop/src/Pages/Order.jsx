@@ -8,20 +8,21 @@ import '../CSS/cart.css';
 import { Container, Row, Col, Button } from "react-bootstrap";
 import useProfile from "../Hooks/useProfile";
 import { useEffect, useState } from "react";
+import usePage from "../Hooks/usePage";
 
-function BillingLoggedIn({customer, setCustomer}) {
+function BillingLoggedIn({ customer, setCustomer }) {
     const { error, isError, isLoading, data } = useProfile();
 
-    useEffect(()=>{
-        if (data){
-            setCustomer((prevCustomer)=>({
+    useEffect(() => {
+        if (data) {
+            setCustomer((prevCustomer) => ({
                 ...prevCustomer,
-                name:data.username || "",
-                email:data.email || "",
-                phone:data.phoneNumber || "",
-                address:data.Address[0].address || "",
-                city:data.Address[0].city || "",
-                country:data.Address[0].country || ""
+                name: data.username || "",
+                email: data.email || "",
+                phone: data.phoneNumber || "",
+                address: data.Address[0].address || "",
+                city: data.Address[0].city || "",
+                country: data.Address[0].country || ""
             }))
         }
 
@@ -92,17 +93,17 @@ function BillingLoggedIn({customer, setCustomer}) {
     );
 }
 
-function BillingDetails({customer, setCustomer}) {
-    const [name, setName]=useState();
-    const [email, setEmail]=useState();
-    const [phone, setPhone]=useState();
-    const [address, setAdd]=useState();
-    const [city, setCity]=useState();
-    const [country, setCountry]=useState();
+function BillingDetails({ customer, setCustomer }) {
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
+    const [phone, setPhone] = useState();
+    const [address, setAdd] = useState();
+    const [city, setCity] = useState();
+    const [country, setCountry] = useState();
 
-    useEffect(()=>{
+    useEffect(() => {
         const updatedCustomer = {
-            name: name || "",       
+            name: name || "",
             email: email || "",
             phone: phone || "",
             address: address || "",
@@ -110,7 +111,7 @@ function BillingDetails({customer, setCustomer}) {
             country: country || ""
         };
 
-    
+
         setCustomer(updatedCustomer);
 
     }, name, email, phone, address, city, country)
@@ -127,7 +128,7 @@ function BillingDetails({customer, setCustomer}) {
                         placeholder="Recipient's Name"
                         aria-label="Recipient's name"
                         aria-describedby="basic-addon1"
-                        onChange={(e)=>setName(e.target.value)}
+                        onChange={(e) => setName(e.target.value)}
                     />
                 </InputGroup>
 
@@ -137,7 +138,7 @@ function BillingDetails({customer, setCustomer}) {
                         placeholder="Recipient's Phone Number"
                         aria-label="Recipient's phoneNum"
                         aria-describedby="basic-addon2"
-                        onChange={(e)=>setPhone(e.target.value)}
+                        onChange={(e) => setPhone(e.target.value)}
                     />
                 </InputGroup>
 
@@ -147,7 +148,7 @@ function BillingDetails({customer, setCustomer}) {
                         placeholder="Recipient's Phone Email"
                         aria-label="Recipient's email"
                         aria-describedby="basic-addon3"
-                        onChange={(e)=>setEmail(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </InputGroup>
 
@@ -157,7 +158,7 @@ function BillingDetails({customer, setCustomer}) {
                         placeholder="Street Address"
                         aria-label="Recipient's address"
                         aria-describedby="basic-addon4"
-                        onChange={(e)=>setAdd(e.target.value)}
+                        onChange={(e) => setAdd(e.target.value)}
                     />
 
                     <InputGroup.Text id="basic-addon5" className="color">City</InputGroup.Text>
@@ -165,7 +166,7 @@ function BillingDetails({customer, setCustomer}) {
                         placeholder="City"
                         aria-label="Recipient's city"
                         aria-describedby="basic-addon5"
-                        onChange={(e)=>setCity(e.target.value)}
+                        onChange={(e) => setCity(e.target.value)}
                     />
 
                     <InputGroup.Text id="basic-addon6" className="color">Country</InputGroup.Text>
@@ -173,7 +174,7 @@ function BillingDetails({customer, setCustomer}) {
                         placeholder="Country"
                         aria-label="Recipient's county"
                         aria-describedby="basic-addon6"
-                        onChange={(e)=>setCountry(e.target.value)}
+                        onChange={(e) => setCountry(e.target.value)}
                     />
                 </InputGroup>
             </Form>
@@ -242,17 +243,22 @@ function Billing() {
     );
 }
 
-function Payment() {
-    const { paymentMethod } = useCart();
+function Payment({ customer }) {
+    const { paymentMethod, products, totalAmount, AmountDisc, status } = useCart();
+    const { setPage } = usePage();
+
+    const handlePayment = (e) => {
+        setPage('PaymentDisplay')
+    }
 
     return (
         <>
             {paymentMethod == 'cash on delivery' &&
-                <div style={{marginBottom: '2%'}}><b>Payment Method:</b> {paymentMethod}</div>
+                <div style={{ marginBottom: '2%' }}><b>Payment Method:</b> {paymentMethod}</div>
             }
-            
+
             <div className="d-grid gap-2">
-                <Button variant="outline-warning" size="lg">Place Order</Button>
+                <Button variant="outline-warning" size="lg" onClick={(e) => handlePayment(e)}>Place Order</Button>
             </div>
         </>
     );
@@ -261,13 +267,13 @@ function Payment() {
 function Order() {
     const { login } = useLogin();
 
-    const [customer, setCustomer]=useState({
-        name:"",
-        email:"",
-        phone:"",
-        address:"",
-        city:"",
-        country:""
+    const [customer, setCustomer] = useState({
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+        city: "",
+        country: ""
     })
 
     return (
@@ -281,8 +287,8 @@ function Order() {
                 <h1>Welcome to CheckOut</h1>
             </div>
             <div style={{ borderBottom: '2px solid rgb(150, 1, 1)', margin: '2%' }}>
-                {login && <BillingLoggedIn customer={customer} setCustomer={setCustomer}/>}
-                {!login && <BillingDetails customer={customer} setCustomer={setCustomer}/>}
+                {login && <BillingLoggedIn customer={customer} setCustomer={setCustomer} />}
+                {!login && <BillingDetails customer={customer} setCustomer={setCustomer} />}
             </div>
             <div style={{ margin: '4%', borderBottom: '2px solid rgb(150, 1, 1)' }}>
                 <OrderDetails />
@@ -291,7 +297,7 @@ function Order() {
                 <Billing />
             </div>
             <div style={{ margin: '4%', borderBottom: '2px solid rgb(150, 1, 1)' }}>
-                <Payment />
+                <Payment customer={customer} />
             </div>
 
         </>
