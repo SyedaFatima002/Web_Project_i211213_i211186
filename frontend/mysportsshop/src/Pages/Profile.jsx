@@ -4,51 +4,11 @@ import '../CSS/profile.css';
 import '../CSS/login.css'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import useProfile from "../Hooks/useProfile";
 import useUser from "../Hooks/useUser";
-import { useState } from "react";
 import Following from "../Components/Following";
 import LoyaltyPoints from "../Components/LoyaltyPoints";
 import Notification from "../Components/Notification";
-
-function Profile() {
-    const { error, isError, isLoading, data } = useProfile();
-
-    const [un, setUsername]=useState();
-
-    
-    return (
-        <>
-            {isError && <div>Sorry we cant do shit. Gonna change this late {error.message} </div>}
-            {isLoading && <div>Loading Your Details</div>}
-            {data &&
-                <div>
-                    <Form className='textsize textbox'>
-                        <InputGroup className="mb-3">
-                            <InputGroup.Text id="basic-addon1">Username</InputGroup.Text>
-                            <Form.Control
-                                defaultValue={data.username}
-                                aria-label="Username"
-                                aria-describedby="basic-addon1"
-                                onChange={(e)=>setUsername(e.target.value)}
-                            />
-                            <Button variant="warning" onClick={(e)=>handleUsername(e)}>Update</Button>
-                        </InputGroup>
-
-                    </Form>
-                </div>
-            }
-        </>
-    );
-    //email
-    //username
-    //phoneNumber
-    //Address (address, city, country)
-    //password
-}
+import UpdateProfile from "../Components/UpdateProfile";
 
 function ProfileTab() {
     const { username } = useUser();
@@ -64,7 +24,7 @@ function ProfileTab() {
                     fill
                 >
                     <Tab eventKey="profile" title="Your Profile">
-                        <Profile />
+                        <UpdateProfile />
                     </Tab>
 
                     <Tab eventKey="following" title="Following">

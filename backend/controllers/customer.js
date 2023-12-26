@@ -262,8 +262,6 @@ exports.unfollow_brand = async (req, res) => {
         const follower = await Customer.findById(token.userid);
         const brand = await Brand.findOne({ brandname }); // Change this to findOne
 
-        console.log(follower);
-        console.log(brand);
 
         // Error handling
         if (!follower || !brand) {

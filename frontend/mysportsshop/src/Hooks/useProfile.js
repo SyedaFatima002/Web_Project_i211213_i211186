@@ -4,10 +4,11 @@ import useUser from './useUser';
 
 const useProfile=()=>{
     const {token} =useUser();
+    var response
 
     const fetchUser= async()=>{
         try{
-            const response= await axios.get('http://localhost:3001/auth/profile',{
+             response= await axios.get('http://localhost:3001/auth/profile',{
                 headers:{
                     authorization: `${token}`,
                 }
@@ -21,7 +22,7 @@ const useProfile=()=>{
     }
 
     return useQuery({
-        queryKey:['getuserprofile'],
+        queryKey:['getuserprofile', response],
         queryFn:fetchUser
     })
 }

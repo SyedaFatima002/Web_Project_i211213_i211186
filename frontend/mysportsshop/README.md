@@ -40,7 +40,7 @@ Currently, two official plugins are available:
 3. OAuth
 4. Payment API
 5. Color better if you have time
-6. and unfollow on profile
+
 
 what is actully left
 home page?

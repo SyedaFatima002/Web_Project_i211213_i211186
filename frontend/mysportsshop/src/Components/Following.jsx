@@ -43,20 +43,20 @@ function Following() {
     }
     console.log(data)
     return (
-        <>
+        <div>
+            <Row style={{  padding: '3%' }}>
+                <Col xs={4}></Col>
+                <Col xs={6}><h5>Your Favourite Brands</h5></Col>
+                <Col xs={2}></Col>
+            </Row>
+            <Row>
+                <Col><b>Brand Name</b></Col>
+            </Row>
             {isError && <div>Sorry we cant do shit. Gonna change this late {error.message} </div>}
             {isLoading && <div>Loading Following List</div>}
             {data && data.followingBrands && data.followingBrands.length > 0 ? (
                 data.followingBrands.map((brand, index) => (
-                    <Container key={index} style={{ margin: '5px', padding:'3%' }}>
-                        <Row >
-                            <Col xs={4}></Col>
-                            <Col xs={6}><h5>Your Favourite Brands</h5></Col>
-                            <Col xs={2}></Col>
-                        </Row>
-                        <Row>
-                            <Col><b>Brand Name</b></Col>
-                        </Row>
+                    <Container key={index} style={{marginBottom: '10px', padding:'5px'}}>
                         <Row>
                             <Col xs={8}>{index + 1}. {brand}</Col>
                             <Col xs={4}>
@@ -65,7 +65,7 @@ function Following() {
                         </Row>
                     </Container>
                 ))) : <div>You are not Following anybody</div>}
-        </>
+        </div>
     );
 }
 
