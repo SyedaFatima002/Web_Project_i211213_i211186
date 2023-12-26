@@ -2,6 +2,7 @@ const Customer=require("../models/customer.Schema")
 const Brand=require("../models/brand.Schema")
 const Product=require("../models/product.Schema")
 const jwt=require("jsonwebtoken")
+const mongoose = require('mongoose');
 
 //create new customer
 exports.signup=async(req, res)=>{
@@ -247,43 +248,45 @@ exports.follow_brand=async(req, res)=>{
 }
 
 //unfollow supplier
-exports.unfollow_brand=async (req, res)=>{
-    const brandId=req.params.id;
+exports.unfollow_brand = async (req, res) => {
+    const brandname = req.params.name; // Change this to brandname
 
-    const token=req.token;
+    const token = req.token;
 
-    if (!token){
-        return res.status(401).json({message:'Token not found'});
+    if (!token) {
+        return res.status(401).json({ message: 'Token not found' });
     }
 
-    try{
-        //finding customer and brand
-        const follower=await Customer.findById(token.userid);
-        const brand=await Brand.findById(brandId);
+    try {
+        // finding customer and brand
+        const follower = await Customer.findById(token.userid);
+        const brand = await Brand.findOne({ brandname }); // Change this to findOne
 
-        //Error handling
-        if (!follower || !brand){
-            return res.status(400).json({message: 'User or Brand not found'})
+        console.log(follower);
+        console.log(brand);
+
+        // Error handling
+        if (!follower || !brand) {
+            return res.status(400).json({ message: 'User or Brand not found' });
         }
 
-        //seeing if you arent following them
-        if (!follower.following.includes(brandId)){
-            return res.status(400).json({message:'You are already not following '+ brand.name})
+        
+        if (!follower.following.includes(brand._id)) {
+            return res.status(400).json({ message: 'You are already not following ' + brandname });
         }
 
-        //removing brand from customers following list
-        await Customer.findByIdAndUpdate(token.userid, { $pull: { following: brandId } });
+        
+        await Customer.findByIdAndUpdate(token.userid, { $pull: { following: brand._id } });
 
-        //removing customer from brands follower list
-        await Brand.findByIdAndUpdate(brandId, { $pull: { followers: token.userid } })
+        
+        await Brand.findByIdAndUpdate(brand._id, { $pull: { followers: token.userid } });
 
-        res.status(200).json({message:'User successfullly unfollows brand'})
-
-    }catch(err){
+        res.status(200).json({ message: 'User successfully unfollows brand' });
+    } catch (err) {
         console.log(err);
-        return res.status(500).json({message: 'Error in unfollowing ' + brandId})
+        return res.status(500).json({ message: 'Error in unfollowing ' + brandname });
     }
-}
+};
 
 //view notifications
 exports.view_notification=async(req, res)=>{
@@ -390,29 +393,32 @@ exports.rate_item=async(req, res)=>{
     }   
 }
 
-//view followerd
-exports.view_followers=async(req, res)=>{
-    const token=req.token;
+//view followers
+exports.view_followers = async (req, res) => {
+    const token = req.token;
 
-    if (!token){
-        return res.status(401).json({message:'Token not found. You are not authorization to view notifications'});
+    if (!token) {
+        return res.status(401).json({ message: 'Token not found. You are not authorized to view followers' });
     }
 
-    try{
-        const customer=await Customer.findById(token.userid)
+    try {
+        const customer = await Customer.findById(token.userid);
 
-        const following=customer.following
+        if (!customer) {
+            return res.status(404).json({ message: 'Customer not found' });
+        }
 
-        const brand=await Brand.find();
+        const followingBrandIds = customer.following
 
-        const followingBrandIds = following.map(follow => follow.brandId);
+        // Fetch brands with the specified IDs
+        const brands = await Brand.find({ _id: { $in: followingBrandIds } });
 
-        const followingBrands = brand.filter(brand => followingBrandIds.includes(brand._id.toString()));
+        // Extract brand names from the brands
+        const followingBrands = brands.map(brand => brand.brandname);
 
         res.status(200).json({ followingBrands });
-
-    }catch(err){
-        console.log(err);
-        return res.status(500).json({message: 'Error in viewing notifications '})
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error in viewing followers' });
     }
-}
+};

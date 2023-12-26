@@ -25,7 +25,7 @@ customerRoute.get('/profile/', authCustomer, customer.getcustomer_profile);//get
 
 customerRoute.put('/follow/:name', authCustomer, customer.follow_brand);//following brand
 
-customerRoute.put('/unfollow/:id', authCustomer, customer.unfollow_brand);//unfollowing brand
+customerRoute.put('/unfollow/:name', authCustomer, customer.unfollow_brand);//unfollowing brand
 
 customerRoute.get('/notifications', authCustomer, customer.view_notification);//getting all notifications
 
