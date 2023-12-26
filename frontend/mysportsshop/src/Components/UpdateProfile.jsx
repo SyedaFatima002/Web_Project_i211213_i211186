@@ -154,8 +154,19 @@ function UpdateProfile() {
         }
     })
 
-    const handleAddress = (e, addid) => {
+    const handleAddress = (e, addid, address, cit, country) => {
         e.preventDefault();
+        if (!add){
+            setAdd(address)
+        }
+
+        if (!city){
+            setCity(cit)
+        }
+
+        if (!count){
+            setCountry(country)
+        }
             AddMutation.mutate({
                 token: token,
                 addressid:addid,
@@ -257,7 +268,9 @@ function UpdateProfile() {
                             />
                         </InputGroup>
                         <Button variant="warning" size={'sm'} className='length'
-                                            onClick={(e)=>handleAddress(e, data.Address[0]._id)}>Update Address</Button>
+                                            onClick={(e)=>handleAddress(e, data.Address[0]._id, data.Address[0].address,
+                                                data.Address[0].city,
+                                                data.Address[0].country)}>Update Address</Button>
 
                     </Form>
                 </div>

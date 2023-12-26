@@ -10,20 +10,19 @@ Currently, two official plugins are available:
 ## Development Notes
 
 ## Pages
-1. Home Page
-2. Products Display Page//
-3. Item Page//
-4. Cart//
-5. Wishlist//
-6. Order Page
-7. Notification Page//
-8. Profile Page
+1. Products Display Page//
+2. Item Page//
+3. Cart//
+4. Wishlist//
+5. Order Page
+6. Notification Page//
+7. Profile Page
     a. Profile Management//
     b. Following List//
     c. View Order History
     d. View Loyalty Points//
-9. Login Page//
-10. Sign Up Page//
+8. Login Page//
+9. Sign Up Page//
 
 ## Personal Hooks Needed (Zustand)
 1. Login Hook (to see if current user is logged in, will use it to add discount, and to stop commenting)//
@@ -43,7 +42,6 @@ Currently, two official plugins are available:
 
 
 what is actully left
-home page?
 place order
 show order history
 OAuth
