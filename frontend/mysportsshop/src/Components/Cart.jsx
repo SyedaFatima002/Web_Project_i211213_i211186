@@ -61,6 +61,10 @@ function Payment() {
         updatePaymentMethod('Credit Card')
     }
 
+    const PageChange=()=>{
+        setPage('Order')
+    }
+
     return (
         <div className="flex1">
             <div className="d-grid gap-2">
@@ -84,7 +88,7 @@ function Payment() {
                     <Col><b>Payable Total:</b></Col>
                     <Col>{AmountDisc}</Col>
                 </Row>
-                <Button variant="dark" onClick={()=>setPage('Order')} active={currentPage!=='Order'}>
+                <Button variant="dark" onClick={PageChange} active={currentPage!=='Order'}>
                     Checkout
                 </Button>
             </div>

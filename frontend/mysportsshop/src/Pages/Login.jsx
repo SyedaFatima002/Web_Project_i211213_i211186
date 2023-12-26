@@ -43,7 +43,7 @@ function Login(){
                     settoken(data.token);
                     setId(data.userid);
                     setLogin(true);
-                    setPage('HomePage');
+                    setPage('ProductFeed');
                 }
                 else{
                     setErrorMessgae(data.message)

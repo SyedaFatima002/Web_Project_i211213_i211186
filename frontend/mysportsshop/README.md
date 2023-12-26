@@ -47,6 +47,7 @@ home page?
 place order
 show order history
 OAuth
+Logout
 
 
 

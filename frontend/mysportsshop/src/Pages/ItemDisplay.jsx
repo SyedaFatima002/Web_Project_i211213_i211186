@@ -13,7 +13,7 @@ import useLogin from "../Hooks/useLogin";
 import useUser from "../Hooks/useUser";
 import { Form } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
-import { useMutation} from '@tanstack/react-query';
+import { useMutation, useQueryClient} from '@tanstack/react-query';
 import { sendReview } from "../ApiCalls/addReview";
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
@@ -90,6 +90,7 @@ function PlaceReview({ productid }) {
     const [comment, setComment] = useState();
     const [name, setName] = useState();
     const { token } = useUser();
+    const queryClient = useQueryClient();
 
     const handleRatingChange = (e) => {
         setRating(parseInt(e.target.value, 10));
@@ -118,6 +119,7 @@ function PlaceReview({ productid }) {
         }, {
             onSuccess: (data) => {
                 console.log(data)
+                queryClient.invalidateQueries('getItem');
             }
         })
     }
