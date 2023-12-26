@@ -7,9 +7,25 @@ import '../CSS/order.css'
 import '../CSS/cart.css';
 import { Container, Row, Col, Button } from "react-bootstrap";
 import useProfile from "../Hooks/useProfile";
+import { useEffect, useState } from "react";
 
-function BillingLoggedIn() {
+function BillingLoggedIn({customer, setCustomer}) {
     const { error, isError, isLoading, data } = useProfile();
+
+    useEffect(()=>{
+        if (data){
+            setCustomer((prevCustomer)=>({
+                ...prevCustomer,
+                name:data.username || "",
+                email:data.email || "",
+                phone:data.phoneNumber || "",
+                address:data.Address[0].address || "",
+                city:data.Address[0].city || "",
+                country:data.Address[0].country || ""
+            }))
+        }
+
+    }, [data, setCustomer])
     return (
         <>
             <div style={{ margin: '3%', textAlign: 'center' }}>
@@ -76,7 +92,29 @@ function BillingLoggedIn() {
     );
 }
 
-function BillingDetails() {
+function BillingDetails({customer, setCustomer}) {
+    const [name, setName]=useState();
+    const [email, setEmail]=useState();
+    const [phone, setPhone]=useState();
+    const [address, setAdd]=useState();
+    const [city, setCity]=useState();
+    const [country, setCountry]=useState();
+
+    useEffect(()=>{
+        const updatedCustomer = {
+            name: name || "",       
+            email: email || "",
+            phone: phone || "",
+            address: address || "",
+            city: city || "",
+            country: country || ""
+        };
+
+    
+        setCustomer(updatedCustomer);
+
+    }, name, email, phone, address, city, country)
+
     return (
         <>
             <div style={{ margin: '3%', textAlign: 'center' }}>
@@ -89,6 +127,7 @@ function BillingDetails() {
                         placeholder="Recipient's Name"
                         aria-label="Recipient's name"
                         aria-describedby="basic-addon1"
+                        onChange={(e)=>setName(e.target.value)}
                     />
                 </InputGroup>
 
@@ -98,6 +137,7 @@ function BillingDetails() {
                         placeholder="Recipient's Phone Number"
                         aria-label="Recipient's phoneNum"
                         aria-describedby="basic-addon2"
+                        onChange={(e)=>setPhone(e.target.value)}
                     />
                 </InputGroup>
 
@@ -107,6 +147,7 @@ function BillingDetails() {
                         placeholder="Recipient's Phone Email"
                         aria-label="Recipient's email"
                         aria-describedby="basic-addon3"
+                        onChange={(e)=>setEmail(e.target.value)}
                     />
                 </InputGroup>
 
@@ -116,6 +157,7 @@ function BillingDetails() {
                         placeholder="Street Address"
                         aria-label="Recipient's address"
                         aria-describedby="basic-addon4"
+                        onChange={(e)=>setAdd(e.target.value)}
                     />
 
                     <InputGroup.Text id="basic-addon5" className="color">City</InputGroup.Text>
@@ -123,6 +165,7 @@ function BillingDetails() {
                         placeholder="City"
                         aria-label="Recipient's city"
                         aria-describedby="basic-addon5"
+                        onChange={(e)=>setCity(e.target.value)}
                     />
 
                     <InputGroup.Text id="basic-addon6" className="color">Country</InputGroup.Text>
@@ -130,6 +173,7 @@ function BillingDetails() {
                         placeholder="Country"
                         aria-label="Recipient's county"
                         aria-describedby="basic-addon6"
+                        onChange={(e)=>setCountry(e.target.value)}
                     />
                 </InputGroup>
             </Form>
@@ -216,6 +260,16 @@ function Payment() {
 
 function Order() {
     const { login } = useLogin();
+
+    const [customer, setCustomer]=useState({
+        name:"",
+        email:"",
+        phone:"",
+        address:"",
+        city:"",
+        country:""
+    })
+
     return (
         <>
             <NavBar />
@@ -227,8 +281,8 @@ function Order() {
                 <h1>Welcome to CheckOut</h1>
             </div>
             <div style={{ borderBottom: '2px solid rgb(150, 1, 1)', margin: '2%' }}>
-                {login && <BillingLoggedIn />}
-                {!login && <BillingDetails />}
+                {login && <BillingLoggedIn customer={customer} setCustomer={setCustomer}/>}
+                {!login && <BillingDetails customer={customer} setCustomer={setCustomer}/>}
             </div>
             <div style={{ margin: '4%', borderBottom: '2px solid rgb(150, 1, 1)' }}>
                 <OrderDetails />

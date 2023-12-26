@@ -43,7 +43,6 @@ Currently, two official plugins are available:
 
 what is actully left
 place order + loyalty points
-show order history
 OAuth
 
 
