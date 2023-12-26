@@ -6,7 +6,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const companyRouter = require('./Routes/companyRouter');
-
+const riderRouter = require('./Routes/riderRoutes');
 
 const app = express();
 const port = process.env.PORT;
@@ -18,8 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use('/delivery', companyRouter);
-
-
+app.use('/rider', riderRouter);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_STRING).then(()=>{

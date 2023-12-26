@@ -1,7 +1,8 @@
 const Delivery = require('../Models/Deliverycompany.schema')
 const Rider = require ('../Models/Rider.schema')
 const Order = require ('../Models/Order.schema')
-
+const { Types } = require('mongoose');
+const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 exports.companyLogin = async function (req, res) {
@@ -72,22 +73,61 @@ exports.createNewRider = async function (req, res) {
     }
 };
 
+exports.newOrder = async function (req, res){
+    const {location, deliverydate, status, client_phone, order_number} = req.body;
+    // Validate the status against the enum values
+    if (!['At Warehouse', 'Pickedup by Delivery', 'Sent by Rider', 'Delivered', 'Canceled'].includes(status)) {
+        return res.status(400).json({ message: 'Invalid status.' });
+    }
+
+    //enum: ['At Warehouse', 'Pickedup by Delivery', 'Sent by Rider', 'Delivered', 'Canceled'],
+    try{
+        const newOrder = await Order.create({location, deliverydate, status, client_phone, order_number});
+        const companyUsername = process.env.username;
+        const company = await Delivery.findOneAndUpdate({ username: companyUsername }, { $push: { orders: newOrder._id } }, { new: true });
+        res.status(201).json({ order: newOrder, company });
+    }catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error creating a new order.' });
+    }
+};
+
 exports.deleteRider = async function (req, res) {
     const riderId = req.params.riderId;
+    console.log('rider if: ', riderId);
+    try {   
+        //const deletedRider = await Rider.findByIdAndRemove(riderId);
 
-    try {
-        const deletedRider = await Rider.findByIdAndRemove(riderId);
+        // Find the rider by ID and delete
+        const deletedRider = await Rider.findOneAndDelete({id: riderId});
+
+        // If rider is not found
+       // const deletedRider = await Rider.findByIdAndDelete({id: riderId});
+        console.log('rideR: ',deletedRider);
+
+        if (!deletedRider) {
+            return res.status(404).json({ message: 'Rider not found.' });
+        }
 
         // Remove the rider from the company's rider list
-        const companyUser = process.env.username;
-        const company = await Delivery.findOneAndUpdate(companyUser, { $pull: { riders: riderId } }, { new: true });
+        // const companyUser = process.env.username;
+        // const company = await Delivery.findOneAndUpdate(
+        //     { username: companyUser },
+        //     { $pull: { riders: _id } },
+        //     { new: true }
+        // );
 
-        res.status(200).json({ rider: deletedRider, company });
+        // if (!company) {
+        //     return res.status(404).json({ message: 'Company not found or rider not in the list.' });
+        // }
+
+        res.status(200).json({ rider: deletedRider});
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error deleting the rider.' });
     }
 };
+
 
 exports.showCompanyRiders = async function (req, res) {
     const companyUser = process.env.username;
@@ -120,23 +160,40 @@ exports.showCompanyRiders = async function (req, res) {
 exports.showCompanyOrders = async function (req, res) {
     const companyUser = process.env.username;
     try {
-        const company = await Delivery.findOne({ username: companyUser });
+        const company = await Delivery.findOne({ username: companyUser }).populate('orders');
         
         if (!company) {
             return res.status(404).json({ message: 'Company not found.' });
         }
 
         // Populate orders for each order in the company's orders array
-        const populatedOrders = await Promise.all(company.orders.map(async orderId => {
-            const order = await Order.findById(orderId);
-            // You can customize the fields you want to populate in the second argument of populate
-            return await order.populate('rider', '-password').execPopulate();
-        }));
+        const populatedOrders = company.orders;
 
+        console.log("orders: ", populatedOrders);
         res.status(200).json(populatedOrders);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error fetching orders.' });
+    }
+};
+
+exports.viewRiderOrders = async function (req, res){
+    const riderId = req.params.riderId;
+    try{
+        const rider = await Rider.findOne({ id: riderId }).populate('orders');
+
+        if(!rider){
+            return res.status (404).json({message:'rider not found'});
+        }
+
+        const orders = rider.orders;
+        if(!orders){
+            return res.status(200).json({message : 'Rider has no orders'});
+        }
+        res.status(200).json(orders);
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ message: 'Error fetching rider orders.' });
     }
 };
 
@@ -148,6 +205,7 @@ exports.showCompanyRider = async function (req, res) {
     //console.log('Rider ID:', riderId);
 
     try {
+       // const rider = await Rider.findOne({id: riderId}).populate({path: 'orders, match:{or}'});
         const company = await Delivery.findOne({ username: companyUser }).populate({
             path: 'riders',
             match: { id: riderId },
@@ -171,20 +229,52 @@ exports.showCompanyRider = async function (req, res) {
     }
 };
 
+// exports.assignOrdersToRider = async function (req, res) {
+//     const riderId = req.params.riderId;
+//     const { orderId } = req.body;
 
-exports.assignOrdersToRider = async function (req, res) {
-    const riderId = req.params.riderId;
-    const { orderIds } = req.body;
+//     try {
+//         const updatedRider = await Rider.findByIdAndUpdate(riderId, { $push: { orders: { $each: orderIds } } }, { new: true });
 
+//         res.status(200).json(updatedRider);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Error assigning orders to the rider.' });
+//     }
+// };
+exports.assignOrdersToRider = async (req, res) => {
     try {
-        const updatedRider = await Rider.findByIdAndUpdate(riderId, { $push: { orders: { $each: orderIds } } }, { new: true });
-
-        res.status(200).json(updatedRider);
+      const { orderNumber } = req.params;
+      const { riderId } = req.body;
+  
+      // Validate riderId if needed
+  
+      // Find the order by order number
+      const order = await Order.findOne({ order_number: orderNumber });
+  
+      if (!order) {
+        return res.status(404).json({ message: 'Order not found.' });
+      }
+  
+      order.assigned = true;
+      console.log("order: ", order);
+      // Update the order with the assigned rider
+    //   order.rider = riderId;
+    //   await order.save();
+  
+      // Optionally, update the rider's orders list
+      const rider = await Rider.findOne({id: riderId});
+      if (rider) {
+        rider.orders.push(order._id);
+        await rider.save();
+      }
+  
+      res.status(200).json({ message: 'Order assigned successfully.' });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error assigning orders to the rider.' });
+      console.error('Error assigning order:', error);
+      res.status(500).json({ message: 'Error assigning order.' });
     }
-};
+  };
 
 exports.removeOrdersFromRider = async function (req, res) {
     const riderId = req.params.riderId;
@@ -220,6 +310,7 @@ exports.cancelOrders = async function (req, res) {
         res.status(500).json({ message: 'Error canceling the order.' });
     }
 };
+
 
 
 // exports.assignOrdersToRider = async function (req, res) {
@@ -259,7 +350,7 @@ exports.listAllOrders = async function (req, res) {
 
 exports.viewOrderByOrderNumber = async function (req, res) {
     const orderNumber = req.params.orderNumber;
-
+    console.log("ofer: ", orderNumber);
     try {
         const order = await Order.findOne({ order_number: orderNumber });
         if (!order) {

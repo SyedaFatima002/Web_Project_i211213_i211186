@@ -9,17 +9,23 @@ router.post('/companies',companyController.createCompany);
 
 router.post('/login',companyController.companyLogin);
 
-router.post('/new-rider', authenticateCompany,companyController.createNewRider);
+router.post('/new-rider',companyController.createNewRider);
 
-router.delete('/delete-rider/:id', authenticateCompany,companyController.deleteRider);
+router.delete('/delete-rider/:riderId', companyController.deleteRider);
 
-router.get('/riders-list/:id', authenticateCompany, companyController.showCompanyRider);
+router.get('/riders-list/:id',  companyController.showCompanyRider);
 
-router.get('/riders-list',  authenticateCompany,companyController.showCompanyRiders);
+router.get('/rider-orders/:riderId', companyController.viewRiderOrders);
+
+router.get('/riders-list',  companyController.showCompanyRiders);
 
 router.get('/orders-list',  companyController.showCompanyOrders);
 
-router.put('/give-job',  authenticateCompany,companyController.assignOrdersToRider);
+router.post('/new-order', companyController.newOrder);
+
+router.get('/orders/:orderNumber', companyController.viewOrderByOrderNumber);
+
+router.put('/give-job/:orderNumber', companyController.assignOrdersToRider);
 
 router.put('/update-job', authenticateCompany, companyController.removeOrdersFromRider);
 

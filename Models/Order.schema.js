@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const orderSchema = new mongoose.Schema({
   location: { type: String, required: true },
   deliverydate: { type: Date, required: true },
+  assigned: {
+    type: Boolean,
+    default:false,
+  },
   status: {
     type: String,
     enum: ['At Warehouse', 'Pickedup by Delivery', 'Sent by Rider', 'Delivered', 'Canceled'],
