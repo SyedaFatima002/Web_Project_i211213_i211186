@@ -357,12 +357,12 @@ function ItemDisplay() {
                                             <Description data={data}></Description>
                                         </Tab>
                                         <Tab eventKey="review" title="Reviews">
-                                            {login && <Reviews data={data}></Reviews>}
-                                            {!login && <div>Please Login to Leave Review</div>}
+                                            <Reviews data={data}></Reviews>
                                         </Tab>
 
                                         <Tab eventKey="sendreview" title="Review Product">
-                                            <PlaceReview productid={data._id} />
+                                            {login && <PlaceReview productid={data._id} />} 
+                                            {!login && <div>Please Login to Leave Review</div>}
                                         </Tab>
                                     </Tabs>
                                     <div className="bordertop"></div>

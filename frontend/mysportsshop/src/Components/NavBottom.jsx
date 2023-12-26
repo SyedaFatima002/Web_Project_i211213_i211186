@@ -4,10 +4,19 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import useGetFilters from '../Hooks/useGetFilters';
 import { Col } from 'react-bootstrap';
+import usePage from '../Hooks/usePage';
 
 function Brand() {
     const { error, isError, isLoading, data } = useGetFilters();
     const { setBrand } = useFilters();
+    const {currentPage, setPage}=usePage();
+
+    const handleClick=(b)=>{
+        setBrand(b)
+        if (currentPage!='ProductFeed'){
+            setPage('ProductFeed')
+        }
+    }
     return (
         
         <>
@@ -23,7 +32,7 @@ function Brand() {
                         data.brandnames.map((b, index) => (
                             <Dropdown.Item href="#"
                                 key={index}
-                                onClick={(e) => setBrand(b)}>{b}</Dropdown.Item>
+                                onClick={(e) => handleClick(b)}>{b}</Dropdown.Item>
                         ))
                     }
                 </Dropdown.Menu>
@@ -35,6 +44,15 @@ function Brand() {
 function Collection(){
     const { error, isError, isLoading, data } = useGetFilters();
     const { setCollections } = useFilters();
+
+    const {currentPage, setPage}=usePage();
+
+    const handleClick=(c)=>{
+        setCollections(c)
+        if (currentPage!='ProductFeed'){
+            setPage('ProductFeed')
+        }
+    }
     return (
         <>
             {isError && <div>Error in getting Stuff</div>}
@@ -48,7 +66,7 @@ function Collection(){
                         data.Collections.map((c, index) => (
                             <Dropdown.Item href="#"
                                 key={index}
-                                onClick={(e) => setCollections(c)}>{c}</Dropdown.Item>
+                                onClick={(e) => handleClick(c)}>{c}</Dropdown.Item>
                         ))
                     }
                 </Dropdown.Menu>
