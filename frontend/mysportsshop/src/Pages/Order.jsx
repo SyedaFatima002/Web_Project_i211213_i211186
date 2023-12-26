@@ -10,10 +10,20 @@ import useProfile from "../Hooks/useProfile";
 import { useEffect, useState } from "react";
 import usePage from "../Hooks/usePage";
 import useLoyalty from "../Hooks/useLoyalty";
+import { useMutation } from '@tanstack/react-query';
+import { placeOrder } from '../ApiCalls/setOrder'
+import useUser from "../Hooks/useUser";
 
 
 function BillingLoggedIn({ customer, setCustomer }) {
     const { error, isError, isLoading, data } = useProfile();
+
+    const handleInputChange = (field, value) => {
+        setCustomer((prevCustomer) => ({
+            ...prevCustomer,
+            [field]: value
+        }));
+    };
 
     useEffect(() => {
         if (data) {
@@ -22,13 +32,13 @@ function BillingLoggedIn({ customer, setCustomer }) {
                 name: data.username || "",
                 email: data.email || "",
                 phone: data.phoneNumber || "",
-                address: data.Address[0].address || "",
-                city: data.Address[0].city || "",
-                country: data.Address[0].country || ""
+                address: data.Address && data.Address[0] ? data.Address[0].address || "" : "",
+                city: data.Address && data.Address[0] ? data.Address[0].city || "" : "",
+                country: data.Address && data.Address[0] ? data.Address[0].country || "" : ""
             }))
         }
 
-    }, [data, setCustomer])
+    }, [data])
     return (
         <>
             <div style={{ margin: '3%', textAlign: 'center' }}>
@@ -42,6 +52,7 @@ function BillingLoggedIn({ customer, setCustomer }) {
                         placeholder="Recipient's Name"
                         aria-label="Recipient's name"
                         aria-describedby="basic-addon1"
+                        onChange={(e) => handleInputChange("name", e.target.value)}
                     />
                 </InputGroup>
 
@@ -52,6 +63,7 @@ function BillingLoggedIn({ customer, setCustomer }) {
                         placeholder="Recipient's Phone Number"
                         aria-label="Recipient's phoneNum"
                         aria-describedby="basic-addon2"
+                        onChange={(e) => handleInputChange("phone", e.target.value)}
                     />
                 </InputGroup>
 
@@ -62,6 +74,7 @@ function BillingLoggedIn({ customer, setCustomer }) {
                         placeholder="Recipient's Phone Email"
                         aria-label="Recipient's email"
                         aria-describedby="basic-addon3"
+                        onChange={(e) => handleInputChange("email", e.target.value)}
                     />
                 </InputGroup>
 
@@ -72,6 +85,7 @@ function BillingLoggedIn({ customer, setCustomer }) {
                         placeholder="Street Address"
                         aria-label="Recipient's address"
                         aria-describedby="basic-addon4"
+                        onChange={(e) => handleInputChange("address", e.target.value)}
                     />
 
                     <InputGroup.Text id="basic-addon5" className="color">City</InputGroup.Text>
@@ -80,6 +94,7 @@ function BillingLoggedIn({ customer, setCustomer }) {
                         placeholder="City"
                         aria-label="Recipient's city"
                         aria-describedby="basic-addon5"
+                        onChange={(e) => handleInputChange("city", e.target.value)}
                     />
 
                     <InputGroup.Text id="basic-addon6" className="color">Country</InputGroup.Text>
@@ -88,6 +103,7 @@ function BillingLoggedIn({ customer, setCustomer }) {
                         placeholder="Country"
                         aria-label="Recipient's county"
                         aria-describedby="basic-addon6"
+                        onChange={(e) => handleInputChange("country", e.target.value)}
                     />
                 </InputGroup>
             </Form>
@@ -116,7 +132,7 @@ function BillingDetails({ customer, setCustomer }) {
 
         setCustomer(updatedCustomer);
 
-    }, name, email, phone, address, city, country)
+    }, [name, email, phone, address, city, country])
 
     return (
         <>
@@ -246,20 +262,67 @@ function Billing() {
 }
 
 function Payment({ customer }) {
-    const { paymentMethod, products, totalAmount, AmountDisc, status } = useCart();
+    const { paymentMethod, products, totalAmount, AmountDisc, placeOrder } = useCart();
     const { setPage } = usePage();
-    const {login}=useLogin();
+    const { login } = useLogin();
+    const { token } = useUser();
 
-    const { error, isError, isLoading, data }=useLoyalty();
+    const { error, isError, isLoading, data } = useLoyalty();
+    console.log(data)
 
+    const loyaltyMutation = useMutation({
+        mutationFn: async (order) => {
+            try {
+                const result = await placeOrder(
+                    order.token,
+                    {
+                        name: order.customer.name,
+                        email: order.customer.email,
+                        phone: order.customer.phone,
+                        address: order.customer.address || "",
+                        city: order.customer.city || "",
+                        country: order.customer.country || ""
+                    },
+                    order.products,
+                    order.paymentMethod,
+                    order.totalAmount,
+                    order.AmountDisc
+                );
+                return result;
+            } catch (error) {
+                console.error('Error making order:', error);
+                throw error;
+            }
+        }
+    });
 
     const handlePayment = (e) => {
-        setPage('PaymentDisplay')
-    }
+        e.preventDefault();
 
-    const handleRedeem=()=>{
+        const orderData = {
+            token: token,
+            customer: customer,
+            products: products,
+            paymentMethod: paymentMethod,
+            totalAmount: totalAmount,
+            AmountDisc: AmountDisc
+        };
+
+        loyaltyMutation.mutate(orderData, {
+            onSuccess: (data) => {
+                console.log(data);
+                alert('Order made');
+                placeOrder()
+            }
+        });
+        setPage('PaymentDisplay');
+    };
+
+    const handleRedeem = () => {
         
     }
+
+
 
     return (
         <>
@@ -267,13 +330,13 @@ function Payment({ customer }) {
                 <div style={{ marginBottom: '2%' }}><b>Payment Method:</b> {paymentMethod}</div>
             }
 
-            {login && 
+            {login && data &&
                 (
                     <div>
-                        <div>You have {data.points} Loyalty Points 
-                        {data.points>0 && (
-                            <Button variant="warning">Redeem Points</Button>
-                        )}
+                        <div>You have {data.points} Loyalty Points
+                            {data.points > 0 && (
+                                <Button variant="warning">Redeem Points</Button>
+                            )}
                         </div>
                     </div>
                 )

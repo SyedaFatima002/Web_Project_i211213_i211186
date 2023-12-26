@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 //create new customer
 exports.signup = async (req, res) => {
     try {
-        let { username, email, password, address, phoneNumber, role } = req.body;
+        let { username, email, password, Address, phoneNumber, role } = req.body;
 
         const existing = await Customer.findOne({ $or: [{ username }, { email }] });
         if (existing) {
@@ -19,7 +19,7 @@ exports.signup = async (req, res) => {
             email,
             password,
             role,
-            address,
+            Address,
             phoneNumber,
         });
 
@@ -426,14 +426,15 @@ exports.view_followers = async (req, res) => {
 
 exports.addLoyaltyPoints = async (req, res) => {
     const token = req.token;
-    const points=req.body.points
+    const price=req.body.price
 
     if (!token) {
         return res.status(401).json({ message: 'Token not found. You are not authorized to view followers' });
     }
-
+    console.log(token)
     try{
         const customer = await Customer.findById(token.userid);
+        let points=(price*5)/100
 
         if (!customer) {
             return res.status(404).json({ message: 'Customer not found' });

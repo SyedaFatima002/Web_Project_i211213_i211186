@@ -100,9 +100,15 @@ const useCart=create((set)=>({
         });
     },
 
-    placeOrder: ()=>{
-        //add place order functionality
-    }
+    placeOrder: () => {
+        set({
+          products: [],
+          totalAmount: 0,
+          AmountDisc: 0,
+          paymentMethod: 'cash on delivery',
+          items: 0,
+        });
+      },
 }));
 
 export default useCart;

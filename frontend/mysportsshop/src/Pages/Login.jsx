@@ -85,7 +85,7 @@ function Login(){
                     
                     </Card.Body>
                 </Card>
-                <p className='returnHome' onClick={()=>setPage('HomePage')}>Return Home</p>
+                <p className='returnHome' onClick={()=>setPage('ProductFeed')}>Return Home</p>
             </div>
         </Background>
     );
