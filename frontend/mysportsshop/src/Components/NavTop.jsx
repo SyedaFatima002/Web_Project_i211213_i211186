@@ -11,11 +11,12 @@ import useLogin from '../Hooks/useLogin'
 import useCart from '../Hooks/useCart'
 import usePage from '../Hooks/usePage';
 import Cart from './Cart';
+import logout from '../Assets/logout.svg'
 
 function NavTop(){
     //deal with this during profiling
     const {username}=useUser();
-    const {login}=useLogin();
+    const {login, setLogin}=useLogin();
     const {items}=useCart();
     const setPage = usePage((state) => state.setPage);
     const [isHovered, setIsHovered] = useState(false);
@@ -40,6 +41,12 @@ function NavTop(){
         }
         else{
             alert('You arent logged in')
+        }
+    }
+
+    const handleLogOut=()=>{
+        if (login){
+            setLogin('')
         }
     }
 
@@ -79,6 +86,14 @@ function NavTop(){
                     <Cart />
                     <span>Cart:({items})</span>
                 </Nav.Item>
+                <Nav.Item className='classLink navtext' style={{cursor:"pointer"}} onClick={handleLogOut}>
+                    <img 
+                        alt='Logout'
+                        src={logout}
+                    />
+                    <span>Logout</span>
+                </Nav.Item> 
+                
             </Nav>  
         </>    
     );

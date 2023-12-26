@@ -1,12 +1,11 @@
 import useCart from "../Hooks/useCart"
 import NavBar from "../Components/NavBar"
-import useUser from "../Hooks/useUser";
 import useLogin from "../Hooks/useLogin";
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import '../CSS/order.css'
 import '../CSS/cart.css';
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import useProfile from "../Hooks/useProfile";
 
 function BillingLoggedIn() {
@@ -20,7 +19,7 @@ function BillingLoggedIn() {
                 <InputGroup className="mb-3 size" style={{ margin: '2%' }}>
                     <InputGroup.Text id="basic-addon1" className="color">Name</InputGroup.Text>
                     <Form.Control
-                        defaultValue={data && data.username ? data.username: ""}
+                        defaultValue={data && data.username ? data.username : ""}
                         placeholder="Recipient's Name"
                         aria-label="Recipient's name"
                         aria-describedby="basic-addon1"
@@ -30,7 +29,7 @@ function BillingLoggedIn() {
                 <InputGroup className="mb-3 size" style={{ margin: '2%' }}>
                     <InputGroup.Text id="basic-addon2" className="color">Phone Number</InputGroup.Text>
                     <Form.Control
-                        defaultValue={data && data.phoneNumber ? data.phoneNumber: ""}
+                        defaultValue={data && data.phoneNumber ? data.phoneNumber : ""}
                         placeholder="Recipient's Phone Number"
                         aria-label="Recipient's phoneNum"
                         aria-describedby="basic-addon2"
@@ -40,7 +39,7 @@ function BillingLoggedIn() {
                 <InputGroup className="mb-3 size" style={{ margin: '2%' }}>
                     <InputGroup.Text id="basic-addon3" className="color">Email</InputGroup.Text>
                     <Form.Control
-                        defaultValue={data && data.email ? data.email: ""}
+                        defaultValue={data && data.email ? data.email : ""}
                         placeholder="Recipient's Phone Email"
                         aria-label="Recipient's email"
                         aria-describedby="basic-addon3"
@@ -50,7 +49,7 @@ function BillingLoggedIn() {
                 <InputGroup className="mb-3 " style={{ margin: '2%' }}>
                     <InputGroup.Text id="basic-addon4" className="color">Street Addr</InputGroup.Text>
                     <Form.Control
-                        defaultValue={data && data.Address[0] ? data.Address[0].address: ""}
+                        defaultValue={data && data.Address[0] ? data.Address[0].address : ""}
                         placeholder="Street Address"
                         aria-label="Recipient's address"
                         aria-describedby="basic-addon4"
@@ -58,7 +57,7 @@ function BillingLoggedIn() {
 
                     <InputGroup.Text id="basic-addon5" className="color">City</InputGroup.Text>
                     <Form.Control
-                        defaultValue={data && data.Address[0] ? data.Address[0].city: ""}
+                        defaultValue={data && data.Address[0] ? data.Address[0].city : ""}
                         placeholder="City"
                         aria-label="Recipient's city"
                         aria-describedby="basic-addon5"
@@ -66,7 +65,7 @@ function BillingLoggedIn() {
 
                     <InputGroup.Text id="basic-addon6" className="color">Country</InputGroup.Text>
                     <Form.Control
-                        defaultValue={data && data.Address[0] ? data.Address[0].country: ""}
+                        defaultValue={data && data.Address[0] ? data.Address[0].country : ""}
                         placeholder="Country"
                         aria-label="Recipient's county"
                         aria-describedby="basic-addon6"
@@ -76,7 +75,6 @@ function BillingLoggedIn() {
         </>
     );
 }
-
 
 function BillingDetails() {
     return (
@@ -173,7 +171,7 @@ function OrderDetails() {
 }
 
 function Billing() {
-    const { totalAmount, AmountDisc, paymentMethod, updatePaymentMethod } = useCart();
+    const { totalAmount, AmountDisc } = useCart();
 
     return (
         <div style={{ textAlign: 'center', paddingBottom: '4%' }}>
@@ -200,6 +198,22 @@ function Billing() {
     );
 }
 
+function Payment() {
+    const { paymentMethod } = useCart();
+
+    return (
+        <>
+            {paymentMethod == 'cash on delivery' &&
+                <div style={{marginBottom: '2%'}}><b>Payment Method:</b> {paymentMethod}</div>
+            }
+            
+            <div className="d-grid gap-2">
+                <Button variant="outline-warning" size="lg">Place Order</Button>
+            </div>
+        </>
+    );
+}
+
 function Order() {
     const { login } = useLogin();
     return (
@@ -213,7 +227,7 @@ function Order() {
                 <h1>Welcome to CheckOut</h1>
             </div>
             <div style={{ borderBottom: '2px solid rgb(150, 1, 1)', margin: '2%' }}>
-                {login && <BillingLoggedIn/>}
+                {login && <BillingLoggedIn />}
                 {!login && <BillingDetails />}
             </div>
             <div style={{ margin: '4%', borderBottom: '2px solid rgb(150, 1, 1)' }}>
@@ -221,6 +235,9 @@ function Order() {
             </div>
             <div style={{ margin: '4%', borderBottom: '2px solid rgb(150, 1, 1)' }}>
                 <Billing />
+            </div>
+            <div style={{ margin: '4%', borderBottom: '2px solid rgb(150, 1, 1)' }}>
+                <Payment />
             </div>
 
         </>
