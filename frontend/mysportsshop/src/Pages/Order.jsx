@@ -9,6 +9,8 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import useProfile from "../Hooks/useProfile";
 import { useEffect, useState } from "react";
 import usePage from "../Hooks/usePage";
+import useLoyalty from "../Hooks/useLoyalty";
+
 
 function BillingLoggedIn({ customer, setCustomer }) {
     const { error, isError, isLoading, data } = useProfile();
@@ -246,15 +248,35 @@ function Billing() {
 function Payment({ customer }) {
     const { paymentMethod, products, totalAmount, AmountDisc, status } = useCart();
     const { setPage } = usePage();
+    const {login}=useLogin();
+
+    const { error, isError, isLoading, data }=useLoyalty();
+
 
     const handlePayment = (e) => {
         setPage('PaymentDisplay')
+    }
+
+    const handleRedeem=()=>{
+        
     }
 
     return (
         <>
             {paymentMethod == 'cash on delivery' &&
                 <div style={{ marginBottom: '2%' }}><b>Payment Method:</b> {paymentMethod}</div>
+            }
+
+            {login && 
+                (
+                    <div>
+                        <div>You have {data.points} Loyalty Points 
+                        {data.points>0 && (
+                            <Button variant="warning">Redeem Points</Button>
+                        )}
+                        </div>
+                    </div>
+                )
             }
 
             <div className="d-grid gap-2">

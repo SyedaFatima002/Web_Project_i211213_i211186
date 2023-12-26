@@ -1,20 +1,20 @@
-const Customer=require("../models/customer.Schema")
-const Brand=require("../models/brand.Schema")
-const Product=require("../models/product.Schema")
-const jwt=require("jsonwebtoken")
+const Customer = require("../models/customer.Schema")
+const Brand = require("../models/brand.Schema")
+const Product = require("../models/product.Schema")
+const jwt = require("jsonwebtoken")
 const mongoose = require('mongoose');
 
 //create new customer
-exports.signup=async(req, res)=>{
-    try{
-        let {username, email, password, address, phoneNumber ,role}=req.body;
+exports.signup = async (req, res) => {
+    try {
+        let { username, email, password, address, phoneNumber, role } = req.body;
 
-        const existing=await Customer.findOne({ $or: [{ username }, { email }] });
-        if (existing){
-            return res.status(400).json({message: 'User already exists'});
+        const existing = await Customer.findOne({ $or: [{ username }, { email }] });
+        if (existing) {
+            return res.status(400).json({ message: 'User already exists' });
         }
 
-        const newCustomer=new Customer({
+        const newCustomer = new Customer({
             username,
             email,
             password,
@@ -24,212 +24,212 @@ exports.signup=async(req, res)=>{
         });
 
         await newCustomer.save();
-        res.status(201).json({message: 'Customer created successfully'});
+        res.status(201).json({ message: 'Customer created successfully' });
 
-    }catch(err){
+    } catch (err) {
         console.log(err)
-        res.status(500).json({message: 'Sign up failed'})
+        res.status(500).json({ message: 'Sign up failed' })
     }
 }
 
 //login user
-exports.login=async(req, res)=>{
-    try{
-        const {username, password}=req.body;
+exports.login = async (req, res) => {
+    try {
+        const { username, password } = req.body;
 
-        const customer=await Customer.findOne({ username });
+        const customer = await Customer.findOne({ username });
 
-        if (!customer){
-            return res.status(401).json({message: 'User not Found'});
+        if (!customer) {
+            return res.status(401).json({ message: 'User not Found' });
         }
 
-        if (customer.password!==password){
-            return res.status(401).json({message: 'Incorrect password'});
+        if (customer.password !== password) {
+            return res.status(401).json({ message: 'Incorrect password' });
         }
 
-        if (customer.status==='blocked'){
-            return res.status(401).json({message: 'User is blocked'});
+        if (customer.status === 'blocked') {
+            return res.status(401).json({ message: 'User is blocked' });
         }
 
-        const token=jwt.sign({
-            username:customer.username, 
-            userid:customer._id, 
-            role:customer.role
+        const token = jwt.sign({
+            username: customer.username,
+            userid: customer._id,
+            role: customer.role
         }, process.env.SECRET_KEY);
 
         res.status(200).json({
             message: 'Login Successful',
             token,
-            username:customer.username,
-            userid:customer._id
+            username: customer.username,
+            userid: customer._id
         });
 
-    }catch(err){
+    } catch (err) {
         console.log(err)
-        res.status(500).json({message: 'Login failed'})
+        res.status(500).json({ message: 'Login failed' })
     }
 }
 
 //update username
-exports.update_username=async(req, res)=>{
-    const token=req.token
+exports.update_username = async (req, res) => {
+    const token = req.token
 
-    if (!token){
-        return res.status(401).json({message:'Token not found'})
+    if (!token) {
+        return res.status(401).json({ message: 'Token not found' })
     }
-    try{
-        await Customer.findByIdAndUpdate(token.userid, {$set: {username:req.body.username}})
-        res.status(200).json({message:'Username updated successfully'+ req.body.username})
+    try {
+        await Customer.findByIdAndUpdate(token.userid, { $set: { username: req.body.username } })
+        res.status(200).json({ message: 'Username updated successfully' + req.body.username })
 
-    }catch(err){
-        res.status(500).json({message: 'Error in updating username'})
+    } catch (err) {
+        res.status(500).json({ message: 'Error in updating username' })
     }
 }
 
 //update email
-exports.update_email=async(req, res)=>{
-    const token=req.token
+exports.update_email = async (req, res) => {
+    const token = req.token
 
-    if (!token){
-        return res.status(401).json({message:'Token not found'})
+    if (!token) {
+        return res.status(401).json({ message: 'Token not found' })
     }
 
-    try{
-        await Customer.findByIdAndUpdate(token.userid, {$set: {email:req.body.email}})
-        res.status(200).json({message:'Email updated successfully'})
+    try {
+        await Customer.findByIdAndUpdate(token.userid, { $set: { email: req.body.email } })
+        res.status(200).json({ message: 'Email updated successfully' })
 
-    }catch(err){
-        res.status(500).json({message: 'Error in updating email'})
+    } catch (err) {
+        res.status(500).json({ message: 'Error in updating email' })
     }
 }
 
 //update password
-exports.update_password=async(req, res)=>{
-    const token=req.token
+exports.update_password = async (req, res) => {
+    const token = req.token
 
-    if (!token){
-        return res.status(401).json({message:'Token not found'})
+    if (!token) {
+        return res.status(401).json({ message: 'Token not found' })
     }
 
-    try{
-        await Customer.findByIdAndUpdate(token.userid, {$set: {password:req.body.password}})
-        res.status(200).json({message:'Password updated successfully'})
+    try {
+        await Customer.findByIdAndUpdate(token.userid, { $set: { password: req.body.password } })
+        res.status(200).json({ message: 'Password updated successfully' })
 
-    }catch(err){
-        res.status(500).json({message: 'Error in updating password'})
+    } catch (err) {
+        res.status(500).json({ message: 'Error in updating password' })
     }
 }
 
 //add new address
-exports.add_newaddress=async(req, res)=>{
-    const token=req.token
+exports.add_newaddress = async (req, res) => {
+    const token = req.token
 
-    if (!token){
-        return res.status(401).json({message:'Token not found'})
+    if (!token) {
+        return res.status(401).json({ message: 'Token not found' })
     }
 
-    try{
-        const customer=await Customer.findById({_id:token.userid});
+    try {
+        const customer = await Customer.findById({ _id: token.userid });
 
-        if (!customer){
-            return res.status(404).json({message: 'User not found'});
+        if (!customer) {
+            return res.status(404).json({ message: 'User not found' });
         }
 
         customer.Address.push({
             address: req.body.address,
-            city:req.body.city,
-            country:req.body.country,
+            city: req.body.city,
+            country: req.body.country,
         });
 
         await customer.save();
-        res.status(200).json({message:'New address added successfully'});
+        res.status(200).json({ message: 'New address added successfully' });
 
-    }catch(err){
+    } catch (err) {
         console.log(err);
-        res.status(500).json({message: 'Error in adding new address'});
+        res.status(500).json({ message: 'Error in adding new address' });
     }
 }
 
 //update address
-exports.update_address=async(req, res)=>{
-    const token=req.token
-    const addressID=req.params.id
+exports.update_address = async (req, res) => {
+    const token = req.token
+    const addressID = req.params.id
 
-    if (!token){
-        return res.status(401).json({message:'Token not found'})
+    if (!token) {
+        return res.status(401).json({ message: 'Token not found' })
     }
 
-    try{
-        await Customer.findOneAndUpdate({"_id":token.userid, "Address._id":addressID}, { $set: { "Address.$":req.body } })
-        res.status(200).json({message:'Address updated successfully'})
+    try {
+        await Customer.findOneAndUpdate({ "_id": token.userid, "Address._id": addressID }, { $set: { "Address.$": req.body } })
+        res.status(200).json({ message: 'Address updated successfully' })
 
-    }catch(err){
+    } catch (err) {
         console.log(err);
-        res.status(500).json({message: 'Error in updating address'})
+        res.status(500).json({ message: 'Error in updating address' })
     }
 }
 
 //update phone number
-exports.update_phoneNumber=async(req, res)=>{
-    const token=req.token
+exports.update_phoneNumber = async (req, res) => {
+    const token = req.token
 
-    if (!token){
-        return res.status(401).json({message:'Token not found'})
+    if (!token) {
+        return res.status(401).json({ message: 'Token not found' })
     }
 
-    try{
-        await Customer.findByIdAndUpdate(token.userid, {$set: {phoneNumber:req.body.phoneNumber}})
-        res.status(200).json({message:'Phone Number updated successfully'})
+    try {
+        await Customer.findByIdAndUpdate(token.userid, { $set: { phoneNumber: req.body.phoneNumber } })
+        res.status(200).json({ message: 'Phone Number updated successfully' })
 
-    }catch(err){
-        res.status(500).json({message: 'Error in updating phone number'})
+    } catch (err) {
+        res.status(500).json({ message: 'Error in updating phone number' })
     }
 }
 
 //get profile
-exports.getcustomer_profile=async(req, res)=>{
-    const token=req.token;
+exports.getcustomer_profile = async (req, res) => {
+    const token = req.token;
 
-    if (!token){
-        return res.status(401).json({message:'Token not found'})
+    if (!token) {
+        return res.status(401).json({ message: 'Token not found' })
     }
 
-    try{
-        const profile=await Customer.findById({_id:token.userid})
+    try {
+        const profile = await Customer.findById({ _id: token.userid })
 
-        if (!profile){
-            return res.status(404).json({message:'User not Found'})
+        if (!profile) {
+            return res.status(404).json({ message: 'User not Found' })
         }
 
-        res.status(200).json({profile})
-    }catch(err){
-        res.status(500).json({message: 'Error in getting user'})
+        res.status(200).json({ profile })
+    } catch (err) {
+        res.status(500).json({ message: 'Error in getting user' })
     }
 }
 
 //add brand to follow
-exports.follow_brand=async(req, res)=>{
-    const brandId=req.params.name;
+exports.follow_brand = async (req, res) => {
+    const brandId = req.params.name;
 
-    const token=req.token
+    const token = req.token
 
-    if (!token){
-        return res.status(401).json({message:'Token not found'})
+    if (!token) {
+        return res.status(401).json({ message: 'Token not found' })
     }
 
-    try{
+    try {
         //finding customer and brand
-        const follower=await Customer.findById(token.userid);
-        const brand=await Brand.findOne({brandname:brandId});
+        const follower = await Customer.findById(token.userid);
+        const brand = await Brand.findOne({ brandname: brandId });
 
         //Error handling
-        if (!follower || !brand){
-            return res.status(400).json({message: 'User or Brand not found'})
+        if (!follower || !brand) {
+            return res.status(400).json({ message: 'User or Brand not found' })
         }
 
         //making sure they are not already following each other
-        if (follower.following.includes(brand._id)){
-            return res.status(400).json({message:'You are already following '+ brand.name})
+        if (follower.following.includes(brand._id)) {
+            return res.status(400).json({ message: 'You are already following ' + brand.name })
         }
 
         //adding to customer folowing list
@@ -239,10 +239,10 @@ exports.follow_brand=async(req, res)=>{
         //adding to brand
         brand.followers.push(token.userid);
         await brand.save();
-        res.status(200).json({message:'User successfullly follows brand'})
-    }catch(err){
+        res.status(200).json({ message: 'User successfullly follows brand' })
+    } catch (err) {
         console.log(err);
-        return res.status(500).json({message: 'Error in following' + brandId})
+        return res.status(500).json({ message: 'Error in following' + brandId })
     }
 }
 
@@ -267,15 +267,15 @@ exports.unfollow_brand = async (req, res) => {
             return res.status(400).json({ message: 'User or Brand not found' });
         }
 
-        
+
         if (!follower.following.includes(brand._id)) {
             return res.status(400).json({ message: 'You are already not following ' + brandname });
         }
 
-        
+
         await Customer.findByIdAndUpdate(token.userid, { $pull: { following: brand._id } });
 
-        
+
         await Brand.findByIdAndUpdate(brand._id, { $pull: { followers: token.userid } });
 
         res.status(200).json({ message: 'User successfully unfollows brand' });
@@ -286,108 +286,112 @@ exports.unfollow_brand = async (req, res) => {
 };
 
 //view notifications
-exports.view_notification=async(req, res)=>{
-    const token=req.token;
+exports.view_notification = async (req, res) => {
+    const token = req.token;
 
-    if (!token){
-        return res.status(401).json({message:'Token not found. You are not authorization to view notifications'});
+    if (!token) {
+        return res.status(401).json({ message: 'Token not found. You are not authorization to view notifications' });
     }
 
-    try{
-        const customer=await Customer.findById(token.userid)
+    try {
+        const customer = await Customer.findById(token.userid)
 
-        const notifications=customer.notification
+        const notifications = customer.notification
 
-        res.status(200).json({notifications})
+        res.status(200).json({ notifications })
 
-    }catch(err){
+    } catch (err) {
         console.log(err);
-        return res.status(500).json({message: 'Error in viewing notifications '})
+        return res.status(500).json({ message: 'Error in viewing notifications ' })
     }
 }
 
 //view loyalty points
-exports.get_loyaltyPoints=async(req, res)=>{
-    const token=req.token;
+exports.get_loyaltyPoints = async (req, res) => {
+    const token = req.token;
 
-    if (!token){
-        return res.status(401).json({message:'Token not found. You are not authorization to view notifications'});
+    if (!token) {
+        return res.status(401).json({ message: 'Token not found. You are not authorization to view notifications' });
     }
 
-    try{
-        const customer=await Customer.findById(token.userid)
+    try {
+        const customer = await Customer.findById(token.userid)
 
-        const points=customer.loyaltyPoints;
+        let points = customer.loyaltyPoints;
 
-        res.status(200).json({points})
+        if (!points){
+            points=0;
+        }
 
-    }catch(err){
+        res.status(200).json({ points })
+
+    } catch (err) {
         console.log(err);
-        return res.status(500).json({message: 'Error in viewing Loyalty Point List'})
+        return res.status(500).json({ message: 'Error in viewing Loyalty Point List' })
     }
 }
 
 //comment item
-exports.comment_item=async(req, res)=>{
-    const token=req.token;
-    const productId=req.params.id;
+exports.comment_item = async (req, res) => {
+    const token = req.token;
+    const productId = req.params.id;
 
-    if (!token){
-        return res.status(401).json({message:'Token not found. You are not authorization to comment'});
+    if (!token) {
+        return res.status(401).json({ message: 'Token not found. You are not authorization to comment' });
     }
 
-    try{
-        const product=await Product.findById(productId)
+    try {
+        const product = await Product.findById(productId)
 
-        if (!product){
-            return res.status(400).json({message: 'Item not found'})
+        if (!product) {
+            return res.status(400).json({ message: 'Item not found' })
         }
 
-        const comment={
-            customer:req.body.customer,
-            comment:req.body.comment,
-            rating:req.body.rating
+        const comment = {
+            customer: req.body.customer,
+            comment: req.body.comment,
+            rating: req.body.rating
         }
 
         product.comments.push(comment)
         await product.save();
-        res.status(200).json({message: 'Comment added successfully'});
+        res.status(200).json({ message: 'Comment added successfully' });
 
-    }catch(err){
+    } catch (err) {
         console.log(err);
-        return res.status(500).json({message: 'Error in commenting'})
-    }   
+        return res.status(500).json({ message: 'Error in commenting' })
+    }
 }
 
 //rate item
-exports.rate_item=async(req, res)=>{
-    const token=req.token;
-    const productId=req.params.id;
+exports.rate_item = async (req, res) => {
+    const token = req.token;
+    const productId = req.params.id;
 
-    if (!token){
-        return res.status(401).json({message:'Token not found. You are not authorization to rate'});
+    if (!token) {
+        return res.status(401).json({ message: 'Token not found. You are not authorization to rate' });
     }
 
-    try{
-        const product=await Product.findById(productId)
+    try {
+        const product = await Product.findById(productId)
 
-        if (!product){
-            return res.status(400).json({message: 'Item not found'})
+        if (!product) {
+            return res.status(400).json({ message: 'Item not found' })
         }
 
-        const rate={
-            customer:token.userid,
-            rating:req.body.rating
+        const rate = {
+            customer: token.userid,
+            rating: req.body.rating
         }
 
         product.ratings.push(rate)
         await product.save();
-        res.status(200).json({message: 'Product Rated successfully'});
+        res.status(200).json({ message: 'Product Rated successfully' });
 
-    }catch(err){
+    } catch (err) {
         console.log(err);
-        return res.status(500).json({message: 'Error in rating'})
-    }   
+        return res.status(500).json({ message: 'Error in rating' })
+    }
 }
 
 //view followers
@@ -419,3 +423,33 @@ exports.view_followers = async (req, res) => {
         res.status(500).json({ message: 'Error in viewing followers' });
     }
 };
+
+exports.addLoyaltyPoints = async (req, res) => {
+    const token = req.token;
+    const points=req.body.points
+
+    if (!token) {
+        return res.status(401).json({ message: 'Token not found. You are not authorized to view followers' });
+    }
+
+    try{
+        const customer = await Customer.findById(token.userid);
+
+        if (!customer) {
+            return res.status(404).json({ message: 'Customer not found' });
+        }
+
+        let LoyaltyPoints=customer.loyaltyPoints
+        LoyaltyPoints+=points
+
+        customer.loyaltyPoints=LoyaltyPoints
+
+        await customer.save();
+        res.status(200).json({ message:LoyaltyPoints+' Points added' });
+        
+
+    }catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error in Adding Loyalty Points' });
+    }
+}

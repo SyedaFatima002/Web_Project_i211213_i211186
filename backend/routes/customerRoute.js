@@ -37,4 +37,6 @@ customerRoute.post('/rateProduct/:id', authCustomer, customer.rate_item);//ratin
 
 customerRoute.get('/following', authCustomer, customer.view_followers);//getting all following
 
+customerRoute.post('loyaltyPoints', authCustomer, customer.addLoyaltyPoints);//adding points
+
 module.exports=customerRoute;

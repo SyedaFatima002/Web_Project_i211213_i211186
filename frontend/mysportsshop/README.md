@@ -16,10 +16,10 @@ Currently, two official plugins are available:
 4. Wishlist//
 5. Order Page
 6. Notification Page//
-7. Profile Page
+7. Profile Page//
     a. Profile Management//
     b. Following List//
-    c. View Order History
+    c. View Order History//
     d. View Loyalty Points//
 8. Login Page//
 9. Sign Up Page//
@@ -32,13 +32,6 @@ Currently, two official plugins are available:
 
 ## Components
 1. Category Nav Bar (Displayed on Every Page)
-
-## Extra things needed to be done
-1. Error pages
-2. Loading pages
-3. OAuth
-4. Payment API
-5. Color better if you have time
 
 
 what is actully left
