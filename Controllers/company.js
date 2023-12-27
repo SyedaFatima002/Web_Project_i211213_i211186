@@ -24,7 +24,7 @@ exports.companyLogin = async function (req, res) {
         }
 
         // Generate JWT token for authentication
-        const token = jwt.sign({ role: 'deliveryadmin' }, process.env.SECRETKEY);
+        const token = jwt.sign({ username: process.env.username }, process.env.SECRETKEY);
         res.status(200).json({ token, company });
     } catch (error) {
         console.error(error);

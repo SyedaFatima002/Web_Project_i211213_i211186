@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const Rider = require('../Models/Rider');
+const Rider = require('../Models/Rider.schema');
 
 const authenticateRider = async (req, res, next) => {
     // Extract the token from the request headers
@@ -14,7 +14,7 @@ const authenticateRider = async (req, res, next) => {
         const decoded = jwt.verify(token, process.env.SECRETKEY);
 
         // Find the rider based on the decoded riderId
-        const rider = await Rider.findById(decoded.riderId);
+        const rider = await Rider.findOne({id: decoded.riderId});
 
         if (!rider) {
             return res.status(401).json({ message: 'Invalid token: Rider not found.' });

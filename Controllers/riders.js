@@ -1,24 +1,22 @@
 const Delivery = require('../Models/Deliverycompany.schema')
 const Rider = require ('../Models/Rider.schema')
 const Order = require ('../Models/Order.schema')
-
 const jwt = require('jsonwebtoken');
 
 exports.riderLogin = async function (req, res) {
     const { email, password } = req.body;
-
+    console.log(email, password);
     try {
         // Find the rider by email
-        const rider = await Rider.findOne({ email }).populate('orders');
-
+        const rider = await Rider.findOne({ email : email }).populate('orders');
+        console.log(rider);
         // Check if the rider exists and the password is correct
         if (!rider || !(password == rider.password)) {
             return res.status(401).json({ message: 'Invalid email or password.' });
         }
 
         // Generate JWT token for authentication
-        const token = jwt.sign({ riderId: rider.id , role:'rider'}, process.env.JWT_SECRET);
-
+        const token = jwt.sign({ riderId: rider.id , role:'rider'}, process.env.SECRETKEY);
         res.status(200).json({ token, rider });
     } catch (error) {
         console.error(error);
@@ -28,10 +26,15 @@ exports.riderLogin = async function (req, res) {
 
 exports.viewRiderOrders = async function (req, res) {
     const riderId = req.params.riderId;
-
+    console.log(riderId);
     try {
-        const orders = await Order.find({ 'rider': riderId });
-
+        const rider = await Rider.findOne({id: riderId}).populate('orders');
+        if(!rider)
+        {
+            res.status(400).json({ message: 'Error fetching rider.' });   
+        }
+        const orders = rider.orders;
+    
         res.status(200).json(orders);
     } catch (error) {
         console.error(error);
@@ -39,39 +42,49 @@ exports.viewRiderOrders = async function (req, res) {
     }
 };
 
+exports.viewRiderOrder = async function (req, res){
+    const orderId = req.params.orderId;
+    console.log('id: ',orderId);
+    try {
+        const order = await Order.findOne({order_number: orderId});
+        console.log('order: ', order);
+        if(!order)
+        {
+            res.status(400).json({ message: 'Error fetching order.' });   
+        }else{
+            res.status(200).json(order);
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error fetching Order.' });
+    }
+};
+
 exports.changeOrderStatus = async function (req, res) {
-    const riderId = req.params.riderId;
     const orderId = req.params.orderId;
     const newStatus = req.body.status;
+    const riderId = req.rider.id;
 
     try {
         // Find the order and update its status
-        const company = await Delivery.findOne({ username: companyUser }).populate({
-            path: 'riders',
-            match: { id: riderId },
-            select: '-password'
-        });
-
-        if (!company) {
-            return res.status(404).json({ message: 'Company not found.' });
-        }
-
-        const rider = company.riders.find(r => r.id == riderId);
+        const rider = await Rider.findOne({ id: riderId }).populate('orders');
 
         if (!rider) {
-            return res.status(404).json({ message: 'Rider not found in the company.' });
+            return res.status(404).json({ message: 'rider not found.' });
         }
 
-        const updatedOrder = rider.orders.find(o => o.order_number == orderId);
-        updatedOrder.status = newStatus;
+        const order = rider.orders.find(o => o.order_number == orderId);
 
-        if (!updatedOrder) {
-            return res.status(404).json({ message: 'Order not found or not assigned to the rider.' });
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found in the Rider.' });
         }
+        order.status = newStatus;
 
+        // Save the updated order
+        await order.save();
         // Generate notification logic here
 
-        res.status(200).json(updatedOrder);
+        res.status(200).json(order);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error updating order status.' });
