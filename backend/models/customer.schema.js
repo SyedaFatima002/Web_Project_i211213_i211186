@@ -23,20 +23,16 @@ const customerSchema=mongoose.Schema({
     Address:[{
         address:{
             type:String, 
-            required:true
         },
         city:{
             type:String,
-            required:true
         },
         country:{
             type:String,
-            required:true
         }
     }],
     phoneNumber:{
         type:String,
-        required:true
     },
     following:[{
         type:mongoose.Schema.Types.ObjectId,//the type is String for now (may be replaced with supplier later)
@@ -60,15 +56,10 @@ const customerSchema=mongoose.Schema({
             default:Date.now
         }
     }], 
-    loyaltyPoints:[{
-        supplier:{
-            type: mongoose.Schema.Types.ObjectId,
-            ref:'Brand'
-        },
-        points:{
-            type:Number
-        }
-    }],
+    loyaltyPoints:{
+        type:Number,
+        default:0
+    },
     wishList:[{
         productID:{
             type:mongoose.Schema.Types.ObjectId,
