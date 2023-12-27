@@ -100,7 +100,7 @@ const useCart=create((set)=>({
         });
     },
 
-    placeOrder: () => {
+    order: () => {
         set({
           products: [],
           totalAmount: 0,

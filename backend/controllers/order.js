@@ -110,6 +110,7 @@ exports.get_wishlist=async(req, res)=>{
 
 //make order
 exports.makeOrder=async(req, res)=>{
+    console.log('here')
     try{
         const order=new Order({
             customer:req.body.customer,
@@ -119,6 +120,7 @@ exports.makeOrder=async(req, res)=>{
             paymentMethod:req.body.paymentMethod,
             status:req.body.status
         });
+        console.log(order)
         await order.save();
         res.status(201).json({order})
 

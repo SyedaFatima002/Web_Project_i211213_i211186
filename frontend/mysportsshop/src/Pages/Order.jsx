@@ -15,6 +15,7 @@ import { placeOrder } from '../ApiCalls/setOrder'
 import useUser from "../Hooks/useUser";
 
 
+
 function BillingLoggedIn({ customer, setCustomer }) {
     const { error, isError, isLoading, data } = useProfile();
 
@@ -262,13 +263,12 @@ function Billing() {
 }
 
 function Payment({ customer }) {
-    const { paymentMethod, products, totalAmount, AmountDisc, placeOrder } = useCart();
+    const { paymentMethod, products, totalAmount, AmountDisc, order } = useCart();
     const { setPage } = usePage();
     const { login } = useLogin();
     const { token } = useUser();
 
-    const { error, isError, isLoading, data } = useLoyalty();
-    console.log(data)
+    const { error, isError, isLoading, data } = useLoyalty(token);
 
     const loyaltyMutation = useMutation({
         mutationFn: async (order) => {
@@ -288,6 +288,7 @@ function Payment({ customer }) {
                     order.totalAmount,
                     order.AmountDisc
                 );
+                console.log(result)
                 return result;
             } catch (error) {
                 console.error('Error making order:', error);
@@ -298,7 +299,6 @@ function Payment({ customer }) {
 
     const handlePayment = (e) => {
         e.preventDefault();
-
         const orderData = {
             token: token,
             customer: customer,
@@ -307,19 +307,26 @@ function Payment({ customer }) {
             totalAmount: totalAmount,
             AmountDisc: AmountDisc
         };
+        
+        loyaltyMutation.mutate(
+            orderData,
 
-        loyaltyMutation.mutate(orderData, {
-            onSuccess: (data) => {
-                console.log(data);
-                alert('Order made');
-                placeOrder()
-            }
-        });
+            {
+                onSuccess: (data) => {
+                    console.log(data);
+                    alert('Order made');
+                    //order();
+                    
+                }, onError: (error) => {
+                    console.error('Order placement failed:', error);
+
+                },
+            });
         setPage('PaymentDisplay');
     };
 
     const handleRedeem = () => {
-        
+
     }
 
 

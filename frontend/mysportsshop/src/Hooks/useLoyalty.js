@@ -7,18 +7,22 @@ const useLoyalty = () => {
 
     const fetchLoyalty = async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/auth/loyaltyPoints`, {
-                headers: {
-                    authorization: `${token}`,
-                }
-            })
+            var response=null;
+            if (token) {
+                response = await axios.get(`http://localhost:3001/auth/loyaltyPoints`, {
+                    headers: {
+                        authorization: `${token}`,
+                    }
+                })
+                return response.data
+            }
 
             console.log(response.data)
-            return response.data
+            return null;
 
         } catch (error) {
-            console.error("Error fetching loyalty points:", err);
-            throw err;
+            console.error("Error fetching loyalty points:", error);
+            throw error;
         }
     }
 
