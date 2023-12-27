@@ -310,12 +310,11 @@ function Payment({ customer }) {
         
         loyaltyMutation.mutate(
             orderData,
-
             {
                 onSuccess: (data) => {
                     console.log(data);
                     alert('Order made');
-                    //order();
+                    order();
                     
                 }, onError: (error) => {
                     console.error('Order placement failed:', error);

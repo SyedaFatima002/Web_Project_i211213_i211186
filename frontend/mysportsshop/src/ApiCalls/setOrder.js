@@ -20,7 +20,7 @@ export async function placeOrder(token, customer, products, paymentMethod, total
             status: 'Not Delivered'
         });
 
-        /*if (token) {
+        if (token) {
             const loyalty = await axios.post(`http://localhost:3001/auth/loyaltyPoint`, {
                 price: AmountDisc
             }, {
@@ -30,7 +30,7 @@ export async function placeOrder(token, customer, products, paymentMethod, total
             });
 
             console.log(loyalty);
-        }*/
+        }
         console.log('in place order')
         console.log(response);
         return response;
