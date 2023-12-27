@@ -152,10 +152,10 @@ exports.getOrderStatus=async(req, res)=>{
 
 //view order history
 exports.order_history=async(req, res)=>{
-    const {username}=req.body;
-
+    const { username } = req.query;
+    
     try{
-        const orders=await Order.find({"customer.username":username})
+        const orders=await Order.find({"customer.name":username})
          
         if (!orders){
             return res.status(404).json({message:'Order History not Found'})

@@ -15,9 +15,9 @@ function OrderHistory() {
                 <Col xs={6}><h5>Your Order History</h5></Col>
                 <Col xs={2}></Col>
             </Row>
-            {isError && <div>Sorry! Error whilst getting order history</div>}
+            {isError && <div>Sorry! There is no Order History</div>}
             {isLoading && <div>Loading Order History</div>}
-            {data &&
+            {data && data.orders.length>0 &&
                 data.orders.map((order, index) => (
                     <Container key={index} style={{ marginBottom: '10px', padding: '5px', borderBottom:'1px solid gray' }}>
                         <Row>
