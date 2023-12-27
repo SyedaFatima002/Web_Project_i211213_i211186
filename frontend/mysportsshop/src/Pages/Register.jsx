@@ -38,11 +38,12 @@ function Register() {
             }
 
             createUserMutation.mutate({
-                username,
-                email,
-                password,
-                add,
-                phone
+                username:username,
+                email:email,
+                password:password,
+                role:'user',
+                Address:add,
+                phoneNumber:phone
             }, {
                 onSucess: (data) => {
                     setPage('Login')
