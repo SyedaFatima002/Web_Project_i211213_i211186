@@ -1,8 +1,5 @@
 [build]
-  functions = "functions"  
-
-[dev]
-  functions = "functions"  
+  functions = "backend/netlify-functions"  
 
 [[redirects]]
   from = "/*"
